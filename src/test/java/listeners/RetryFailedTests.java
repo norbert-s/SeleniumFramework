@@ -1,15 +1,15 @@
 package listeners;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.core.Logger;
+import lombok.extern.slf4j.Slf4j;
 import org.testng.IRetryAnalyzer;
 import org.testng.ITestResult;
+
 import utilityClasses.testSetup.setters.GlobalSettingsGetterMethods;
 
-
+@Slf4j
 public class RetryFailedTests implements GlobalSettingsGetterMethods, IRetryAnalyzer {
     private int count = 0;
     private static int maxTry;
-    private static final Logger logger = (Logger) LogManager.getLogger(PracticeClass.class);
+
 
     @Override
     public boolean retry(ITestResult iTestResult) {
@@ -27,7 +27,7 @@ public class RetryFailedTests implements GlobalSettingsGetterMethods, IRetryAnal
             if (count < maxTry) {
                 //Check if maxtry count is reached
                 count++;
-                logger.warn("retrying test case the "+count+"th time");//Increase the maxTry count by 1
+                log.warn("retrying test case the "+count+"th time");//Increase the maxTry count by 1
                 iTestResult.setStatus(ITestResult.FAILURE);
                 //Mark test as failed
                 return true;                                 //Tells TestNG to re-run the test
