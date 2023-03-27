@@ -15,7 +15,7 @@ import static org.testng.AssertJUnit.assertTrue;
 @Slf4j
 @Listeners(TestListener.class)
 public class Spice extends BaseClass implements GlobalSettingsGetterMethods {
-    //i want to tag this test as smoke test, do it, tag it as smoke test
+
     @Test(groups = {"smoke"})
     public void testSpice() throws Exception {
         SpiceJetTest spiceJetTest = new SpiceJetTest(getDriver());
@@ -34,8 +34,6 @@ public class Spice extends BaseClass implements GlobalSettingsGetterMethods {
         assertTrue(spiceJetTest.getNumberOfAdultsSelected()==(adult+1));
         assertTrue(spiceJetTest.getNumberOfChildrenSelected()==(children));
         assertTrue(spiceJetTest.getNumberOfInfantsSelected()==(infants));
-//        log.info(rahulPages.getNumberOfChildrenSelected());
-//        log.info(rahulPages.getNumberOfInfantsSelected());
 
 
     }
@@ -57,10 +55,8 @@ public class Spice extends BaseClass implements GlobalSettingsGetterMethods {
         assertTrue(spiceJetTest.getNumberOfAdultsSelected()==(adult+1));
         assertTrue(spiceJetTest.getNumberOfChildrenSelected()==(children));
         assertTrue(spiceJetTest.getNumberOfInfantsSelected()==(infants));
-//        log.info(rahulPages.getNumberOfChildrenSelected());
-//        log.info(rahulPages.getNumberOfInfantsSelected());
 
-        //create a method to convert By to WebElement
+
     }
     @Test(groups = {"smoke"})
     public void testSpice3() throws Exception {
@@ -80,8 +76,6 @@ public class Spice extends BaseClass implements GlobalSettingsGetterMethods {
         assertTrue(spiceJetTest.getNumberOfAdultsSelected()==(adult+1));
         assertTrue(spiceJetTest.getNumberOfChildrenSelected()==(children));
         assertTrue(spiceJetTest.getNumberOfInfantsSelected()==(infants));
-//        log.info(rahulPages.getNumberOfChildrenSelected());
-
-
+        
     }
 }
