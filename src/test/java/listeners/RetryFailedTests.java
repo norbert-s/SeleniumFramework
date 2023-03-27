@@ -3,7 +3,6 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.core.Logger;
 import org.testng.IRetryAnalyzer;
 import org.testng.ITestResult;
-import tests.PracticeClass;
 import utilityClasses.testSetup.setters.GlobalSettingsGetterMethods;
 
 
