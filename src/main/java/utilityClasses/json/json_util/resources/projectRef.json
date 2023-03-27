@@ -1,0 +1,30 @@
+{
+  "valami1": [
+    {
+      "name": "name1",
+      "height": 180
+    },
+    {
+      "name": "name2",
+      "height": 170
+    },
+    {
+      "name": "name3",
+      "height": 185
+    }
+  ],
+  "valami2": [
+    {
+      "name": "name1",
+      "height": 180
+    },
+    {
+      "name": "name2",
+      "height": 170
+    },
+    {
+      "name": "name3",
+      "height": 185
+    }
+  ]
+}
