@@ -2,9 +2,16 @@
 
 
 Selenium framework under development
-  running concurrently by classes and methods in a thread-safe way
 
-have been extended and will be extended with many things
+- running concurrently by classes and methods in a thread-safe way
+
+- there is a pipeline which runs tests on different branches
+
+  - and if the tests fail then push to main is not permitted
+
+  - These selenium tests in a pipeline make a lot more sense when their role is to test some applications, so later on i will be using this repository of UI test framework in a multi pipeline layout to trigger and run tests for other applications (for instance spring-boot-issuetracker)
+
+- have been extended and will be extended with many things
 
   - reading data from db and different resources,(json, xml, csv, etc)
     - and based on the input running different tests
@@ -15,6 +22,4 @@ have been extended and will be extended with many things
   - pausing the pipeline- with polling a google excel sheet
   - and many more
 
-there is a pipeline which runs tests on different branches
 
-and if the tests fail then push to main is not permitted
