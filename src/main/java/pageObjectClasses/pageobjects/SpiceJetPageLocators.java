@@ -1,4 +1,4 @@
-package pageObjectClasses.utilityMethods.pageobjects;
+package pageObjectClasses.pageobjects;
 
 import org.openqa.selenium.By;
 

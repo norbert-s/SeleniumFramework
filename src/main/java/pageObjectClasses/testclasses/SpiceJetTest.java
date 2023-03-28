@@ -1,9 +1,9 @@
-package pageObjectClasses.utilityMethods.testclasses;
+package pageObjectClasses.testclasses;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
-import pageObjectClasses.utilityMethods.abstracts.PageObjectGenericMethods;
-import pageObjectClasses.utilityMethods.pageobjects.SpiceJetPageLocators;
+import pageObjectClasses.abstracts.PageObjectGenericMethods;
+import pageObjectClasses.pageobjects.SpiceJetPageLocators;
 
 import java.io.IOException;
 

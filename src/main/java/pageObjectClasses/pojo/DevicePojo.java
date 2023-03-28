@@ -1,4 +1,4 @@
-package pageObjectClasses.utilityMethods.pojo;
+package pageObjectClasses.pojo;
 
 import lombok.*;
 import org.openqa.selenium.WebElement;

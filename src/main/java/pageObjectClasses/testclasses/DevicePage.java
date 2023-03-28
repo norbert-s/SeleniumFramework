@@ -1,9 +1,10 @@
-package pageObjectClasses.utilityMethods;
+package pageObjectClasses.testclasses;
+
 
 
 import org.openqa.selenium.WebDriver;
-import pageObjectClasses.utilityMethods.abstracts.PageObjectGenericMethods;
-import pageObjectClasses.utilityMethods.pojo.DevicePojo;
+import pageObjectClasses.pojo.DevicePojo;
+import pageObjectClasses.abstracts.PageObjectGenericMethods;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -20,7 +21,6 @@ public class DevicePage extends PageObjectGenericMethods {
     public void setPojos(List<DevicePojo> allPojos){
         this.allPojos=allPojos;
     }
-
 
 
     public void visitDevicePage(){
