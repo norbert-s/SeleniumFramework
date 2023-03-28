@@ -12,15 +12,7 @@ import org.testng.ITestResult;
 import utilityClasses.date.DateTimeStampGetter;
 
 import java.io.File;
-/**
- * @see ITestListener
- * @see "when implementing ITestListener it comes with different methods to be implemented
- * those methods may or may not be overwritten
- * those methods are default interface methods
- * but they can be overwritten
- * in case of failure a screenshot is taken here
- * otherwise the result is logged
- */
+
 @Slf4j
 public class TestListener implements ITestListener  {
 

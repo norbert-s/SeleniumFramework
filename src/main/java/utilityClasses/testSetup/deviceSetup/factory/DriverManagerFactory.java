@@ -1,19 +1,18 @@
 package utilityClasses.testSetup.deviceSetup.factory;
 
 
-import utilityClasses.testSetup.constants.DriverType;
+import utilityClasses.testSetup.constants.TypesOfBrowsers;
+import utilityClasses.testSetup.deviceSetup.factory.abstractFactory.ChromeDriverManagerAbstract;
+import utilityClasses.testSetup.deviceSetup.factory.abstractFactory.DriverManagerAbstract;
+import utilityClasses.testSetup.deviceSetup.factory.abstractFactory.FirefoxDriverManagerAbstract;
 
 public class DriverManagerFactory {
 
-    public static DriverManager getManager(DriverType driverType){
-        switch (driverType){
-            case CHROME -> {
-                return new ChromeDriverManager();
-            }
-            case FIREFOX -> {
-                return new FirefoxDriverManager();
-            }
-            default -> throw new IllegalStateException("Unexpected value: " + driverType);
-        }
+    public static DriverManagerAbstract getManager(TypesOfBrowsers typesOfBrowsers){
+        return switch (typesOfBrowsers) {
+            case CHROME -> new ChromeDriverManagerAbstract();
+            case FIREFOX -> new FirefoxDriverManagerAbstract();
+            default -> throw new IllegalStateException("Unexpected value: " + typesOfBrowsers);
+        };
     }
 }

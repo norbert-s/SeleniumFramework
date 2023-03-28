@@ -29,7 +29,6 @@
         <isincognitoneeded>false</isincognitoneeded>
         <surefire.suiteXmlFiles>extracting_tests.xml</surefire.suiteXmlFiles>
     </properties>
-
     <dependencies>
         <dependency>
             <groupId>org.seleniumhq.selenium</groupId>

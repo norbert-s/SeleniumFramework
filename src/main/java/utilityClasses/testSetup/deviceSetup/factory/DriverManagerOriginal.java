@@ -3,14 +3,14 @@ package utilityClasses.testSetup.deviceSetup.factory;
 import io.github.bonigarcia.wdm.WebDriverManager;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
-import utilityClasses.testSetup.constants.DriverType;
+import utilityClasses.testSetup.constants.TypesOfBrowsers;
 import utilityClasses.testSetup.deviceSetup.ChromeDeviceSetup;
 
 public class DriverManagerOriginal {
 
     public WebDriver initializeDriver(String browser) throws Exception {
         WebDriver driver;
-        switch (DriverType.valueOf(browser)) {
+        switch (TypesOfBrowsers.valueOf(browser)) {
             case CHROME -> {
                 //WebDriverManager.chromedriver().cachePath("Drivers").setup();
                 driver = ChromeDeviceSetup.driverBuilder();

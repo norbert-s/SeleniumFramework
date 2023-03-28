@@ -27,15 +27,15 @@ public class RetryFailedTests implements GlobalSettingsGetterMethods, IRetryAnal
             if (count < maxTry) {
                 //Check if maxtry count is reached
                 count++;
-                log.warn("retrying test case the "+count+"th time");//Increase the maxTry count by 1
+                log.warn("retrying test case the "+count+"th time");
                 iTestResult.setStatus(ITestResult.FAILURE);
                 //Mark test as failed
-                return true;                                 //Tells TestNG to re-run the test
+                return true;
             } else {
-                iTestResult.setStatus(ITestResult.FAILURE);  //If maxCount reached,test marked as failed
+                iTestResult.setStatus(ITestResult.FAILURE);
             }
         } else {
-            iTestResult.setStatus(ITestResult.SUCCESS);      //If test passes, TestNG marks it as passed
+            iTestResult.setStatus(ITestResult.SUCCESS);
         }
         return false;
     }

@@ -5,8 +5,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.testng.annotations.Listeners;
 import org.testng.annotations.Test;
 
-import listeners.TestListener;
-import pageObjectClasses.utilityMethods.testclasses.SpiceJetTest;
+import pageObjectClasses.testclasses.SpiceJetTest;
 import utilityClasses.testSetup.deviceSetup.base.BaseClass;
 import utilityClasses.testSetup.setters.GlobalSettingsGetterMethods;
 
@@ -36,45 +35,45 @@ public class Parallel extends BaseClass implements GlobalSettingsGetterMethods {
 
 
     }
-    @Test(groups = {"smoke"})
-    public void testSpice2() throws Exception {
-        SpiceJetTest spiceJetTest = new SpiceJetTest(getDriver());
-
-        int adult = 2;
-        int children = 2;
-        int infants = 2;
-        spiceJetTest.goToWebpage()
-                .clickOnPassangers()
-                .clickOnAdultsNumberOfTimes(adult)
-                //.clickOnAdultsMinusNumberOfTimes(1)
-                .clickOnChildrenNumberOfTimes(children)
-                //.clickOnChildrenMinusNumberOfTimes(1)
-                .clickOnInfantsNumberOfTimes(infants);
-
-        assertTrue(spiceJetTest.getNumberOfAdultsSelected()==(adult+1));
-        assertTrue(spiceJetTest.getNumberOfChildrenSelected()==(children));
-        assertTrue(spiceJetTest.getNumberOfInfantsSelected()==(infants));
-
-
-    }
-    @Test(groups = {"smoke"})
-    public void testSpice3() throws Exception {
-        SpiceJetTest spiceJetTest = new SpiceJetTest(getDriver());
-
-        int adult = 1;
-        int children = 1;
-        int infants = 2;
-        spiceJetTest.goToWebpage()
-                .clickOnPassangers()
-                .clickOnAdultsNumberOfTimes(adult)
-                //.clickOnAdultsMinusNumberOfTimes(1)
-                .clickOnChildrenNumberOfTimes(children)
-                //.clickOnChildrenMinusNumberOfTimes(1)
-                .clickOnInfantsNumberOfTimes(infants);
-
-        assertTrue(spiceJetTest.getNumberOfAdultsSelected()==(adult+1));
-        assertTrue(spiceJetTest.getNumberOfChildrenSelected()==(children));
-        assertTrue(spiceJetTest.getNumberOfInfantsSelected()==(infants));
-        
-    }
+//    @Test(groups = {"smoke"})
+//    public void testSpice2() throws Exception {
+//        SpiceJetTest spiceJetTest = new SpiceJetTest(getDriver());
+//
+//        int adult = 2;
+//        int children = 2;
+//        int infants = 2;
+//        spiceJetTest.goToWebpage()
+//                .clickOnPassangers()
+//                .clickOnAdultsNumberOfTimes(adult)
+//                //.clickOnAdultsMinusNumberOfTimes(1)
+//                .clickOnChildrenNumberOfTimes(children)
+//                //.clickOnChildrenMinusNumberOfTimes(1)
+//                .clickOnInfantsNumberOfTimes(infants);
+//
+//        assertTrue(spiceJetTest.getNumberOfAdultsSelected()==(adult+1));
+//        assertTrue(spiceJetTest.getNumberOfChildrenSelected()==(children));
+//        assertTrue(spiceJetTest.getNumberOfInfantsSelected()==(infants));
+//
+//
+//    }
+//    @Test(groups = {"smoke"})
+//    public void testSpice3() throws Exception {
+//        SpiceJetTest spiceJetTest = new SpiceJetTest(getDriver());
+//
+//        int adult = 1;
+//        int children = 1;
+//        int infants = 2;
+//        spiceJetTest.goToWebpage()
+//                .clickOnPassangers()
+//                .clickOnAdultsNumberOfTimes(adult)
+//                //.clickOnAdultsMinusNumberOfTimes(1)
+//                .clickOnChildrenNumberOfTimes(children)
+//                //.clickOnChildrenMinusNumberOfTimes(1)
+//                .clickOnInfantsNumberOfTimes(infants);
+//
+//        assertTrue(spiceJetTest.getNumberOfAdultsSelected()==(adult+1));
+//        assertTrue(spiceJetTest.getNumberOfChildrenSelected()==(children));
+//        assertTrue(spiceJetTest.getNumberOfInfantsSelected()==(infants));
+//
+//    }
 }

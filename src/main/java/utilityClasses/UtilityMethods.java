@@ -1,4 +1,4 @@
-package pageObjectClasses.utilityMethods;
+package utilityClasses;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.core.Logger;

@@ -1,12 +1,12 @@
-package pageObjectClasses.utilityMethods.testclasses;
+package pageObjectClasses.testclasses;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
-import pageObjectClasses.utilityMethods.abstracts.PageObjectGenericMethods;
-import pageObjectClasses.utilityMethods.pageobjects.AlzaPageLocators;
-import pageObjectClasses.utilityMethods.pojo.DevicePojo;
+import pageObjectClasses.abstracts.PageObjectGenericMethods;
+import pageObjectClasses.pageobjects.AlzaPageLocators;
+import pageObjectClasses.pojo.DevicePojo;
 
 import java.io.IOException;
 import java.util.ArrayList;

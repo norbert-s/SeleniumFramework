@@ -1,4 +1,4 @@
-package pageObjectClasses.utilityMethods.abstracts;
+package pageObjectClasses.abstracts;
 
 import lombok.extern.slf4j.Slf4j;
 import org.openqa.selenium.*;
@@ -37,9 +37,6 @@ public abstract class PageObjectGenericMethods extends PageObjectBaseMethods imp
         Select select = new Select(element);
         select.selectByValue(value);
     }
-
-    //refactor this with fluentWaitWithExpectedCondition
-
 
     public void waitForElementToBeClickable(By element) {
         fluentWaitWithExpectedCondition(ExpectedConditions.elementToBeClickable(element));
@@ -152,9 +149,6 @@ public abstract class PageObjectGenericMethods extends PageObjectBaseMethods imp
         }
         return (T) this;
     }
-
-
-    //refactor the clickOnAcceptCookie method
 
 
     public PageObjectGenericMethods clickOnAcceptCookie(By element, int time) {

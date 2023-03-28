@@ -1,7 +1,9 @@
 package utilityClasses.testSetup.deviceSetup;
 
 
+import io.github.bonigarcia.wdm.WebDriverManager;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeDriverService;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.remote.RemoteWebDriver;
@@ -24,7 +26,6 @@ public class ChromeDeviceSetup {
 //                }
 //                chromeOptions.addArguments("start-maximized");
 //                chromeOptions.addArguments("disable-extensions");
-//                chromeOptions.addArguments("disable-extensions");
 //                chromeOptions.setHeadless(GlobalSettingsGetterMethods.getHeadless());
 //            }
 //            if (browser.contains("ipad")) {
@@ -32,9 +33,6 @@ public class ChromeDeviceSetup {
 //                mobileEmulation.put("deviceName", "iPad Pro");
 //                HashMap<String, Object> prefs = new HashMap<>();
 //                chromeOptions.addArguments("--incognito");
-//                if (GlobalSettingsGetterMethods.isXNoCacheNeeded()) {
-//                    chromeOptions.addArguments("--disable-web-security");
-//                }
 //                chromeOptions.setExperimentalOption("prefs", prefs);
 //                chromeOptions.setExperimentalOption("mobileEmulation", mobileEmulation);
 //                chromeOptions.setHeadless(GlobalSettingsGetterMethods.getHeadless());
@@ -57,15 +55,11 @@ public class ChromeDeviceSetup {
 
     public static WebDriver driverBuilder() throws Exception {
         chromeOptions = settingUpDevices();
-        service = driverServiceFactory();
-
-//        WebDriverManager wdm = WebDriverManager.firefoxdriver();
-//
-//
-//        WebDriver d = wdm.create();
-
-        service.start();
-        return new RemoteWebDriver(service.getUrl(), chromeOptions);
+        WebDriverManager wdm = WebDriverManager.chromedriver();
+        WebDriver d;
+        wdm = WebDriverManager.chromedriver().capabilities(chromeOptions);
+        d = wdm.create();
+        return d;
     }
 }
 

@@ -13,7 +13,7 @@ public class ConfigReader {
         System.out.println("constructor config reader");
         properties = new Properties();
 
-        try (InputStream inputStream = new FileInputStream("G:\\OneDrive\\javaprojects\\add_to_basket\\src\\main\\resources\\data.properties")) {
+        try (InputStream inputStream = new FileInputStream("src\\main\\resources\\data.properties")) {
             if (inputStream != null) {
                 properties.load(inputStream);
             } else {

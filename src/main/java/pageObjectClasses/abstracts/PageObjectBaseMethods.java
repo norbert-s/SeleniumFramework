@@ -1,4 +1,4 @@
-package pageObjectClasses.utilityMethods.abstracts;
+package pageObjectClasses.abstracts;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.NoSuchElementException;
