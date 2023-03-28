@@ -31,6 +31,17 @@ jobs:
         java-version: 17
         distribution: 'temurin'
         cache: maven
+        server-id: github 
+
+        settings-path: ${{ github.workspace }} 
+
+    - name: Install Google Chrome 
+
+      run: |
+
+              chmod +x ./scripts/InstallChrome.sh
+
+                          ./scripts/InstallChrome.sh 
 
     - name: Build with Maven
 
