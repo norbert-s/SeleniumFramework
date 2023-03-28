@@ -1,4 +1,4 @@
-# DemoSelenium
+# Selenium Framework
 
 
 Selenium framework under development
