@@ -87,8 +87,15 @@ jobs:
 
         java-version: 17
         distribution: 'temurin'
+    - name: Cache Maven local repository
+      uses: actions/cache@v2
+      with:
+        path: ~/.m2/repository
+        key: ${{ runner.os }}-maven-${{ hashFiles('**/pom.xml') }}
+        restore-keys: |
+          ${{ runner.os }}-maven-
 
     - name: Test with Maven
 
-      run: mvn clean test
+      run: mvn test
 
