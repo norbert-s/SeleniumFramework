@@ -103,10 +103,11 @@ jobs:
           
     - name: Creating Env vars
       env:
-        WAITFOR_TIME: ${{ secrets.WAITFOR_TIME }}
-        SUITE_XML_FILES: ${{ secrets.SUITE_XML_FILES }}
+        WAITFOR_TIME: ${{ WAITFOR_TIME }}
+        SUITE_XML_FILES: ${{ SUITE_XML_FILES }}
+        run: echo "print out suite xml $SUITE_XML_FILES"
 
     - name: Test with Maven
 
-      run: mvn test -Dsurefire.suiteXmlFiles=${{env.SUITE_XML_FILES}} -Dwaitfortime=${{env.WAITFOR_TIME}}
+      run: mvn test -Dsurefire.suiteXmlFiles=$SUITE_XML_FILES -Dwaitfortime=$WAITFOR_TIME
 
