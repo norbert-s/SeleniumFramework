@@ -79,6 +79,6 @@ jobs:
 
     - name: Test with Maven
 
-      run: mvn test -Dsurefire.suiteXmlFiles=$SUITE_XML_FILES -Dwaitfortime=$WAITFOR_TIME
+      run: mvn test -Dsurefire.suiteXmlFiles=${{ vars.SUITE_XML_FILES }} -Dwaitfortime=${{ vars.WAITFOR_TIME }}
 
 
