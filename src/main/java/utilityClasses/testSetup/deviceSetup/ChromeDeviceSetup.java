@@ -50,7 +50,7 @@ public class ChromeDeviceSetup {
 
         }
         chromeOptions.addArguments("disable-extensions");
-        chromeOptions.addArguments("--incognito");
+        //chromeOptions.addArguments("--incognito");
 
         return chromeOptions;
     }
