@@ -20,7 +20,7 @@
         <practiceenvironment>local</practiceenvironment>
         <retryfailed>1</retryfailed>
         <sheetId>defaultSheetId</sheetId>
-        <headless>false</headless>
+        <headless>true</headless>
         <debuglevel>INFO</debuglevel>
         <xnocache>false</xnocache>
         <branch_id>defaultBranchId</branch_id>
