@@ -105,7 +105,7 @@ jobs:
       env:
         WAITFOR_TIME: ${{ WAITFOR_TIME }}
         SUITE_XML_FILES: ${{ SUITE_XML_FILES }}
-        run: echo "print out suite xml $SUITE_XML_FILES"
+      run: echo "print out suite xml $SUITE_XML_FILES"
 
     - name: Test with Maven
 
