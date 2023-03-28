@@ -3,53 +3,18 @@ package utilityClasses.testSetup.setters;
 import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.core.config.Configurator;
 
-/**
-     * @see GlobalSettingsGetterMethods interface
-     * it is responsible for values to be used all accross test cases
-     * what kind of values ?
-     * @see @waitfortime, testablebranch, environment, headless, debugging level, retrynumberof times, etc
-     * above values can come in two different forms
-     * 1. command line arguments
-     * 2. values from other sources (googlesheet)
-     * in case they come as command line arguments then they must be declared as such in 2 places
-     * a. pom.xml as a property
-     * b. then they are taken by below functions by System.getproperty("nameOfProperty")
-     * for instance argument of -Dheadless=true in the command line will be used only after it is referenced in those 2 places mentioned above
-     *
-     * Also all of these settings definitions have default values
-     *
-     * @also this interface declares default implementations of the contract in an interface
-     * these implementations are then used either as
-     * 1. interface implementation ( with keyword "implemented" by classes) OR
-     * 2. by calling the static methods of "this" class
-     * for instance GlobalSettingsGetterMethods.getBranchId()
-     */
+
 public interface GlobalSettingsGetterMethods {
     static String getBranchId(){
         if(System.getProperty("branch_id")==null) return "master";
         else return System.getProperty("branch_id");
     }
 
-    /**
-     * @see #getEmailTo() ()
-     * email address
-     */
     static String getEmailTo() {
         return System.getProperty("emailto");
     }
 
-    /**
-     * @see #getwaitForTime()
-     * @see #getwaitForTime_static()
-     * there will be default and static implementations to be found of these two
-     * the reason for that is because a non-static method cannot be called from a static context (it can be the other way around)
-     * and there are classes that will use these values which has static methods for easy access
-     *
-     * "default" access modifier-> new in java 8
-     * it means an interface might have a default implementation of a method
-     * previously it could not have a default implementation
-     *
-     */
+
     default int getwaitForTime() {
         if(System.getProperty("waitfortime")==null) return 30;
         else return Integer.parseInt(System.getProperty("waitfortime"));
@@ -60,12 +25,7 @@ public interface GlobalSettingsGetterMethods {
         else return Integer.parseInt(System.getProperty("waitfortime"));
     }
 
-    /**
-     * @see #getEnvironment()
-     * @see #getEnvironment_static()
-     * it is the same with environment methods as with getWaitForTime()
-     * there will be static and non-static versions
-     */
+
     static String getEnvironment(){
         return System.getProperty("practiceenvironment");
     }
@@ -73,12 +33,7 @@ public interface GlobalSettingsGetterMethods {
         return System.getProperty("practiceenvironment");
     }
 
-    /**
-     * @see #getHeadless()
-     * if default value is not provided as an environment variable then the default value is going to be headless=true
-     * however it can be provided as -Dheadless=false/true as command line argument
-     * and if it is provided as such then that value will be taken into account
-     */
+
     static boolean getHeadless() {
         try{
             if (System.getProperty("headless") == null||System.getProperty("headless").contains("true")) return true;
@@ -94,11 +49,7 @@ public interface GlobalSettingsGetterMethods {
         }
     }
 
-    /**
-     * @see #setLogLevelBasedOnEnv()
-     * the debugging level will be simply overwritten based on the value provided
-     * if no value is provided then ERROR level logging will be effective
-     */
+
     static void setLogLevelBasedOnEnv(){
         try{
             String debugLevel = System.getProperty("debuglevel");
@@ -121,13 +72,7 @@ public interface GlobalSettingsGetterMethods {
         }
     }
 
-    /**
-     * @see #setRetryNumberOfTimes()
-     * if no value is provided as command line argument or enviroment variable
-     * then retry will be set to 2
-     * otherwise - when a value is set then it will be taken - however the maximum value applied will be 3
-     * @see @RetryFailedAnalyzer.class
-     */
+
     static int setRetryNumberOfTimes(){
         try{
             if(System.getProperty("retryfailed")==null){
@@ -144,18 +89,7 @@ public interface GlobalSettingsGetterMethods {
         }
     }
 
-    /**
-     * @see #isXNoCacheNeeded()
-     * x-no-cache is going to be taken into account only when the branch is "dns" ( the environment can be prod/preprod/dev)
-     */
-    static boolean isXNoCacheNeeded(){
-        try{
-            return getBranchId().contains("dns");
-        }catch (Exception e){
-            e.printStackTrace();
-            throw (e);
-        }
-    }
+
         /**
          * @see #isItFrontEndPipeLine()
          * if it is the frontend pipeline ( it should be true only when the run is triggered from the frontend pipeline

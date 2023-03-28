@@ -20,7 +20,7 @@
         <practiceenvironment>local</practiceenvironment>
         <retryfailed>1</retryfailed>
         <sheetId>defaultSheetId</sheetId>
-        <headless>true</headless>
+        <headless>false</headless>
         <debuglevel>INFO</debuglevel>
         <xnocache>false</xnocache>
         <branch_id>defaultBranchId</branch_id>
@@ -29,7 +29,6 @@
         <isincognitoneeded>false</isincognitoneeded>
         <surefire.suiteXmlFiles>extracting_tests.xml</surefire.suiteXmlFiles>
     </properties>
-
     <dependencies>
         <dependency>
             <groupId>org.seleniumhq.selenium</groupId>

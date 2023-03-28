@@ -10,9 +10,11 @@ public class WrapperToCallSetupMethods {
      */
     static int counter=0;
     public static void initializeAttributes() throws Exception {
-        new ConfigReader();
-        SettingsLogger.printOutSetupInfo(counter);
-        SettingsLogger.setupDebuggingLevel(counter);
-        counter++;
+        if(counter==0){
+            SettingsLogger.printOutSetupInfo();
+            SettingsLogger.setupDebuggingLevel();
+            counter++;
+        }
+
     }
 }
