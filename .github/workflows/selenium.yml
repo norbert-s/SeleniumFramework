@@ -105,7 +105,6 @@ jobs:
       env:
         WAITFOR_TIME: ${{ secrets.WAITFOR_TIME }}
         SUITE_XML_FILES: ${{ secrets.SUITE_XML_FILES }}
-      run: echo "My variable: ${{env.WAITFOR_TIME}}"
 
     - name: Test with Maven
 
