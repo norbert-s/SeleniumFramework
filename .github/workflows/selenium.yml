@@ -23,6 +23,8 @@ on:
     paths:
       - .github/workflows/selenium_tests.yml
       
+
+    
 jobs:
 
   build:
@@ -79,6 +81,8 @@ jobs:
 
     steps:
 
+
+
     - uses: actions/checkout@v3
 
     - name: Set up JDK 17
@@ -96,8 +100,14 @@ jobs:
         key: ${{ runner.os }}-maven-${{ hashFiles('**/pom.xml') }}
         restore-keys: |
           ${{ runner.os }}-maven-
+          
+    - name: Creating Env vars
+      env:
+        WAITFOR_TIME: ${{ secrets.WAITFOR_TIME }}
+        SUITE_XML_FILES: ${{ secrets.SUITE_XML_FILES }}
+      run: echo "My variable: ${{env.WAITFOR_TIME}}"
 
     - name: Test with Maven
 
-      run: mvn test
+      run: mvn test -Dsurefire.suiteXmlFiles=${{env.SUITE_XML_FILES}} -Dwaitfortime=${{env.WAITFOR_TIME}}
 
