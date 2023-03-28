@@ -37,10 +37,24 @@ public class ChromeDeviceSetup {
 //                chromeOptions.setExperimentalOption("mobileEmulation", mobileEmulation);
 //                chromeOptions.setHeadless(GlobalSettingsGetterMethods.getHeadless());
 //            }
-        chromeOptions.addArguments("start-maximized");
+        if(GlobalSettingsGetterMethods.getHeadless()){
+            chromeOptions.addArguments("--disable-gpu");
+            chromeOptions.addArguments("--window-size=1920,1080");
+            chromeOptions.addArguments("--no-sandbox");
+            chromeOptions.addArguments("--disable-dev-shm-usage");
+            chromeOptions.addArguments("--disable-software-rasterizer");
+            chromeOptions.addArguments("--headless");
+        }else{
+            chromeOptions.addArguments("start-maximized");
+
+
+        }
         chromeOptions.addArguments("disable-extensions");
-        chromeOptions.addArguments("--incognito");
-        chromeOptions.setHeadless(GlobalSettingsGetterMethods.getHeadless());
+        if(GlobalSettingsGetterMethods.isIncognitoNeeded()){
+            chromeOptions.addArguments("--incognito");
+        }
+
+
         return chromeOptions;
     }
 
