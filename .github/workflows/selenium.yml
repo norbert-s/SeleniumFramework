@@ -38,12 +38,19 @@ jobs:
         settings-path: ${{ github.workspace }} 
 
     - name: Install Google Chrome 
-
       run: |
+        sudo apt-get update
+        sudo apt-get install -y xvfb
+        sudo apt-get install -y google-chrome-stable
+        wget https://chromedriver.storage.googleapis.com/94.0.4606.61/chromedriver_linux64.zip
+        unzip chromedriver_linux64.zip
+        sudo mv chromedriver /usr/local/bin/
+        sudo chmod +x /usr/local/bin/chromedriver
+        export DISPLAY=:99
+        Xvfb :99 -screen 0 1280x1024x24 > /dev/null 2>&1 &
 
-              chmod +x ./scripts/InstallChrome.sh
-
-                          ./scripts/InstallChrome.sh 
+        # If using Maven, uncomment the following line
+        # mvn test
 
     - name: Build with Maven
 
