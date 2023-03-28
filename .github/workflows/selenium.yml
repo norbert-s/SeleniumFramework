@@ -12,7 +12,8 @@ on:
   workflow_dispatch:
   push:
     branches:
-      - my-feature-branch
+      - pipeline
+      - main
 
 jobs:
 
