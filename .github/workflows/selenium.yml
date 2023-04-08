@@ -74,7 +74,7 @@ jobs:
       run: mvn test -Dsurefire.suiteXmlFiles=${{ vars.SUITE_XML_FILES }} -Dwaitfortime=${{ vars.WAITFOR_TIME }}
 
     - name: Upload surefire report
-      uses: actions/upload-artifact@v2
+      uses: actions/upload-artifact@v3
       with:
         name: surefire-report
         path: target/surefire-reports/emailable-report.html
