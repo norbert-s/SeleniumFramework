@@ -62,14 +62,7 @@ jobs:
         sudo apt-get update
         sudo apt-get install -y microsoft-edge-dev
 
-    - name: Install Edge WebDriver
-      run: |
-        EDGE_VERSION=$(microsoft-edge --version | awk '{ print $3 }' | sed 's/\..*//')
-        wget -q "https://msedgedriver.azureedge.net/$EDGE_VERSION/edgedriver_linux64.zip"
-        unzip edgedriver_linux64.zip
-        sudo mv msedgedriver /usr/local/bin/
-        sudo chmod +x /usr/local/bin/msedgedriver
-        rm edgedriver_linux64.zip
+
 
     - name: Creating Env vars
       env:
@@ -80,5 +73,9 @@ jobs:
     - name: Test with Maven
       run: mvn test -Dsurefire.suiteXmlFiles=${{ vars.SUITE_XML_FILES }} -Dwaitfortime=${{ vars.WAITFOR_TIME }}
 
-
+    - name: Upload surefire report
+      uses: actions/upload-artifact@v2
+      with:
+        name: surefire-report
+        path: target/surefire-reports/emailable-report.html
 
