@@ -11,15 +11,9 @@ name: Build and Test
 on:
   workflow_dispatch:
   push:
-    branches:
-      - edge
-      - main
     paths-ignore:
       - 'README.md'
   pull_request:
-    branches:
-      - pipeline
-      - main
     paths:
       - .github/workflows/selenium_tests.yml
 
