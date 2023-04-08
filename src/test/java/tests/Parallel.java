@@ -1,9 +1,7 @@
 package tests;
 
 import lombok.extern.slf4j.Slf4j;
-
 import org.testng.annotations.Test;
-
 import pageObjectClasses.testclasses.SpiceJetTest;
 import testSetup.deviceSetup.base.BaseClass;
 import testSetup.setters.GlobalSettingsGetterMethods;

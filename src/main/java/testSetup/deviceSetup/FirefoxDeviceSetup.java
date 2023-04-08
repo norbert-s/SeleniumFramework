@@ -3,10 +3,7 @@ package testSetup.deviceSetup;
 
 import io.github.bonigarcia.wdm.WebDriverManager;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.edge.EdgeOptions;
 import org.openqa.selenium.firefox.FirefoxDriver;
-import org.openqa.selenium.firefox.FirefoxOptions;
-import testSetup.setters.GlobalSettingsGetterMethods;
 
 public class FirefoxDeviceSetup {
     public static WebDriver driverBuilder() throws Exception {

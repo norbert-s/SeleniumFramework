@@ -1,8 +1,8 @@
-package testSetup.setters.timeoutsSetup;
-import testSetup.setters.GlobalSettingsGetterMethods;
+package testSetup.setters;
+
+import org.openqa.selenium.WebDriver;
 
 import java.time.Duration;
-import org.openqa.selenium.WebDriver;
 /**
  * @see #timeOutSetup(WebDriver d)
  * default timeouts should be set here

@@ -1,5 +1,4 @@
-package testSetup.setters.wrapperForSetupClasses;
-import testSetup.setters.settingsLogger.SettingsLogger;
+package testSetup.setters;
 
 
 public class WrapperToCallSetupMethods {
