@@ -1,6 +1,6 @@
 package utilityClasses.mapkeys;
 
-import utilityClasses.testSetup.configreader.ConfigReader;
+import testSetup.configreader.ConfigReader;
 
 public class Maps {
     public static String getBaseUrlAlza(){

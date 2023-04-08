@@ -2,12 +2,11 @@ package tests;
 
 import lombok.extern.slf4j.Slf4j;
 
-import org.testng.annotations.Listeners;
 import org.testng.annotations.Test;
 
 import pageObjectClasses.testclasses.SpiceJetTest;
-import utilityClasses.testSetup.deviceSetup.base.BaseClass;
-import utilityClasses.testSetup.setters.GlobalSettingsGetterMethods;
+import testSetup.deviceSetup.base.BaseClass;
+import testSetup.setters.GlobalSettingsGetterMethods;
 
 import static org.testng.AssertJUnit.assertTrue;
 

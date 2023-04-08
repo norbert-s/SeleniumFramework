@@ -3,7 +3,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.testng.IRetryAnalyzer;
 import org.testng.ITestResult;
 
-import utilityClasses.testSetup.setters.GlobalSettingsGetterMethods;
+import testSetup.setters.GlobalSettingsGetterMethods;
 
 @Slf4j
 public class RetryFailedTests implements GlobalSettingsGetterMethods, IRetryAnalyzer {

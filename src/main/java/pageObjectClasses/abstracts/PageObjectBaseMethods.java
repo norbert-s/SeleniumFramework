@@ -8,8 +8,8 @@ import org.openqa.selenium.support.ui.ExpectedCondition;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.FluentWait;
 import org.openqa.selenium.support.ui.Wait;
-import utilityClasses.testSetup.deviceSetup.base.BasePage;
-import utilityClasses.testSetup.setters.GlobalSettingsGetterMethods;
+import testSetup.deviceSetup.base.BasePage;
+import testSetup.setters.GlobalSettingsGetterMethods;
 
 import java.io.IOException;
 import java.time.Duration;
