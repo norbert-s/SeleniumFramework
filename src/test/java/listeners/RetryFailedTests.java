@@ -1,8 +1,8 @@
 package listeners;
+
 import lombok.extern.slf4j.Slf4j;
 import org.testng.IRetryAnalyzer;
 import org.testng.ITestResult;
-
 import testSetup.setters.GlobalSettingsGetterMethods;
 
 @Slf4j

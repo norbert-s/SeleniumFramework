@@ -1,10 +1,9 @@
 package pageObjectClasses.testclasses;
 
 
-
 import org.openqa.selenium.WebDriver;
-import pageObjectClasses.pojo.DevicePojo;
 import pageObjectClasses.abstracts.PageObjectGenericMethods;
+import pageObjectClasses.pojo.DevicePojo;
 
 import java.io.IOException;
 import java.util.ArrayList;

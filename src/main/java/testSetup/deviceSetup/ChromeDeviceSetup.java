@@ -3,12 +3,8 @@ package testSetup.deviceSetup;
 
 import io.github.bonigarcia.wdm.WebDriverManager;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.chrome.ChromeDriverService;
 import org.openqa.selenium.chrome.ChromeOptions;
 import testSetup.setters.GlobalSettingsGetterMethods;
-import testSetup.configreader.ConfigReader;
-
-import java.io.File;
 
 public class ChromeDeviceSetup {
     private static ChromeOptions chromeOptions;

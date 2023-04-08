@@ -6,32 +6,32 @@ import org.openqa.selenium.OutputType;
 import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebDriver;
 import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.testng.ITestContext;
 import org.testng.ITestResult;
 import org.testng.TestListenerAdapter;
 import org.testng.annotations.*;
 import testSetup.configreader.ConfigReader;
-
 import testSetup.constants.TypesOfBrowsers;
-//import utilityClasses.testSetup.setters.LogConfiguration;
-import testSetup.deviceSetup.factory.abstractFactory.DriverManagerAbstract;
-import testSetup.deviceSetup.factory.abstractFactory.DriverManagerFactoryAbstract;
-import testSetup.setters.wrapperForSetupClasses.WrapperToCallSetupMethods;
+import testSetup.deviceSetup.factory.DriverManager;
+import testSetup.deviceSetup.factory.DriverManagerFactory;
+import testSetup.setters.WrapperToCallSetupMethods;
 
 import java.io.File;
 import java.io.IOException;
 
 
 public class BaseClass {
-    static Logger log = org.slf4j.LoggerFactory.getLogger(BaseClass.class);
-    private final ThreadLocal<DriverManagerAbstract> driverManager = new ThreadLocal<>();
+    static Logger log = LoggerFactory.getLogger(BaseClass.class);
+    private final ThreadLocal<DriverManager> driverManager = new ThreadLocal<>();
     private final ThreadLocal<WebDriver> driver = new ThreadLocal<>();
 
-    private void setDriverManager(DriverManagerAbstract driverManager){
+
+    private void setDriverManager(DriverManager driverManager){
         this.driverManager.set(driverManager);
     }
 
-    protected DriverManagerAbstract getDriverManager(){
+    protected DriverManager getDriverManager(){
         return this.driverManager.get();
     }
 
@@ -54,15 +54,12 @@ public class BaseClass {
         new ConfigReader();
 
         WrapperToCallSetupMethods.initializeAttributes();
-        if(browser == null) browser = "CHROME";
-        setDriverManager(DriverManagerFactoryAbstract.
-                getManager(TypesOfBrowsers.valueOf(browser)));
+        if (browser == null) browser = "CHROME";
+        setDriverManager(DriverManagerFactory.getManager(TypesOfBrowsers.valueOf(browser)));
         setDriver(getDriverManager().getDriver());
-        log.info(Thread.currentThread().getId() + ", " +
-                getDriver());
-
-
+        log.info(Thread.currentThread().getId() + ", " + getDriver());
     }
+
 
     @AfterMethod(alwaysRun = true)
     public synchronized void quitDriver(@Optional String browser, ITestResult result) throws Exception {

@@ -1,7 +1,6 @@
-package testSetup.setters.settingsLogger;
+package testSetup.setters;
 
 import lombok.extern.slf4j.Slf4j;
-import testSetup.setters.GlobalSettingsGetterMethods;
 
 @Slf4j
 public class SettingsLogger {

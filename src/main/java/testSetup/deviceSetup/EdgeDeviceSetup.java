@@ -3,19 +3,11 @@ package testSetup.deviceSetup;
 
 import io.github.bonigarcia.wdm.WebDriverManager;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.chrome.ChromeDriverService;
-import org.openqa.selenium.chrome.ChromeOptions;
-import org.openqa.selenium.edge.EdgeDriver;
 import org.openqa.selenium.edge.EdgeOptions;
-import testSetup.configreader.ConfigReader;
 import testSetup.setters.GlobalSettingsGetterMethods;
-
-import java.io.File;
 
 public class EdgeDeviceSetup {
     public static WebDriver driverBuilder() throws Exception {
-
-
         EdgeOptions edgeOptions = new EdgeOptions();
 
         if(GlobalSettingsGetterMethods.getHeadless()){
