@@ -62,7 +62,10 @@ jobs:
         sudo apt-get update
         sudo apt-get install -y microsoft-edge-dev
 
-
+    - name: Install Firefox
+      run: |
+        sudo apt-get update
+        sudo apt-get install -y firefox
 
     - name: Creating Env vars
       env:
