@@ -22,32 +22,23 @@ on:
       - main
     paths:
       - .github/workflows/selenium_tests.yml
-      
 
-    
 jobs:
-
   build:
-
     runs-on: ubuntu-latest
 
     steps:
-
     - uses: actions/checkout@v3
 
     - name: Set up JDK 17
-
       uses: actions/setup-java@v3
-
       with:
-
         java-version: 17
         distribution: 'temurin'
         cache: maven
-        server-id: github 
+        server-id: github
+        settings-path: ${{ github.workspace }}
 
-        settings-path: ${{ github.workspace }} 
-        
     - name: Cache Maven local repository
       uses: actions/cache@v3
       with:
@@ -56,15 +47,29 @@ jobs:
         restore-keys: |
           ${{ runner.os }}-maven-
 
-    - name: Install Google Chrome 
+    - name: Install Google Chrome
       run: |
         sudo apt-get update
         sudo apt-get install -y xvfb
         sudo apt-get install -y google-chrome-stable
-        
 
-        # If using Maven, uncomment the following line
-        # mvn test
+    - name: Install Microsoft Edge
+      run: |
+        curl https://packages.microsoft.com/keys/microsoft.asc | gpg --dearmor > microsoft.gpg
+        sudo install -o root -g root -m 644 microsoft.gpg /etc/apt/trusted.gpg.d/
+        sudo sh -c 'echo "deb [arch=amd64 signed-by=/etc/apt/trusted.gpg.d/microsoft.gpg] https://packages.microsoft.com/repos/edge stable main" > /etc/apt/sources.list.d/microsoft-edge-dev.list'
+        sudo rm microsoft.gpg
+        sudo apt-get update
+        sudo apt-get install -y microsoft-edge-dev
+
+    - name: Install Edge WebDriver
+      run: |
+        EDGE_VERSION=$(microsoft-edge --version | awk '{ print $3 }' | sed 's/\..*//')
+        wget -q "https://msedgedriver.azureedge.net/$EDGE_VERSION/edgedriver_linux64.zip"
+        unzip edgedriver_linux64.zip
+        sudo mv msedgedriver /usr/local/bin/
+        sudo chmod +x /usr/local/bin/msedgedriver
+        rm edgedriver_linux64.zip
 
     - name: Creating Env vars
       env:
@@ -73,7 +78,7 @@ jobs:
       run: echo "print out suite xml $SUITE_XML_FILES"
 
     - name: Test with Maven
-
       run: mvn test -Dsurefire.suiteXmlFiles=${{ vars.SUITE_XML_FILES }} -Dwaitfortime=${{ vars.WAITFOR_TIME }}
+
 
 
