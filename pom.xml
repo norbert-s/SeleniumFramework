@@ -22,10 +22,8 @@
         <sheetId>defaultSheetId</sheetId>
         <headless>true</headless>
         <debuglevel>INFO</debuglevel>
-        <xnocache>false</xnocache>
         <branch_id>defaultBranchId</branch_id>
         <emailto>example@example.com</emailto>
-        <isitfrontend>false</isitfrontend>
         <isincognitoneeded>false</isincognitoneeded>
         <surefire.suiteXmlFiles>extracting_tests.xml</surefire.suiteXmlFiles>
     </properties>
@@ -42,11 +40,13 @@
             <scope>test</scope>
         </dependency>
         <!-- https://mvnrepository.com/artifact/com.fasterxml.jackson.core/jackson-databind -->
+        <!-- https://mvnrepository.com/artifact/com.fasterxml.jackson.core/jackson-core -->
         <dependency>
             <groupId>com.fasterxml.jackson.core</groupId>
-            <artifactId>jackson-databind</artifactId>
-            <version>2.14.2</version>
+            <artifactId>jackson-core</artifactId>
+            <version>2.15.0-rc2</version>
         </dependency>
+
         <!-- https://mvnrepository.com/artifact/org.slf4j/slf4j-api -->
         <dependency>
             <groupId>org.slf4j</groupId>
@@ -60,7 +60,8 @@
             <version>2.0.5</version>
             <scope>test</scope>
         </dependency>
-        <!-- https://mvnrepository.com/artifact/com.google.apis/google-api-services-gmail -->
+        <!-- https://mvnrepository.com/artifact/org.slf4j/slf4j-api -->
+
 
         <dependency>
             <groupId>com.sun.mail</groupId>
@@ -219,10 +220,8 @@
                         <sheetToUse>${sheetId}</sheetToUse>
                         <headless>${headless}</headless>
                         <debuggingLevel>${debuglevel}</debuggingLevel>
-                        <XNoCache>${xnocache}</XNoCache>
                         <branchid>${branch_id}</branchid>
                         <reportemailto>${emailto}</reportemailto>
-                        <isitfrontendpipeline>${isitfrontend}</isitfrontendpipeline>
                         <isincognitoneeded>${isincognitoneeded}</isincognitoneeded>
                     </systemPropertyVariables>
 

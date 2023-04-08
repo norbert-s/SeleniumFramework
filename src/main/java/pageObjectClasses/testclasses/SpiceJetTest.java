@@ -2,6 +2,7 @@ package pageObjectClasses.testclasses;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.interactions.Actions;
 import pageObjectClasses.abstracts.PageObjectGenericMethods;
 import pageObjectClasses.pageobjects.SpiceJetPageLocators;
 
@@ -16,6 +17,10 @@ public class SpiceJetTest extends PageObjectGenericMethods implements SpiceJetPa
         d.get("https://rahulshettyacademy.com/AutomationPractice");
         waitForElementToBeClickable(By.id("dropdown-class-example"));
         selectFromDropDownByindex(convertByToWebElement(By.id("dropdown-class-example")), 2);
+        waitForAndMoveToElement(By.id("mousehover"));
+        waitForAndClick(By.linkText("Reload"));
+        //waitForElementToBeClickable(By.linkText("Reload"));
+        //advancedActions.moveToElement(convertByToWebElement(By.linkText("Reload"))).click().build().perform();
     }
     public SpiceJetTest goToWebpage(){
         d.get("https://www.spicejet.com/");
@@ -89,9 +94,10 @@ public class SpiceJetTest extends PageObjectGenericMethods implements SpiceJetPa
 
 
 
-
-
-
-
-
+    public int actions3(){
+        Actions advancedActions = new Actions( d);
+        advancedActions.moveToElement(convertByToWebElement(passengers)).click().build().perform();
+        advancedActions.moveToElement(convertByToWebElement(passengers)).click().build().perform();
+        return 0;
+    }
 }

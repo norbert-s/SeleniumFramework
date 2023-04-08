@@ -1,16 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
-<suite name="Chrome tests"  parallel="methods" thread-count="3">
+<suite name="test suite" parallel="methods" thread-count="3">
 
-    <parameter name="browser" value="CHROME" />
-    <test name="Chrome"  >
 
+    <test name="Chrome">
+        <parameter name="browser" value="CHROME"/>
         <groups>
-            <define name = "all">
-                <include name = "smoke"/>
+            <define name="all">
+                <include name="smoke"/>
             </define>
             <run>
-                <include name = "all"/>
+                <include name="all"/>
             </run>
         </groups>
         <classes>
@@ -19,19 +19,35 @@
         </classes>
 
     </test>
-<!--    <test name="Chrome2" parallel = "classes" >-->
-
+    <test name="Edge tests">
+        <parameter name="browser" value="EDGE"/>
+        <groups>
+            <define name="all">
+                <include name="smoke"/>
+            </define>
+            <run>
+                <include name="all"/>
+            </run>
+        </groups>
+        <classes>
+            <class name="tests.Parallel"/>
+        </classes>
+    </test>
+<!--    <test name="Chrome">-->
+<!--        <parameter name="browser" value="FIREFOX"/>-->
 <!--        <groups>-->
-<!--            <define name = "all">-->
-<!--                <include name = "smoke"/>-->
+<!--            <define name="all">-->
+<!--                <include name="smoke"/>-->
 <!--            </define>-->
 <!--            <run>-->
-<!--                <include name = "all"/>-->
+<!--                <include name="all"/>-->
 <!--            </run>-->
 <!--        </groups>-->
 <!--        <classes>-->
-<!--            <class name="tests.Spice2"/>-->
+<!--            <class name="tests.Parallel"/>-->
+
 <!--        </classes>-->
 
 <!--    </test>-->
+
 </suite> <!-- Suite -->

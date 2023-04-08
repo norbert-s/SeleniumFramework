@@ -2,9 +2,10 @@ package pageObjectClasses.abstracts;
 
 import lombok.extern.slf4j.Slf4j;
 import org.openqa.selenium.*;
+import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
-import utilityClasses.testSetup.setters.GlobalSettingsGetterMethods;
+import testSetup.setters.GlobalSettingsGetterMethods;
 
 import java.io.IOException;
 
@@ -15,9 +16,9 @@ public abstract class PageObjectGenericMethods extends PageObjectBaseMethods imp
         super(driver);
 
     }
-
-    public void waitForElementToBeClickable(WebElement element) {
-        fluentWaitWithExpectedCondition(ExpectedConditions.elementToBeClickable(element));
+    public void waitForAndMoveToElement(By element) {
+        fluentWaitWithExpectedCondition(ExpectedConditions.presenceOfElementLocated(element));
+        new Actions(d).moveToElement(convertByToWebElement(element)).build().perform();
     }
 
     public void waitForElementToBeClickableBy(By element) {
@@ -64,7 +65,7 @@ public abstract class PageObjectGenericMethods extends PageObjectBaseMethods imp
      * and then clicks on the element
      */
     public void waitForAndClick(By element) {
-        waitForElementToBeClickable(convertByToWebElement(element));
+        waitForElementToBeClickable(element);
         convertByToWebElement(element).click();
     }
 
