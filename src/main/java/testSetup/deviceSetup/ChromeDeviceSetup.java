@@ -5,6 +5,7 @@ import io.github.bonigarcia.wdm.WebDriverManager;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 import testSetup.setters.GlobalSettingsGetterMethods;
+import testSetup.setters.SettingUpTimeouts;
 
 public class ChromeDeviceSetup {
     private static ChromeOptions chromeOptions;
@@ -53,10 +54,10 @@ public class ChromeDeviceSetup {
 
     public static WebDriver driverBuilder() throws Exception {
         chromeOptions = settingUpDevices();
-        WebDriverManager wdm = WebDriverManager.chromedriver();
         WebDriver d;
-        wdm = WebDriverManager.chromedriver().capabilities(chromeOptions);
+        WebDriverManager wdm  = WebDriverManager.chromedriver().capabilities(chromeOptions);
         d = wdm.create();
+        SettingUpTimeouts.timeOutSetup(d);
         return d;
     }
 }

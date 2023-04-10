@@ -1,15 +1,17 @@
 package tests;
 
 import lombok.extern.slf4j.Slf4j;
+import org.testng.annotations.Listeners;
 import org.testng.annotations.Test;
 import pageObjectClasses.testclasses.SpiceJetTest;
-import testSetup.deviceSetup.base.BaseClass;
+import testSetup.deviceSetup.base.DriverBaseClass;
 import testSetup.setters.GlobalSettingsGetterMethods;
 
 import static org.testng.AssertJUnit.assertTrue;
 
 @Slf4j
-public class Parallel extends BaseClass implements GlobalSettingsGetterMethods {
+@Listeners(DriverBaseClass.TestListener.class)
+public class Parallel extends DriverBaseClass implements GlobalSettingsGetterMethods {
 
     @Test(groups = {"smoke"})
     public void testSpice() throws Exception {
