@@ -8,7 +8,6 @@ import org.openqa.selenium.support.ui.ExpectedCondition;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.FluentWait;
 import org.openqa.selenium.support.ui.Wait;
-import testSetup.deviceSetup.base.BasePage;
 import testSetup.setters.GlobalSettingsGetterMethods;
 
 import java.io.IOException;
@@ -16,9 +15,9 @@ import java.time.Duration;
 
 import static org.testng.AssertJUnit.assertNotNull;
 
-public abstract class PageObjectBaseMethods extends BasePage implements GlobalSettingsGetterMethods {
+public abstract class PageObjectPageObjectBaseMethods extends PageObjectBasePage implements GlobalSettingsGetterMethods {
 
-    public PageObjectBaseMethods(WebDriver driver) throws IOException {
+    public PageObjectPageObjectBaseMethods(WebDriver driver) throws IOException {
         super(driver);
     }
 

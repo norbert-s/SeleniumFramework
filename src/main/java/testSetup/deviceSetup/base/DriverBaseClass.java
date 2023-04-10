@@ -1,47 +1,24 @@
 package testSetup.deviceSetup.base;
 
 
+import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.io.FileUtils;
 import org.openqa.selenium.OutputType;
 import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebDriver;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.testng.ITestContext;
 import org.testng.ITestResult;
 import org.testng.TestListenerAdapter;
 import org.testng.annotations.*;
-import testSetup.configreader.ConfigReader;
 import testSetup.constants.TypesOfBrowsers;
-import testSetup.deviceSetup.factory.DriverManager;
 import testSetup.deviceSetup.factory.DriverManagerFactory;
 import testSetup.setters.WrapperToCallSetupMethods;
 
 import java.io.File;
 import java.io.IOException;
 
-
-public class BaseClass {
-    static Logger log = LoggerFactory.getLogger(BaseClass.class);
-    private final ThreadLocal<DriverManager> driverManager = new ThreadLocal<>();
-    private final ThreadLocal<WebDriver> driver = new ThreadLocal<>();
-
-
-    private void setDriverManager(DriverManager driverManager){
-        this.driverManager.set(driverManager);
-    }
-
-    protected DriverManager getDriverManager(){
-        return this.driverManager.get();
-    }
-
-    private void setDriver(WebDriver driver){
-        this.driver.set(driver);
-    }
-
-    protected WebDriver getDriver(){
-        return this.driver.get();
-    }
+@Slf4j
+public  class DriverBaseClass extends DriverBaseClassAbstract{
 
     @BeforeSuite
     public void beforeSuite() throws Exception {
@@ -51,9 +28,6 @@ public class BaseClass {
     @Parameters("browser")
     @BeforeMethod(alwaysRun = true)
     public synchronized void startDriver(@Optional String browser) throws Exception {
-        new ConfigReader();
-
-        WrapperToCallSetupMethods.initializeAttributes();
         if (browser == null) browser = "CHROME";
         setDriverManager(DriverManagerFactory.getManager(TypesOfBrowsers.valueOf(browser)));
         setDriver(getDriverManager().getDriver());
@@ -66,8 +40,8 @@ public class BaseClass {
         log.info(Thread.currentThread().getId() + ", " +    getDriver());
         getDriverManager().quitDriver();
     }
-    public static class ScreenshotOnFailureListener extends TestListenerAdapter {
-        public void takeScreenshot(WebDriver driver, String fileName) {
+    public static class TestListener extends TestListenerAdapter {
+        public synchronized void takeScreenshot(WebDriver driver, String fileName) {
             File srcFile = ((TakesScreenshot) driver).getScreenshotAs(OutputType.FILE);
             try {
                 FileUtils.copyFile(srcFile, new File("./screenshots/" + fileName + ".png"));
@@ -76,12 +50,12 @@ public class BaseClass {
             }
         }
         @Override
-        public void onTestFailure(ITestResult result) {
+        public synchronized void onTestFailure(ITestResult result) {
             Object testInstance = result.getInstance();
-            if (testInstance instanceof BaseClass) {
-                BaseClass baseClass = (BaseClass) testInstance;
+            if (testInstance instanceof DriverBaseClass) {
+                DriverBaseClass driverBaseClass = (DriverBaseClass) testInstance;
                 String fileName = result.getName() + "_" + System.currentTimeMillis();
-                takeScreenshot(baseClass.getDriver(), fileName);
+                takeScreenshot(driverBaseClass.getDriver(), fileName);
                 ITestContext context = result.getTestContext();
                 String suite = context.getSuite().getName();
                 log.info(suite+" "+result.getName()+" test has Failed " );
@@ -90,7 +64,7 @@ public class BaseClass {
 
 
         @Override
-        public void onTestSkipped(ITestResult result) {
+        public synchronized void onTestSkipped(ITestResult result) {
             try{
                 ITestContext context = result.getTestContext();
                 String suite = context.getSuite().getName();
@@ -100,21 +74,21 @@ public class BaseClass {
             }
         }
         @Override
-        public void onTestStart(ITestResult result) {
+        public synchronized void onTestStart(ITestResult result) {
             ITestContext context = result.getTestContext();
             String suite = context.getSuite().getName();
             log.info(suite+" "+result.getName()+"------New Test Started------");
         }
         @Override
-        public void onTestSuccess(ITestResult result) {
+        public synchronized void onTestSuccess(ITestResult result) {
             ITestContext context = result.getTestContext();
             String suite = context.getSuite().getName();
             log.info(suite+" "+result.getName()+" test has PASSED " );
             Object testInstance = result.getInstance();
-            if (testInstance instanceof BaseClass) {
-                BaseClass baseClass = (BaseClass) testInstance;
+            if (testInstance instanceof DriverBaseClass) {
+                DriverBaseClass driverBaseClass = (DriverBaseClass) testInstance;
                 String fileName = result.getName() + "_" + System.currentTimeMillis();
-                takeScreenshot(baseClass.getDriver(), fileName);
+                takeScreenshot(driverBaseClass.getDriver(), fileName);
             }
         }
     }

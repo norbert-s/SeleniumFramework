@@ -10,9 +10,9 @@ import testSetup.setters.GlobalSettingsGetterMethods;
 import java.io.IOException;
 
 @Slf4j
-public abstract class PageObjectGenericMethods extends PageObjectBaseMethods implements GlobalSettingsGetterMethods {
+public abstract class PageObjectGenericMethodsPageObject extends PageObjectPageObjectBaseMethods implements GlobalSettingsGetterMethods {
 
-    public PageObjectGenericMethods(WebDriver driver) throws IOException {
+    public PageObjectGenericMethodsPageObject(WebDriver driver) throws IOException {
         super(driver);
 
     }
@@ -152,7 +152,7 @@ public abstract class PageObjectGenericMethods extends PageObjectBaseMethods imp
     }
 
 
-    public PageObjectGenericMethods clickOnAcceptCookie(By element, int time) {
+    public PageObjectGenericMethodsPageObject clickOnAcceptCookie(By element, int time) {
         waitForElementToBePresent(element, time);
         convertByToWebElement(element).click();
         return this;

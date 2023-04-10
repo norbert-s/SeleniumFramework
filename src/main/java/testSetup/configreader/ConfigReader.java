@@ -23,7 +23,7 @@ public class ConfigReader {
         }
 
     }
-    public static Properties getProps(){
+    public synchronized static Properties getProps(){
         return properties;
     }
 
