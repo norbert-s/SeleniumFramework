@@ -7,8 +7,8 @@ import java.io.IOException;
 
 
 public abstract class PageObjectBasePage {
-    protected WebDriver d;
+    protected WebDriver driver;
     public PageObjectBasePage(WebDriver driver) throws IOException {
-        this.d = driver;
+        this.driver = driver;
     }
 }
