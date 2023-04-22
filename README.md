@@ -1,9 +1,11 @@
 # Selenium Framework
 
 
-Selenium framework under development
+Selenium framework 
 
-- running concurrently - by either referenceing classes or methods
+- running concurrently - by either referencing classes or methods (methods can be run in parallel or classes can be run in parallel)
+
+- tests are run by using test data from json, and through injecting the test data by dataprovider
 
 - there is a pipeline which runs tests on different branches
 
