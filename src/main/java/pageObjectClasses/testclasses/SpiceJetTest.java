@@ -14,15 +14,6 @@ public class SpiceJetTest extends PageObjectGenericMethodsImpl implements SpiceJ
         super(d);
     }
 
-    public void baseTest(){
-        driver.get("https://rahulshettyacademy.com/AutomationPractice");
-        waitForElementToBeClickable(By.id("dropdown-class-example"));
-        selectFromDropDownByindex(convertByToWebElement(By.id("dropdown-class-example")), 2);
-        waitForAndMoveToElement(By.id("mousehover"));
-        waitForAndClick(By.linkText("Reload"));
-        //waitForElementToBeClickable(By.linkText("Reload"));
-        //advancedActions.moveToElement(convertByToWebElement(By.linkText("Reload"))).click().build().perform();
-    }
     public SpiceJetTest goToWebpage(){
         driver.get("https://www.spicejet.com/");
         //waitForElementToBeClickable(By.cssSelector("svg[data-testid=\"svg-img\"]"));
@@ -80,17 +71,23 @@ public class SpiceJetTest extends PageObjectGenericMethodsImpl implements SpiceJ
 
     public int getNumberOfAdultsSelected(){
         //return d.findElement(By.xpath(""//div[@data-testid='Adult-testID-minus-one-cta']//following-sibling::*//div")).getText();
-        return Integer.valueOf(fluentWaitWithExpectedConditionToReturnText(By.xpath("//div[@data-testid='Adult-testID-minus-one-cta']//following-sibling::*//div")));
+        return Integer.valueOf(fluentWaitWithExpectedConditionToReturnText(numberOfAdultsText));
     }
 
 
     public int getNumberOfChildrenSelected(){
-        return Integer.valueOf(fluentWaitWithExpectedConditionToReturnText(By.xpath("//div[@data-testid='Children-testID-minus-one-cta']//following-sibling::*//div")));
+        return Integer.valueOf(fluentWaitWithExpectedConditionToReturnText(numberOfChildrentext));
     }
 
 
     public int getNumberOfInfantsSelected(){
-        return Integer.valueOf(fluentWaitWithExpectedConditionToReturnText(By.xpath("//div[@data-testid='Infant-testID-minus-one-cta']//following-sibling::*//div")));
+        return Integer.valueOf(fluentWaitWithExpectedConditionToReturnText(numberOfInfantsText));
+    }
+
+    public String getTextAfterPassengerSetupDone(){
+        System.out.println("444444444444444444 "+driver.findElement(resultOfSettingPassengers).getText());
+        return driver.findElement(resultOfSettingPassengers).getText();
+        //return fluentWaitWithExpectedConditionToReturnText(resultOfSettingPassengers);
     }
 
 
