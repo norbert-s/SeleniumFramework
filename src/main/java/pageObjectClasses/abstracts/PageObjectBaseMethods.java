@@ -15,28 +15,28 @@ import java.time.Duration;
 
 import static org.testng.AssertJUnit.assertNotNull;
 
-public abstract class PageObjectPageObjectBaseMethods extends PageObjectBasePage implements GlobalSettingsGetterMethods {
+public abstract class PageObjectBaseMethods extends PageObjectBasePage implements GlobalSettingsGetterMethods {
 
-    public PageObjectPageObjectBaseMethods(WebDriver driver) throws IOException {
+    public PageObjectBaseMethods(WebDriver driver) throws IOException {
         super(driver);
     }
 
     protected Wait<WebDriver> returnWait() {
-        return new FluentWait<WebDriver>(d)
+        return new FluentWait<WebDriver>(driver)
                 .pollingEvery(Duration.ofMillis(100))
                 .ignoring(NoSuchElementException.class)
                 .withTimeout(Duration.ofSeconds(getwaitForTime()));
     }
 
     protected Wait<WebDriver> returnWait(long timeOut) {
-        return new FluentWait<WebDriver>(d)
+        return new FluentWait<WebDriver>(driver)
                 .pollingEvery(Duration.ofMillis(100))
                 .ignoring(NoSuchElementException.class)
                 .withTimeout(Duration.ofMillis(timeOut));
     }
 
-    protected WebElement convertByToWebElement(By locator){
-        return d.findElement(locator);
+    public WebElement convertByToWebElement(By locator){
+        return driver.findElement(locator);
     }
 
     protected void fluentWaitWithExpectedCondition(ExpectedCondition<WebElement> expectedCondition) {
@@ -51,7 +51,7 @@ public abstract class PageObjectPageObjectBaseMethods extends PageObjectBasePage
     protected void waitForAndClick(WebElement element) throws Exception {
         fluentWaitWithExpectedCondition(ExpectedConditions.elementToBeClickable(element));
         if(element instanceof By){
-            d.findElement((By) element).click();
+            driver.findElement((By) element).click();
         }
         element.click();
     }

@@ -12,9 +12,5 @@ public class ExcelReader {
     }
     public void readExcel(){
         File file = new File("C:\\Users\\moham\\Desktop\\test.xlsx");
-
-
     }
-
-
 }

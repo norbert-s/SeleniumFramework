@@ -10,15 +10,15 @@ import testSetup.setters.GlobalSettingsGetterMethods;
 import java.io.IOException;
 
 @Slf4j
-public abstract class PageObjectGenericMethodsPageObject extends PageObjectPageObjectBaseMethods implements GlobalSettingsGetterMethods {
+public abstract class PageObjectGenericMethodsImpl extends PageObjectBaseMethods implements GlobalSettingsGetterMethods {
 
-    public PageObjectGenericMethodsPageObject(WebDriver driver) throws IOException {
+    public PageObjectGenericMethodsImpl(WebDriver driver) throws IOException {
         super(driver);
 
     }
     public void waitForAndMoveToElement(By element) {
         fluentWaitWithExpectedCondition(ExpectedConditions.presenceOfElementLocated(element));
-        new Actions(d).moveToElement(convertByToWebElement(element)).build().perform();
+        new Actions(driver).moveToElement(convertByToWebElement(element)).build().perform();
     }
 
     public void waitForElementToBeClickableBy(By element) {
@@ -97,7 +97,7 @@ public abstract class PageObjectGenericMethodsPageObject extends PageObjectPageO
 
             clearText(element);
             waitForElementToBePresent(element);
-            d.findElement(element).sendKeys(text + Keys.ENTER);
+            driver.findElement(element).sendKeys(text + Keys.ENTER);
             //d.findElement(element).sendKeys(Keys.RETURN);
         } catch (Exception e) {
             log.error("entering text into search form  did not succeed " + element + " " + text + " ");
@@ -108,29 +108,44 @@ public abstract class PageObjectGenericMethodsPageObject extends PageObjectPageO
 
     public void clearText(By element) {
         waitForElementToBeClickable(element);
-        d.findElement(element).clear();
+        driver.findElement(element).clear();
     }
 
-    /**
-     * @see #scrollBy()
-     * this method scrolls down on the page by 150 pixels
-     * or an amount wanted
-     */
+
+    public PageObjectGenericMethodsImpl clickOnAcceptCookie(By element, int time) {
+        waitForElementToBePresent(element, time);
+        convertByToWebElement(element).click();
+        return this;
+    }
+
+
+
+    public void clickOnNthElementInList(By element, int index) throws Exception {
+        waitForAndClick(driver.findElements(element).get(index));
+    }
+
+    public void fluentWaitWithVisibilityOfElementLocated(By locator){
+        returnWait().until(ExpectedConditions.visibilityOfElementLocated(locator));
+    }
+
+    public void fluentWaitWithElementToBeSelected(By locator){
+        returnWait().until(ExpectedConditions.elementToBeSelected(locator));
+    }
+
+    public void fluentWaitWithInvisibilityOfElementLocated(By locator){
+        returnWait().until(ExpectedConditions.invisibilityOfElementLocated(locator));
+    }
+
+    //create a method with fluentWaitWithExpectedCondition to wait for an element and return text
+
+    public String fluentWaitWithExpectedConditionToReturnText(By locator){
+        return returnWait().until(ExpectedConditions.visibilityOfElementLocated(locator)).getText();
+    }
+
+
     public void scrollBy(int numberOfPixels) {
         try {
-            JavascriptExecutor js = (JavascriptExecutor) d;
-            String scrollByScript = "window.scrollBy(0," + numberOfPixels + ")";
-            js.executeScript(scrollByScript, "");
-        } catch (Exception e) {
-            log.error("scrolling down  did not succeed ");
-            throw (e);
-        }
-    }
-
-    public void scrollBy() {
-        int numberOfPixels = 150;
-        try {
-            JavascriptExecutor js = (JavascriptExecutor) d;
+            JavascriptExecutor js = (JavascriptExecutor) driver;
             String scrollByScript = "window.scrollBy(0," + numberOfPixels + ")";
             js.executeScript(scrollByScript, "");
         } catch (Exception e) {
@@ -151,34 +166,58 @@ public abstract class PageObjectGenericMethodsPageObject extends PageObjectPageO
         return (T) this;
     }
 
-
-    public PageObjectGenericMethodsPageObject clickOnAcceptCookie(By element, int time) {
-        waitForElementToBePresent(element, time);
-        convertByToWebElement(element).click();
-        return this;
+    public void scrollToElement( WebElement element) {
+        JavascriptExecutor js = (JavascriptExecutor) driver;
+        js.executeScript("arguments[0].scrollIntoView();", element);
     }
 
-    public void clickOnNthElementInList(By element, int index) throws Exception {
-        waitForAndClick(d.findElements(element).get(index));
+    public void clickElementUsingJavaScript( WebElement element) {
+        JavascriptExecutor js = (JavascriptExecutor) driver;
+        js.executeScript("arguments[0].click();", element);
     }
 
-    public void fluentWaitWithVisibilityOfElementLocated(By locator){
-        returnWait().until(ExpectedConditions.visibilityOfElementLocated(locator));
+
+    public void setInputValueUsingJavaScript( WebElement inputElement, String value) {
+        JavascriptExecutor js = (JavascriptExecutor) driver;
+        js.executeScript("arguments[0].value = arguments[1];", inputElement, value);
     }
 
-    public void fluentWaitWithElementToBeSelected(By locator){
-        returnWait().until(ExpectedConditions.elementToBeSelected(locator));
+    public String getInnerTextUsingJavaScript( WebElement element) {
+        JavascriptExecutor js = (JavascriptExecutor) driver;
+        return (String) js.executeScript("return arguments[0].innerText;", element);
     }
 
-    public void fluentWaitWithInvisibilityOfElementLocated(By locator){
-        returnWait().until(ExpectedConditions.invisibilityOfElementLocated(locator));
+    public void changeBackgroundColor( WebElement element, String color) {
+        JavascriptExecutor js = (JavascriptExecutor) driver;
+        js.executeScript("arguments[0].style.backgroundColor = arguments[1];", element, color);
     }
 
-    //create a method with fluentWaitWithExpectedCondition to wait for an element and return text
-
-    public String fluentWaitWithExpectedConditionToReturnText(By locator){
-        return returnWait().until(ExpectedConditions.visibilityOfElementLocated(locator)).getText();
+    public void refreshPage() {
+        JavascriptExecutor js = (JavascriptExecutor) driver;
+        js.executeScript("location.reload();");
     }
+
+    public void scrollToBottom() {
+        JavascriptExecutor js = (JavascriptExecutor) driver;
+        js.executeScript("window.scrollTo(0, document.body.scrollHeight);");
+    }
+
+    public void scrollToTop() {
+        JavascriptExecutor js = (JavascriptExecutor) driver;
+        js.executeScript("window.scrollTo(0, 0);");
+    }
+
+    public String getPageTitle() {
+        JavascriptExecutor js = (JavascriptExecutor) driver;
+        return (String) js.executeScript("return document.title;");
+    }
+
+    public boolean isElementDisplayed(WebDriver driver, WebElement element) {
+        JavascriptExecutor js = (JavascriptExecutor) driver;
+        return (Boolean) js.executeScript("return arguments[0].offsetParent !== null;", element);
+    }
+
+
 
 //    public void fluentWaitWithAlertIsPresent(){
 //        fluentWait(null).until(ExpectedConditions.alertIsPresent());

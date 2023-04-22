@@ -2,16 +2,16 @@ package pageObjectClasses.testclasses;
 
 
 import org.openqa.selenium.WebDriver;
-import pageObjectClasses.abstracts.PageObjectGenericMethodsPageObject;
+import pageObjectClasses.abstracts.PageObjectGenericMethodsImpl;
 import pageObjectClasses.pojo.DevicePojo;
 
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class DevicePagePageObject extends PageObjectGenericMethodsPageObject {
+public class DevicePagePageObjectGenericMethodsImpl extends PageObjectGenericMethodsImpl {
 
-    public DevicePagePageObject(WebDriver driver) throws IOException {
+    public DevicePagePageObjectGenericMethodsImpl(WebDriver driver) throws IOException {
         super(driver);
     }
 

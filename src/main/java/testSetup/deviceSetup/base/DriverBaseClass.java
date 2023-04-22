@@ -10,6 +10,7 @@ import org.testng.ITestContext;
 import org.testng.ITestResult;
 import org.testng.TestListenerAdapter;
 import org.testng.annotations.*;
+import testSetup.configreader.ConfigReader;
 import testSetup.constants.TypesOfBrowsers;
 import testSetup.deviceSetup.factory.DriverManagerFactory;
 import testSetup.setters.WrapperToCallSetupMethods;
@@ -20,8 +21,9 @@ import java.io.IOException;
 @Slf4j
 public  class DriverBaseClass extends DriverBaseClassAbstract{
 
-    @BeforeSuite
+    @BeforeClass
     public void beforeSuite() throws Exception {
+        new ConfigReader();
         WrapperToCallSetupMethods.initializeAttributes();
     }
 
@@ -78,6 +80,7 @@ public  class DriverBaseClass extends DriverBaseClassAbstract{
             ITestContext context = result.getTestContext();
             String suite = context.getSuite().getName();
             log.info(suite+" "+result.getName()+"------New Test Started------");
+
         }
         @Override
         public synchronized void onTestSuccess(ITestResult result) {

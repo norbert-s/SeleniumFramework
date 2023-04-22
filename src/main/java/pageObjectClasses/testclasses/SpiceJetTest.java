@@ -2,19 +2,20 @@ package pageObjectClasses.testclasses;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
-import pageObjectClasses.abstracts.PageObjectGenericMethodsPageObject;
+import pageObjectClasses.abstracts.PageObjectGenericMethodsImpl;
 import pageObjectClasses.pageobjects.SpiceJetPageLocators;
 
 import java.io.IOException;
 
-public class SpiceJetTest extends PageObjectGenericMethodsPageObject implements SpiceJetPageLocators {
+public class SpiceJetTest extends PageObjectGenericMethodsImpl implements SpiceJetPageLocators {
     public SpiceJetTest(WebDriver d) throws IOException {
         super(d);
     }
 
     public void baseTest(){
-        d.get("https://rahulshettyacademy.com/AutomationPractice");
+        driver.get("https://rahulshettyacademy.com/AutomationPractice");
         waitForElementToBeClickable(By.id("dropdown-class-example"));
         selectFromDropDownByindex(convertByToWebElement(By.id("dropdown-class-example")), 2);
         waitForAndMoveToElement(By.id("mousehover"));
@@ -23,7 +24,7 @@ public class SpiceJetTest extends PageObjectGenericMethodsPageObject implements 
         //advancedActions.moveToElement(convertByToWebElement(By.linkText("Reload"))).click().build().perform();
     }
     public SpiceJetTest goToWebpage(){
-        d.get("https://www.spicejet.com/");
+        driver.get("https://www.spicejet.com/");
         //waitForElementToBeClickable(By.cssSelector("svg[data-testid=\"svg-img\"]"));
 
         return this;
@@ -95,9 +96,22 @@ public class SpiceJetTest extends PageObjectGenericMethodsPageObject implements 
 
 
     public int actions3(){
-        Actions advancedActions = new Actions( d);
+        Actions advancedActions = new Actions(driver);
         advancedActions.moveToElement(convertByToWebElement(passengers)).click().build().perform();
         advancedActions.moveToElement(convertByToWebElement(passengers)).click().build().perform();
         return 0;
+    }
+
+    public void refreshPage(){
+        super.refreshPage();
+    }
+
+    public void clickElementUsingJavascript(WebElement element){
+        clickElementUsingJavaScript(element);
+    }
+
+    public void testTest(){
+        driver.findElement(passengers).sendKeys("test");
+        driver.findElement(passengers).submit();
     }
 }

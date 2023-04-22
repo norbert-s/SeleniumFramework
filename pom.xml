@@ -26,6 +26,7 @@
         <emailto>example@example.com</emailto>
         <isincognitoneeded>false</isincognitoneeded>
         <surefire.suiteXmlFiles>extracting_tests.xml</surefire.suiteXmlFiles>
+        <groups>smoke</groups>
     </properties>
     <dependencies>
         <dependency>
@@ -223,6 +224,7 @@
                         <branchid>${branch_id}</branchid>
                         <reportemailto>${emailto}</reportemailto>
                         <isincognitoneeded>${isincognitoneeded}</isincognitoneeded>
+                        <groups>${groups}</groups>
                     </systemPropertyVariables>
 
                 </configuration>
