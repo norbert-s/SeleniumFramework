@@ -17,7 +17,7 @@ import testSetup.setters.WrapperToCallSetupMethods;
 
 import java.io.File;
 import java.io.IOException;
-
+import org.testng.asserts.SoftAssert;
 @Slf4j
 public  class DriverBaseClass extends DriverBaseClassAbstract{
 
@@ -33,14 +33,15 @@ public  class DriverBaseClass extends DriverBaseClassAbstract{
         if (browser == null) browser = "CHROME";
         setDriverManager(DriverManagerFactory.getManager(TypesOfBrowsers.valueOf(browser)));
         setDriver(getDriverManager().getDriver());
+        softAssert.set(new SoftAssert()); // Initialize SoftAssert instance
         log.info(Thread.currentThread().getId() + ", " + getDriver());
     }
 
-
     @AfterMethod(alwaysRun = true)
     public synchronized void quitDriver(@Optional String browser, ITestResult result) throws Exception {
-        log.info(Thread.currentThread().getId() + ", " +    getDriver());
+        log.info(Thread.currentThread().getId() + ", " + getDriver());
         getDriverManager().quitDriver();
+        softAssert.remove(); // Clean up SoftAssert instance
     }
     public static class TestListener extends TestListenerAdapter {
         public synchronized void takeScreenshot(WebDriver driver, String fileName) {
@@ -87,12 +88,12 @@ public  class DriverBaseClass extends DriverBaseClassAbstract{
             ITestContext context = result.getTestContext();
             String suite = context.getSuite().getName();
             log.info(suite+" "+result.getName()+" test has PASSED " );
-            Object testInstance = result.getInstance();
-            if (testInstance instanceof DriverBaseClass) {
-                DriverBaseClass driverBaseClass = (DriverBaseClass) testInstance;
-                String fileName = result.getName() + "_" + System.currentTimeMillis();
-                takeScreenshot(driverBaseClass.getDriver(), fileName);
-            }
+//            Object testInstance = result.getInstance();
+//            if (testInstance instanceof DriverBaseClass) {
+//                DriverBaseClass driverBaseClass = (DriverBaseClass) testInstance;
+//                String fileName = result.getName() + "_" + System.currentTimeMillis();
+//                takeScreenshot(driverBaseClass.getDriver(), fileName);
+//            }
         }
     }
 

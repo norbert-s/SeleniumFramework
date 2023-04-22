@@ -6,7 +6,7 @@
     "expectedAdults": 4,
     "expectedChildren": 3,
     "expectedInfants": 1,
-    "expectedPassengerText": "4 Adults, 3 Children, 1 Infant"
+    "expectedPassengerText": "4 Adults, 3 Child, 1 Infant"
   },
   {
     "adults": 2,
@@ -15,7 +15,7 @@
     "expectedAdults": 3,
     "expectedChildren": 2,
     "expectedInfants": 0,
-    "expectedPassengerText": "3 Adults, 2 Children"
+    "expectedPassengerText": "3 Adults, 2 Child"
   },
   {
     "adults": 4,

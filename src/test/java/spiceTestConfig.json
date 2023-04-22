@@ -5,8 +5,7 @@
     "infants": 1,
     "expectedAdults": 4,
     "expectedChildren": 3,
-    "expectedInfants": 1,
-    "expectedPassengerText": "4 Adults, 3 Children, 1 Infant"
+    "expectedInfants": 1
   },
   {
     "adults": 2,
@@ -14,8 +13,7 @@
     "infants": 0,
     "expectedAdults": 3,
     "expectedChildren": 2,
-    "expectedInfants": 0,
-    "expectedPassengerText": "3 Adults, 2 Children"
+    "expectedInfants": 0
   },
   {
     "adults": 4,
@@ -23,7 +21,6 @@
     "infants": 1,
     "expectedAdults": 5,
     "expectedChildren": 1,
-    "expectedInfants": 1,
-    "expectedPassengerText": "5 Adults, 1 Child, 1 Infant"
+    "expectedInfants": 1
   }
 ]

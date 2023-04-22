@@ -4,12 +4,15 @@ import lombok.extern.slf4j.Slf4j;
 import org.openqa.selenium.WebDriver;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.testng.asserts.SoftAssert;
 import testSetup.deviceSetup.factory.DriverManager;
 @Slf4j
 public abstract class DriverBaseClassAbstract {
 
     private final ThreadLocal<DriverManager> driverManager = new ThreadLocal<>();
     private final ThreadLocal<WebDriver> driver = new ThreadLocal<>();
+
+    protected final ThreadLocal<SoftAssert> softAssert = new ThreadLocal<>();
 
     public DriverBaseClassAbstract() {
         log.info("BaseClass constructor called");
@@ -29,5 +32,9 @@ public abstract class DriverBaseClassAbstract {
 
     protected WebDriver getDriver(){
         return this.driver.get();
+    }
+
+    public SoftAssert getSoftAssert() {
+        return this.softAssert.get();
     }
 }

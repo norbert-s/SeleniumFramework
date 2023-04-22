@@ -1,9 +1,12 @@
 package testSetup.configreader;
 
+import lombok.extern.slf4j.Slf4j;
+
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Properties;
 
+@Slf4j
 public class ConfigReader {
 
     private static Properties properties;
@@ -24,7 +27,7 @@ public class ConfigReader {
 //    }
 
     static {
-        System.out.println("Static initializer block in ConfigReader");
+        log.info("Static initializer block in ConfigReader");
         properties = new Properties();
 
         try (InputStream inputStream = ConfigReader.class.getClassLoader().getResourceAsStream("data.properties")) {
