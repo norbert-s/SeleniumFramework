@@ -9,30 +9,13 @@
 
     <test name="Chrome">
         <parameter name="browser" value="CHROME"/>
-        <groups>
-            <define name="all">
-                <include name="smoke"/>
-            </define>
-            <run>
-                <include name="all"/>
-            </run>
-        </groups>
         <classes>
             <class name="tests.Parallel"/>
-
         </classes>
 
     </test>
     <test name="Edge tests">
         <parameter name="browser" value="EDGE"/>
-        <groups>
-            <define name="all">
-                <include name="smoke"/>
-            </define>
-            <run>
-                <include name="all"/>
-            </run>
-        </groups>
         <classes>
             <class name="tests.Parallel"/>
         </classes>

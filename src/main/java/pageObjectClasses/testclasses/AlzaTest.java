@@ -4,7 +4,7 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
-import pageObjectClasses.abstracts.PageObjectGenericMethodsPageObject;
+import pageObjectClasses.abstracts.PageObjectGenericMethodsImpl;
 import pageObjectClasses.pageobjects.AlzaPageLocators;
 import pageObjectClasses.pojo.DevicePojo;
 
@@ -14,7 +14,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
-public class AlzaTest extends PageObjectGenericMethodsPageObject implements AlzaPageLocators {
+public class AlzaTest extends PageObjectGenericMethodsImpl implements AlzaPageLocators {
     private List<DevicePojo> allPojos = new ArrayList<>();
     public List<DevicePojo>getPojos(){
         return allPojos;
@@ -29,7 +29,7 @@ public class AlzaTest extends PageObjectGenericMethodsPageObject implements Alza
     public AlzaTest findAllTarget() {
 
         returnWait().until(ExpectedConditions.presenceOfAllElementsLocatedBy(nameOfDevice));
-        List<WebElement> allDeviceNames = d.findElements(nameOfDevice).stream().collect(Collectors.toList());
+        List<WebElement> allDeviceNames = driver.findElements(nameOfDevice).stream().collect(Collectors.toList());
         List<String> discountPrices = new ArrayList<>();
         for (WebElement productElement : allDeviceNames) {
 
@@ -37,14 +37,14 @@ public class AlzaTest extends PageObjectGenericMethodsPageObject implements Alza
             try {
 
                 returnWait(3000).until(ExpectedConditions.presenceOfElementLocated(getDiscountPrice(nameOfDeviceHere))
-                        .andThen(s-> discountPrices.add(d.findElement(getDiscountPrice(nameOfDeviceHere)).getText())));
+                        .andThen(s-> discountPrices.add(driver.findElement(getDiscountPrice(nameOfDeviceHere)).getText())));
             } catch (Exception e) {
                 discountPrices.add(null);
             }
         }
 
-        List<String> prices = d.findElements(priceOfDevice).stream().map(s -> s.getText()).collect(Collectors.toList());
-        List<String> ratings = d.findElements(rating).stream().map(s -> s.getText()).collect(Collectors.toList());
+        List<String> prices = driver.findElements(priceOfDevice).stream().map(s -> s.getText()).collect(Collectors.toList());
+        List<String> ratings = driver.findElements(rating).stream().map(s -> s.getText()).collect(Collectors.toList());
 
         List<DevicePojo> allPojos = new ArrayList<>();
         System.out.println(allDeviceNames.size());
@@ -98,7 +98,7 @@ public class AlzaTest extends PageObjectGenericMethodsPageObject implements Alza
     }
 
     public AlzaTest getPage(String url) {
-        d.get(url);
+        driver.get(url);
         return this;
     }
 

@@ -6,17 +6,18 @@ import org.testng.ITestResult;
 import testSetup.setters.GlobalSettingsGetterMethods;
 
 @Slf4j
-public class RetryFailedTests implements GlobalSettingsGetterMethods, IRetryAnalyzer {
+public class RetryFailedTests implements IRetryAnalyzer {
     private int count = 0;
     private static int maxTry;
 
 
     @Override
-    public boolean retry(ITestResult iTestResult) {
+    public synchronized boolean retry(ITestResult iTestResult) {
         if(GlobalSettingsGetterMethods.setRetryNumberOfTimes()<0){
             maxTry=0;
         }
         if(GlobalSettingsGetterMethods.setRetryNumberOfTimes()>3){
+            log.warn("Max retry number is 3. Setting it to 3 even though it was "+GlobalSettingsGetterMethods.setRetryNumberOfTimes());
             maxTry=3;
         }
         else{
