@@ -26,9 +26,16 @@
         <emailto>example@example.com</emailto>
         <isincognitoneeded>false</isincognitoneeded>
         <surefire.suiteXmlFiles>extracting_tests.xml</surefire.suiteXmlFiles>
-        <groups>smoke</groups>
+        <groups>runner</groups>
+        <extentreports-version>5.0.8</extentreports-version>
     </properties>
     <dependencies>
+
+        <dependency>
+            <groupId>com.aventstack</groupId>
+            <artifactId>extentreports</artifactId>
+            <version>${extentreports-version}</version>
+        </dependency>
         <dependency>
             <groupId>org.seleniumhq.selenium</groupId>
             <artifactId>selenium-http-jdk-client</artifactId>
@@ -214,7 +221,7 @@
                 <configuration>
                     <printSummary>true</printSummary>
                     <systemPropertyVariables>
-                        <suiteXmlFile>${surefire.suiteXmlFiles}</suiteXmlFile>
+                        <suiteXmlFile>extracting_tests.xml</suiteXmlFile>
                         <mywait>${waitfortime}</mywait>
                         <myenvironment>${practiceenvironment}</myenvironment>
                         <retryFailedNumberOfTimes>${retryfailed}</retryFailedNumberOfTimes>
