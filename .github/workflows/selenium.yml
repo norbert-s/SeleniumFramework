@@ -58,6 +58,6 @@ jobs:
     - name: Upload surefire report
       uses: actions/upload-artifact@v3
       with:
-        name: surefire-report
-        path: target/surefire-reports/emailable-report.html
+        name: extent-report
+        path: extent-reports/extent-report.html
 
