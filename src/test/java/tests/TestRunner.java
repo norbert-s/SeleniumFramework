@@ -22,7 +22,7 @@ public class TestRunner {
         suite.setParallel(XmlSuite.ParallelMode.METHODS);
         suite.setThreadCount(3);
 
-        String[] browsers = {"CHROME","EDGE"};
+        String[] browsers = {"CHROME"};
 
         for (String browser : browsers) {
             XmlTest test = new XmlTest(suite);

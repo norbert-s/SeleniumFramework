@@ -54,6 +54,17 @@ public  class DriverBaseClass extends DriverBaseClassAbstract{
     }
 
     public static class TestListener  implements ITestListener {
+        public synchronized void saveScreenshot(WebDriver driver, String fileName) {
+            byte[] screenshotBytes = ((TakesScreenshot) driver).getScreenshotAs(OutputType.BYTES);
+            try {
+                FileUtils.writeByteArrayToFile(new File("./screenshots/" + fileName + ".png"), screenshotBytes);
+            } catch (IOException e) {
+                log.warn("Failed to save screenshot: " + e.getMessage());
+            }
+        }
+
+
+
         private synchronized static String getTestMethodName(ITestResult iTestResult) {
             return iTestResult.getMethod().getConstructorOrMethod().getName();
         }
@@ -82,12 +93,20 @@ public  class DriverBaseClass extends DriverBaseClassAbstract{
             log.info(getTestMethodName(iTestResult) + " test is failed.");
             // Get driver from the test instance
             Object testInstance = iTestResult.getInstance();
+//            if (testInstance instanceof DriverBaseClass) {
+//                DriverBaseClass driverBaseClass = (DriverBaseClass) testInstance;
+//                String fileName = result.getName() + "_" + System.currentTimeMillis();
+//                takeScreenshot(driverBaseClass.getDriver(), fileName);
+//                ITestContext context = result.getTestContext();
+//                String suite = context.getSuite().getName();
+//                log.info(suite+" "+result.getName()+" test has Failed " );
+//            }
             if (testInstance instanceof DriverBaseClass) {
                 DriverBaseClass driverBaseClass = (DriverBaseClass) testInstance;
                 WebDriver driver = driverBaseClass.getDriver();
                 // Take base64Screenshot screenshot for extent reports
-                String base64Screenshot =
-                        "data:image/png;base64," + ((TakesScreenshot) Objects.requireNonNull(driver)).getScreenshotAs(OutputType.BASE64);
+                String base64Screenshot = "data:image/png;base64," + ((TakesScreenshot) Objects.requireNonNull(driver)).getScreenshotAs(OutputType.BASE64);
+
                 // ExtentReports log and screenshot operations for failed tests.
                 getTest().log(Status.FAIL, "Test Failed",
                         getTest().addScreenCaptureFromBase64String(base64Screenshot).getModel().getMedia().get(0));
@@ -103,10 +122,26 @@ public  class DriverBaseClass extends DriverBaseClassAbstract{
         @Override
         public synchronized void onTestSuccess(ITestResult iTestResult) {
             log.info(getTestMethodName(iTestResult) + " test is succeed.");
-            //ExtentReports log operation for passed tests.
+            // ExtentReports log operation for passed tests.
             getTest().log(Status.PASS, "Test passed");
-        }
 
+            Object testInstance = iTestResult.getInstance();
+            if (testInstance instanceof DriverBaseClass) {
+                DriverBaseClass driverBaseClass = (DriverBaseClass) testInstance;
+                WebDriver driver = driverBaseClass.getDriver();
+
+                // Take base64Screenshot screenshot for extent reports
+                String base64Screenshot = "data:image/png;base64," + ((TakesScreenshot) driver).getScreenshotAs(OutputType.BASE64);
+
+                // Save the screenshot to a file
+                String fileName = iTestResult.getName() + "_" + System.currentTimeMillis();
+                saveScreenshot(driver, fileName);
+
+                // ExtentReports log and screenshot operations for passed tests.
+                getTest().log(Status.PASS, "Test Passed",
+                        getTest().addScreenCaptureFromBase64String(base64Screenshot).getModel().getMedia().get(0));
+            }
+        }
         @Override
         public synchronized void onTestSkipped(ITestResult iTestResult) {
             log.info(getTestMethodName(iTestResult) + " test is skipped.");
@@ -119,7 +154,7 @@ public  class DriverBaseClass extends DriverBaseClassAbstract{
         }
     }
 
-
+    //---------------------------------------------
 
     public static class TestListener2 extends TestListenerAdapter {
         public synchronized void takeScreenshot(WebDriver driver, String fileName) {
