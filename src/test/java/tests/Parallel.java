@@ -3,20 +3,20 @@ package tests;
 import lombok.extern.slf4j.Slf4j;
 import org.testng.annotations.Listeners;
 import org.testng.annotations.Test;
-import org.testng.asserts.SoftAssert;
 import pageObjectClasses.pageobjects.SpiceJetPageLocators;
 import pageObjectClasses.testclasses.SpiceJetTest;
 import testSetup.deviceSetup.base.DriverBaseClass;
 import testSetup.setters.GlobalSettingsGetterMethods;
 import testdata.DataProviderClass;
 import testdata.PassengersAsData;
+
+
 @Slf4j
 @Listeners(DriverBaseClass.TestListener.class)
 public class Parallel extends DriverBaseClass implements GlobalSettingsGetterMethods, SpiceJetPageLocators {
 
     @Test(groups = {"smoke"}, dataProvider = "spiceBasicTestData",dataProviderClass = DataProviderClass.class)
     public void testSpice(PassengersAsData testData) throws Exception {
-        SoftAssert softAssert1 = new SoftAssert();
         SpiceJetTest spiceJetTest = new SpiceJetTest(getDriver());
 
         int adult = testData.getAdults();
@@ -35,6 +35,7 @@ public class Parallel extends DriverBaseClass implements GlobalSettingsGetterMet
         log.info("expected number: "+spiceJetTest.getTextAfterPassengerSetupDone()+" current : "+testData.getExpectedPassengerText());
         log.info(adult+" "+children+" "+infants+" "+Thread.currentThread().getId());
     }
+
 //    @Test(groups = {"smoke"}, dataProvider = "spiceBasicTestData2",dataProviderClass = DataProviderClass.class)
 //    public void testSpice2(PassengersAsData testData) throws Exception {
 //        SpiceJetTest spiceJetTest = new SpiceJetTest(getDriver());

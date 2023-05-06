@@ -1,9 +1,8 @@
 package testSetup.deviceSetup.base;
 
+import io.github.bonigarcia.wdm.WebDriverManager;
 import lombok.extern.slf4j.Slf4j;
 import org.openqa.selenium.WebDriver;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.testng.asserts.SoftAssert;
 import testSetup.deviceSetup.factory.DriverManager;
 @Slf4j
@@ -12,6 +11,15 @@ public abstract class DriverBaseClassAbstract {
     private final ThreadLocal<DriverManager> driverManager = new ThreadLocal<>();
     private final ThreadLocal<WebDriver> driver = new ThreadLocal<>();
 
+    //private final ThreadLocal<WebDriverManager> wdm = new ThreadLocal<>();
+
+//    public WebDriverManager getWdm() {
+//        return this.wdm.get();
+//    }
+//
+//    public void setWdm(WebDriverManager wdm){
+//        this.wdm.set(wdm);
+//    }
     protected final ThreadLocal<SoftAssert> softAssert = new ThreadLocal<>();
 
     public DriverBaseClassAbstract() {

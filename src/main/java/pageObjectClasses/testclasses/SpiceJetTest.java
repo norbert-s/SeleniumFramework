@@ -85,7 +85,7 @@ public class SpiceJetTest extends PageObjectGenericMethodsImpl implements SpiceJ
     }
 
     public String getTextAfterPassengerSetupDone(){
-        System.out.println("444444444444444444 "+driver.findElement(resultOfSettingPassengers).getText());
+        System.out.println(driver.findElement(resultOfSettingPassengers).getText());
         return driver.findElement(resultOfSettingPassengers).getText();
         //return fluentWaitWithExpectedConditionToReturnText(resultOfSettingPassengers);
     }

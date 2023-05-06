@@ -10,13 +10,11 @@
         <maven.compiler.source>17</maven.compiler.source>
         <maven.compiler.target>17</maven.compiler.target>
         <testng.version>7.4.3</testng.version>
-<!--        <threads>2</threads>-->
         <selenium-version>4.8.1</selenium-version>
         <extentreports-version>5.0.8</extentreports-version>
         <webdrivermanager.version>5.3.2</webdrivermanager.version>
-
         <surefire.suiteXmlFiles>extracting_tests.xml</surefire.suiteXmlFiles>
-        <waitfortime>120</waitfortime>
+        <waitfortime>20</waitfortime>
         <practiceenvironment>local</practiceenvironment>
         <retryfailed>1</retryfailed>
         <sheetId>defaultSheetId</sheetId>
@@ -27,8 +25,16 @@
         <isincognitoneeded>false</isincognitoneeded>
         <surefire.suiteXmlFiles>extracting_tests.xml</surefire.suiteXmlFiles>
         <groups>smoke</groups>
+        <extentreports-version>5.0.8</extentreports-version>
+        <screenshot-on-success>false</screenshot-on-success>
     </properties>
     <dependencies>
+
+        <dependency>
+            <groupId>com.aventstack</groupId>
+            <artifactId>extentreports</artifactId>
+            <version>${extentreports-version}</version>
+        </dependency>
         <dependency>
             <groupId>org.seleniumhq.selenium</groupId>
             <artifactId>selenium-http-jdk-client</artifactId>
@@ -214,8 +220,8 @@
                 <configuration>
                     <printSummary>true</printSummary>
                     <systemPropertyVariables>
-                        <suiteXmlFile>${surefire.suiteXmlFiles}</suiteXmlFile>
-                        <mywait>${waitfortime}</mywait>
+                        <suiteXmlFile>extracting_tests.xml</suiteXmlFile>
+                        <waitfortime>${waitfortime}</waitfortime>
                         <myenvironment>${practiceenvironment}</myenvironment>
                         <retryFailedNumberOfTimes>${retryfailed}</retryFailedNumberOfTimes>
                         <sheetToUse>${sheetId}</sheetToUse>
@@ -225,6 +231,7 @@
                         <reportemailto>${emailto}</reportemailto>
                         <isincognitoneeded>${isincognitoneeded}</isincognitoneeded>
                         <groups>${groups}</groups>
+                        <screenshot-on-success>${screenshot-on-success}</screenshot-on-success>
                     </systemPropertyVariables>
 
                 </configuration>

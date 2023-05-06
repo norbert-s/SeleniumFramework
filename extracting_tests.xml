@@ -1,37 +1,43 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
-<suite name="test suite" parallel="methods" thread-count="3">
+<suite name="test suite" parallel="methods" thread-count="5">
     <listeners>
         <listener class-name="listeners.AnnotationTransformer" />
-
-        <!-- Include any other listeners you may have -->
     </listeners>
-
-    <test name="Chrome">
+<!--    <test name="Chrome">-->
+<!--        <classes>-->
+<!--            <class name="tests.TestRunner"/>-->
+<!--        </classes>-->
+<!--    </test>-->
+    <test name="Chrome" >
         <parameter name="browser" value="CHROME"/>
         <classes>
             <class name="tests.Parallel"/>
         </classes>
-
     </test>
-    <test name="Edge tests">
+    <test name="Edge tests" >
         <parameter name="browser" value="EDGE"/>
         <classes>
             <class name="tests.Parallel"/>
         </classes>
     </test>
+
+    <test name="Firefox tests" >
+        <parameter name="browser" value="FIREFOX"/>
+        <classes>
+            <class name="tests.Parallel"/>
+        </classes>
+    </test>
+
 <!--    <test name="Chrome">-->
-<!--        <parameter name="browser" value="FIREFOX"/>-->
+
 <!--        <groups>-->
 <!--            <define name="all">-->
-<!--                <include name="smoke"/>-->
+<!--                <include name="runner"/>-->
 <!--            </define>-->
-<!--            <run>-->
-<!--                <include name="all"/>-->
-<!--            </run>-->
 <!--        </groups>-->
 <!--        <classes>-->
-<!--            <class name="tests.Parallel"/>-->
+<!--            <class name="tests.TestRunner"/>-->
 
 <!--        </classes>-->
 
