@@ -9,7 +9,7 @@ public class EdgeDriverManager extends DriverManager{
     @Override
     public WebDriver createDriver() throws Exception {
         WebDriverManager wdm = WebDriverManager.edgedriver().capabilities(EdgeDeviceSetup.driverBuilder()).browserInDocker();
-        WebDriver driver = wdm.create();
+        driver = wdm.create();
         return driver;
     }
 
