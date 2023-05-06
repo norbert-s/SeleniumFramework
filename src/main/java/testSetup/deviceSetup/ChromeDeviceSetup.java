@@ -55,7 +55,8 @@ public class ChromeDeviceSetup {
     public static WebDriver driverBuilder() throws Exception {
         chromeOptions = settingUpDevices();
         WebDriver d;
-        WebDriverManager wdm  = WebDriverManager.chromedriver().capabilities(chromeOptions);
+
+        WebDriverManager wdm  = WebDriverManager.chromedriver().capabilities(chromeOptions).browserInDocker();
         d = wdm.create();
         SettingUpTimeouts.timeOutSetup(d);
         return d;
