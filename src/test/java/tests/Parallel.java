@@ -4,6 +4,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.testng.annotations.Listeners;
 import org.testng.annotations.Test;
 import pageObjectClasses.pageobjects.SpiceJetPageLocators;
+import pageObjectClasses.testclasses.ISpiceJetTest;
 import pageObjectClasses.testclasses.SpiceJetTest;
 import testSetup.deviceSetup.base.DriverBaseClass;
 import testSetup.setters.GlobalSettingsGetterMethods;
@@ -17,7 +18,7 @@ public class Parallel extends DriverBaseClass implements GlobalSettingsGetterMet
 
     @Test(groups = {"smoke"}, dataProvider = "spiceBasicTestData",dataProviderClass = DataProviderClass.class)
     public void testSpice(PassengersAsData testData) throws Exception {
-        SpiceJetTest spiceJetTest = new SpiceJetTest(getDriver());
+        ISpiceJetTest spiceJetTest = createSpiceJetTest();
 
         int adult = testData.getAdults();
         int children = testData.getChildren();

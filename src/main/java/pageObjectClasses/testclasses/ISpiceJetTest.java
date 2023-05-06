@@ -1,0 +1,19 @@
+package pageObjectClasses.testclasses;
+
+public interface ISpiceJetTest {
+    ISpiceJetTest goToWebpage();
+    ISpiceJetTest clickOnPassangers();
+    ISpiceJetTest clickOnAdultsNumberOfTimes(int numberOfPassangers);
+
+    SpiceJetTest clickOnChildrenNumberOfTimes(int children);
+
+    int getNumberOfAdultsSelected();
+
+    int getNumberOfChildrenSelected();
+
+    int getNumberOfInfantsSelected();
+
+    String getTextAfterPassengerSetupDone();
+
+}
+

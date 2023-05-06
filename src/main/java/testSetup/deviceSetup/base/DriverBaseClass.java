@@ -13,6 +13,8 @@ import org.testng.ITestResult;
 import org.testng.TestListenerAdapter;
 import org.testng.annotations.*;
 import org.testng.asserts.SoftAssert;
+import pageObjectClasses.testclasses.ISpiceJetTest;
+import pageObjectClasses.testclasses.SpiceJetTest;
 import testSetup.constants.TypesOfBrowsers;
 import testSetup.deviceSetup.factory.DriverManagerFactory;
 import testSetup.setters.GlobalSettingsGetterMethods;
@@ -33,7 +35,13 @@ public class DriverBaseClass extends DriverBaseClassAbstract {
     public void beforeSuite() throws Exception {
         WrapperSetupTestsBeforeDriver.initializeAttributes();
     }
+//    public TestManager createTestManager() {
+//        return new TestManager(getDriver());
+//    }
 
+    public ISpiceJetTest createSpiceJetTest() throws IOException {
+        return new SpiceJetTest(getDriver());
+    }
     @Parameters("browser")
     @BeforeMethod(alwaysRun = true)
     public synchronized void startDriver(@Optional String browser) throws Exception {
