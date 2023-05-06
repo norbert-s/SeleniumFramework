@@ -10,7 +10,7 @@ public class WrapperSetupTestsBeforeDriver {
      * also xalling diffeerent methods from one place
      */
     static int counter=0;
-    public static void initializeAttributes() throws Exception {
+    public static void initializeAttributes() {
         if(counter==0){
             new ConfigReader();
 

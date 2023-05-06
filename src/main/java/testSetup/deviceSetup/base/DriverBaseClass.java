@@ -12,21 +12,20 @@ import org.testng.ITestListener;
 import org.testng.ITestResult;
 import org.testng.TestListenerAdapter;
 import org.testng.annotations.*;
+import org.testng.asserts.SoftAssert;
 import testSetup.constants.TypesOfBrowsers;
 import testSetup.deviceSetup.factory.DriverManagerFactory;
 import testSetup.setters.WrapperSetupTestsBeforeDriver;
+import utilityClasses.date.DateTimeStampGetter;
 
 import java.io.File;
 import java.io.IOException;
 import java.util.Objects;
 
-import org.testng.asserts.SoftAssert;
-import utilityClasses.date.DateTimeStampGetter;
-
 import static testSetup.deviceSetup.base.ExtentTestManager.getTest;
 
 @Slf4j
-public  class DriverBaseClass extends DriverBaseClassAbstract{
+public class DriverBaseClass extends DriverBaseClassAbstract {
 
     @BeforeSuite(alwaysRun = true)
     public void beforeSuite() throws Exception {
@@ -44,13 +43,13 @@ public  class DriverBaseClass extends DriverBaseClassAbstract{
     }
 
     @AfterMethod(alwaysRun = true)
-    public synchronized void quitDriver(@Optional String browser, ITestResult result) throws Exception {
+    public synchronized void quitDriver(@Optional String browser, ITestResult result) {
         log.info(Thread.currentThread().getId() + ", " + getDriver());
         getDriverManager().quitDriver();
         softAssert.remove();
     }
 
-    public static class TestListener2  implements ITestListener {
+    public static class TestListener2 implements ITestListener {
         //extent report testlistener
         public synchronized void saveScreenshot(WebDriver driver, String fileName) {
             byte[] screenshotBytes = ((TakesScreenshot) driver).getScreenshotAs(OutputType.BYTES);
@@ -64,6 +63,7 @@ public  class DriverBaseClass extends DriverBaseClassAbstract{
         private synchronized static String getTestMethodName(ITestResult iTestResult) {
             return iTestResult.getMethod().getConstructorOrMethod().getName();
         }
+
         @Override
         public synchronized void onStart(ITestContext iTestContext) {
             log.info("I am in onStart method " + iTestContext.getName());
@@ -108,6 +108,7 @@ public  class DriverBaseClass extends DriverBaseClassAbstract{
                         getTest().addScreenCaptureFromBase64String(base64Screenshot).getModel().getMedia().get(0));
             }
         }
+
         @Override
         public synchronized void onFinish(ITestContext iTestContext) {
             log.info("I am in onFinish method " + iTestContext.getName());
@@ -138,12 +139,14 @@ public  class DriverBaseClass extends DriverBaseClassAbstract{
                         getTest().addScreenCaptureFromBase64String(base64Screenshot).getModel().getMedia().get(0));
             }
         }
+
         @Override
         public synchronized void onTestSkipped(ITestResult iTestResult) {
             log.info(getTestMethodName(iTestResult) + " test is skipped.");
             //ExtentReports log operation for skipped tests.
             getTest().log(Status.SKIP, "Test Skipped");
         }
+
         @Override
         public void onTestFailedButWithinSuccessPercentage(ITestResult iTestResult) {
             log.info("Test failed but it is in defined success ratio " + getTestMethodName(iTestResult));
@@ -161,6 +164,7 @@ public  class DriverBaseClass extends DriverBaseClassAbstract{
                 log.warn("Failed to save screenshot: " + e.getMessage());
             }
         }
+
         @Override
         public synchronized void onTestFailure(ITestResult result) {
             Object testInstance = result.getInstance();
@@ -169,30 +173,28 @@ public  class DriverBaseClass extends DriverBaseClassAbstract{
                 DriverBaseClass driverBaseClass = (DriverBaseClass) testInstance;
                 ITestContext context = result.getTestContext();
                 String suite = context.getSuite().getName();
-                String fileName = suite+"_"+result.getName() + "_" + DateTimeStampGetter.getDateTime()+"_test_has_failed";
+                String fileName = suite + "_" + result.getName() + "_" + DateTimeStampGetter.getDateTime() + "_test_has_failed";
                 takeScreenshot(driverBaseClass.getDriver(), fileName);
 
-                log.info(suite+" "+result.getName()+" test has Failed " );
+                log.info(suite + " " + result.getName() + " test has Failed ");
             }
         }
 
         @Override
         public synchronized void onTestSkipped(ITestResult result) {
-            try{
-                ITestContext context = result.getTestContext();
-                String suite = context.getSuite().getName();
-                log.info(suite+" "+result.getName()+" test has been SKIPPED " );
-            }catch(Exception e){
-
-            }
+            ITestContext context = result.getTestContext();
+            String suite = context.getSuite().getName();
+            log.info(suite + " " + result.getName() + " test has been SKIPPED ");
         }
+
         @Override
         public synchronized void onTestStart(ITestResult result) {
             ITestContext context = result.getTestContext();
             String suite = context.getSuite().getName();
-            log.info(suite+" "+result.getName()+"------New Test Started------");
+            log.info(suite + " " + result.getName() + "------New Test Started------");
 
         }
+
         @Override
         public synchronized void onTestSuccess(ITestResult result) {
             Object testInstance = result.getInstance();
@@ -201,12 +203,11 @@ public  class DriverBaseClass extends DriverBaseClassAbstract{
                 DriverBaseClass driverBaseClass = (DriverBaseClass) testInstance;
                 ITestContext context = result.getTestContext();
                 String suite = context.getSuite().getName();
-                String fileName = suite+"_"+result.getName() + "_" + DateTimeStampGetter.getDateTime()+"_test_has_passed";
+                String fileName = suite + "_" + result.getName() + "_" + DateTimeStampGetter.getDateTime() + "_test_has_passed";
                 takeScreenshot(driverBaseClass.getDriver(), fileName);
 
-                log.info(suite+" "+result.getName()+" test has Passed " );
+                log.info(suite + " " + result.getName() + " test has Passed ");
             }
         }
     }
-
 }
