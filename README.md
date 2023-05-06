@@ -11,11 +11,11 @@ Selenium framework
 
 - concurrency is set such that all the methods are being run concurrently using the resources in a thread safe way
 
-- the test are run in a data driven manner, the whole test oracle - meaning that the data supplied and the expectations supplied come from json files
+- the tests are run in a data driven manner, the whole test oracle - meaning that the data supplied and the expectations supplied come from json files
 
-- the same tests can be run with different test data -by json files
+- the same tests can be run with different test data -by json files - and the test run as many times as the supplied data triggers them to
 
-- there is a pipeline which runs tests on different branches
+- there is a pipeline which runs tests on the branches they are pushed onto
 
   - and if the tests fail then push to main is not permitted
 
@@ -23,11 +23,6 @@ Selenium framework
 
 - there are numerous values that can be supplied from the command line which are all set a default value for in pom.xml as properties
 
-  - reading data from db and different resources,(json, xml, csv, etc)
-    - and based on the input running different tests
-  - reporting to db, json, xml, differnt reporting frameworks
-  - creating list of objects of pages and then dinamically, randomly selecting a numebr of them and proceeding to - for instance - select a product, compare the attributes of the product selected, checkout page, all of the related pages, etc (in this way profiling one product -with obviously options to take into account the differences - all the other products can also be tested)
-  - pausing the pipeline- with polling a google excel sheet
-  - etc
+
 
 

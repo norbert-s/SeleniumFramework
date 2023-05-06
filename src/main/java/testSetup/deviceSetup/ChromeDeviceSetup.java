@@ -51,9 +51,5 @@ public class ChromeDeviceSetup {
 
         return chromeOptions;
     }
-
-    public static ChromeOptions driverBuilder() throws Exception {
-        return settingUpDevices();
-    }
 }
 
