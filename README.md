@@ -1,9 +1,14 @@
 # Selenium Framework
 
 
+
 Selenium framework
 
 - the webdriver instances -henceforth - the tests are running in Docker
+
+- running concurrently - by either referencing classes or methods (methods can be run in parallel or classes can be run in parallel)
+
+- tests are run by using test data from json, and through injecting the test data by dataprovider
 
 - currently Chrome, EDGE, Firefox instances are created but it can be easily extended
 
