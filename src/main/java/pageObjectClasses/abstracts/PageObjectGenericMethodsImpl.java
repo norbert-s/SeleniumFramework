@@ -5,12 +5,13 @@ import org.openqa.selenium.*;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
+import pageObjectClasses.testclasses.ISpiceJetTest;
 import testSetup.setters.GlobalSettingsGetterMethods;
 
 import java.io.IOException;
 
 @Slf4j
-public abstract class PageObjectGenericMethodsImpl extends PageObjectBaseMethods implements GlobalSettingsGetterMethods {
+public abstract class PageObjectGenericMethodsImpl extends PageObjectBaseMethods implements GlobalSettingsGetterMethods, ISpiceJetTest {
 
     public PageObjectGenericMethodsImpl(WebDriver driver) throws IOException {
         super(driver);
