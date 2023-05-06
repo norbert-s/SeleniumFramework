@@ -26,7 +26,7 @@
         <emailto>example@example.com</emailto>
         <isincognitoneeded>false</isincognitoneeded>
         <surefire.suiteXmlFiles>extracting_tests.xml</surefire.suiteXmlFiles>
-        <groups>runner</groups>
+        <groups>smoke</groups>
         <extentreports-version>5.0.8</extentreports-version>
     </properties>
     <dependencies>

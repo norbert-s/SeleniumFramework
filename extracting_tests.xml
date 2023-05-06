@@ -4,23 +4,23 @@
     <listeners>
         <listener class-name="listeners.AnnotationTransformer" />
     </listeners>
+<!--    <test name="Chrome">-->
+<!--        <classes>-->
+<!--            <class name="tests.TestRunner"/>-->
+<!--        </classes>-->
+<!--    </test>-->
     <test name="Chrome">
+        <parameter name="browser" value="CHROME"/>
         <classes>
-            <class name="tests.TestRunner"/>
+            <class name="tests.Parallel"/>
         </classes>
     </test>
-<!--    <test name="Chrome">-->
-<!--        <parameter name="browser" value="CHROME"/>-->
-<!--        <classes>-->
-<!--            <class name="tests.Parallel"/>-->
-<!--        </classes>-->
-<!--    </test>-->
-<!--    <test name="Edge tests">-->
-<!--        <parameter name="browser" value="EDGE"/>-->
-<!--        <classes>-->
-<!--            <class name="tests.Parallel"/>-->
-<!--        </classes>-->
-<!--    </test>-->
+    <test name="Edge tests">
+        <parameter name="browser" value="EDGE"/>
+        <classes>
+            <class name="tests.Parallel"/>
+        </classes>
+    </test>
 <!--    <test name="Chrome">-->
 
 <!--        <groups>-->

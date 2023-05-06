@@ -1,8 +1,6 @@
 package testSetup.deviceSetup.base;
 
 
-import com.aventstack.extentreports.ExtentReports;
-import com.aventstack.extentreports.ExtentTest;
 import com.aventstack.extentreports.Status;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.io.FileUtils;
@@ -14,26 +12,25 @@ import org.testng.ITestListener;
 import org.testng.ITestResult;
 import org.testng.TestListenerAdapter;
 import org.testng.annotations.*;
-import testSetup.configreader.ConfigReader;
 import testSetup.constants.TypesOfBrowsers;
 import testSetup.deviceSetup.factory.DriverManagerFactory;
-import testSetup.setters.WrapperToCallSetupMethods;
+import testSetup.setters.WrapperSetupTestsBeforeDriver;
 
 import java.io.File;
 import java.io.IOException;
 import java.util.Objects;
 
 import org.testng.asserts.SoftAssert;
+import utilityClasses.date.DateTimeStampGetter;
 
 import static testSetup.deviceSetup.base.ExtentTestManager.getTest;
 
 @Slf4j
 public  class DriverBaseClass extends DriverBaseClassAbstract{
 
-    @BeforeClass
+    @BeforeSuite(alwaysRun = true)
     public void beforeSuite() throws Exception {
-        new ConfigReader();
-        WrapperToCallSetupMethods.initializeAttributes();
+        WrapperSetupTestsBeforeDriver.initializeAttributes();
     }
 
     @Parameters("browser")
@@ -42,7 +39,7 @@ public  class DriverBaseClass extends DriverBaseClassAbstract{
         if (browser == null) browser = "CHROME";
         setDriverManager(DriverManagerFactory.getManager(TypesOfBrowsers.valueOf(browser)));
         setDriver(getDriverManager().getDriver());
-        softAssert.set(new SoftAssert()); // Initialize SoftAssert instance
+        softAssert.set(new SoftAssert());
         log.info(Thread.currentThread().getId() + ", " + getDriver());
     }
 
@@ -50,10 +47,11 @@ public  class DriverBaseClass extends DriverBaseClassAbstract{
     public synchronized void quitDriver(@Optional String browser, ITestResult result) throws Exception {
         log.info(Thread.currentThread().getId() + ", " + getDriver());
         getDriverManager().quitDriver();
-        softAssert.remove(); // Clean up SoftAssert instance
+        softAssert.remove();
     }
 
-    public static class TestListener  implements ITestListener {
+    public static class TestListener2  implements ITestListener {
+        //extent report testlistener
         public synchronized void saveScreenshot(WebDriver driver, String fileName) {
             byte[] screenshotBytes = ((TakesScreenshot) driver).getScreenshotAs(OutputType.BYTES);
             try {
@@ -62,8 +60,6 @@ public  class DriverBaseClass extends DriverBaseClassAbstract{
                 log.warn("Failed to save screenshot: " + e.getMessage());
             }
         }
-
-
 
         private synchronized static String getTestMethodName(ITestResult iTestResult) {
             return iTestResult.getMethod().getConstructorOrMethod().getName();
@@ -156,7 +152,7 @@ public  class DriverBaseClass extends DriverBaseClassAbstract{
 
     //---------------------------------------------
 
-    public static class TestListener2 extends TestListenerAdapter {
+    public static class TestListener extends TestListenerAdapter {
         public synchronized void takeScreenshot(WebDriver driver, String fileName) {
             File srcFile = ((TakesScreenshot) driver).getScreenshotAs(OutputType.FILE);
             try {
@@ -168,16 +164,17 @@ public  class DriverBaseClass extends DriverBaseClassAbstract{
         @Override
         public synchronized void onTestFailure(ITestResult result) {
             Object testInstance = result.getInstance();
+
             if (testInstance instanceof DriverBaseClass) {
                 DriverBaseClass driverBaseClass = (DriverBaseClass) testInstance;
-                String fileName = result.getName() + "_" + System.currentTimeMillis();
-                takeScreenshot(driverBaseClass.getDriver(), fileName);
                 ITestContext context = result.getTestContext();
                 String suite = context.getSuite().getName();
+                String fileName = suite+"_"+result.getName() + "_" + DateTimeStampGetter.getDateTime()+"_test_has_failed";
+                takeScreenshot(driverBaseClass.getDriver(), fileName);
+
                 log.info(suite+" "+result.getName()+" test has Failed " );
             }
         }
-
 
         @Override
         public synchronized void onTestSkipped(ITestResult result) {
@@ -198,15 +195,17 @@ public  class DriverBaseClass extends DriverBaseClassAbstract{
         }
         @Override
         public synchronized void onTestSuccess(ITestResult result) {
-            ITestContext context = result.getTestContext();
-            String suite = context.getSuite().getName();
-            log.info(suite+" "+result.getName()+" test has PASSED " );
-//            Object testInstance = result.getInstance();
-//            if (testInstance instanceof DriverBaseClass) {
-//                DriverBaseClass driverBaseClass = (DriverBaseClass) testInstance;
-//                String fileName = result.getName() + "_" + System.currentTimeMillis();
-//                takeScreenshot(driverBaseClass.getDriver(), fileName);
-//            }
+            Object testInstance = result.getInstance();
+
+            if (testInstance instanceof DriverBaseClass) {
+                DriverBaseClass driverBaseClass = (DriverBaseClass) testInstance;
+                ITestContext context = result.getTestContext();
+                String suite = context.getSuite().getName();
+                String fileName = suite+"_"+result.getName() + "_" + DateTimeStampGetter.getDateTime()+"_test_has_passed";
+                takeScreenshot(driverBaseClass.getDriver(), fileName);
+
+                log.info(suite+" "+result.getName()+" test has Passed " );
+            }
         }
     }
 
