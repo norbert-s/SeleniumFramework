@@ -5,6 +5,10 @@ import org.apache.logging.log4j.core.config.Configurator;
 
 
 public interface GlobalSettingsGetterMethods {
+
+    static boolean screenshotOnSuccess(){
+        return Boolean.valueOf(System.getProperty("screenshot-on-success"));
+    }
     static String getBranchId(){
         if(System.getProperty("branch_id")==null) return "master";
         else return System.getProperty("branch_id");

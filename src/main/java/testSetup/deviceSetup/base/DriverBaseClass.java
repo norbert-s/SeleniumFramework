@@ -15,6 +15,8 @@ import org.testng.annotations.*;
 import org.testng.asserts.SoftAssert;
 import testSetup.constants.TypesOfBrowsers;
 import testSetup.deviceSetup.factory.DriverManagerFactory;
+import testSetup.setters.GlobalSettingsGetterMethods;
+import testSetup.setters.SettingUpTimeouts;
 import testSetup.setters.WrapperSetupTestsBeforeDriver;
 import utilityClasses.date.DateTimeStampGetter;
 
@@ -38,6 +40,7 @@ public class DriverBaseClass extends DriverBaseClassAbstract {
         if (browser == null) browser = "CHROME";
         setDriverManager(DriverManagerFactory.getManager(TypesOfBrowsers.valueOf(browser)));
         setDriver(getDriverManager().getDriver());
+        SettingUpTimeouts.timeOutSetup(getDriverManager().getDriver());
         softAssert.set(new SoftAssert());
         log.info(Thread.currentThread().getId() + ", " + getDriver());
     }
@@ -204,8 +207,9 @@ public class DriverBaseClass extends DriverBaseClassAbstract {
                 ITestContext context = result.getTestContext();
                 String suite = context.getSuite().getName();
                 String fileName = suite + "_" + result.getName() + "_" + DateTimeStampGetter.getDateTime() + "_test_has_passed";
-                takeScreenshot(driverBaseClass.getDriver(), fileName);
-
+                if(GlobalSettingsGetterMethods.screenshotOnSuccess()){
+                    takeScreenshot(driverBaseClass.getDriver(), fileName);
+                }
                 log.info(suite + " " + result.getName() + " test has Passed ");
             }
         }

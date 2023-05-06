@@ -15,7 +15,7 @@ public class EdgeDeviceSetup {
         }
 
         edgeOptions.addArguments("disable-gpu", "window-size=1920,1200","ignore-certificate-errors", "disable-extensions", "disable-dev-shm-usage", "no-sandbox");
-        WebDriverManager wdm = WebDriverManager.edgedriver().capabilities(edgeOptions);
+        WebDriverManager wdm = WebDriverManager.edgedriver().capabilities(edgeOptions).browserInDocker();
         WebDriver driver = wdm.create();
         return driver;
     }

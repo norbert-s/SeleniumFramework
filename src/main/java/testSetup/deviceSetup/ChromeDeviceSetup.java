@@ -52,14 +52,8 @@ public class ChromeDeviceSetup {
         return chromeOptions;
     }
 
-    public static WebDriver driverBuilder() throws Exception {
-        chromeOptions = settingUpDevices();
-        WebDriver d;
-
-        WebDriverManager wdm  = WebDriverManager.chromedriver().capabilities(chromeOptions).browserInDocker();
-        d = wdm.create();
-        SettingUpTimeouts.timeOutSetup(d);
-        return d;
+    public static ChromeOptions driverBuilder() throws Exception {
+        return settingUpDevices();
     }
 }
 
