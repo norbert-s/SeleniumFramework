@@ -8,12 +8,6 @@ name: Build and Test
 
 on:
   workflow_dispatch:
-  pull_request:
-    types:
-      - opened
-      - synchronize
-    paths-ignore:
-      - 'README.md'
 
 jobs:
   build:
