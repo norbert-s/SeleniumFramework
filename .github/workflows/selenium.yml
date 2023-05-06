@@ -36,6 +36,14 @@ jobs:
 #          sudo apt-get update
 #          sudo apt-get install -y docker.io
 
+      - name: Cache Maven local repository
+        uses: actions/cache@v3
+        with:
+          path: ~/.m2/repository
+          key: ${{ runner.os }}-maven-${{ hashFiles('**/pom.xml') }}
+          restore-keys: |
+            ${{ runner.os }}-maven-
+
       - name: Creating Env vars
         env:
           WAITFOR_TIME: ${{ vars.WAITFOR_TIME }}
@@ -48,5 +56,5 @@ jobs:
       - name: Upload surefire report
         uses: actions/upload-artifact@v3
         with:
-          name: extent-report
-          path: extent-reports/extent-report.html
+          name: surefire-report
+          path: target/surefire-reports/emailable-report.html
