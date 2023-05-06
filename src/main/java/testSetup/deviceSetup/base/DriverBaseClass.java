@@ -13,6 +13,8 @@ import org.testng.ITestResult;
 import org.testng.TestListenerAdapter;
 import org.testng.annotations.*;
 import org.testng.asserts.SoftAssert;
+import pageObjectClasses.factory.ITestFactory;
+import pageObjectClasses.factory.TestFactory;
 import pageObjectClasses.testclasses.ISpiceJetTest;
 import pageObjectClasses.testclasses.SpiceJetTest;
 import testSetup.constants.TypesOfBrowsers;
@@ -33,21 +35,17 @@ public class DriverBaseClass extends DriverBaseClassAbstract {
 
     @BeforeSuite(alwaysRun = true)
     public void beforeSuite() throws Exception {
+        log.info("driver base class before suite called");
         WrapperSetupTestsBeforeDriver.initializeAttributes();
     }
-//    public TestManager createTestManager() {
-//        return new TestManager(getDriver());
-//    }
 
-    public ISpiceJetTest createSpiceJetTest() throws IOException {
-        return new SpiceJetTest(getDriver());
-    }
     @Parameters("browser")
     @BeforeMethod(alwaysRun = true)
     public synchronized void startDriver(@Optional String browser) throws Exception {
         if (browser == null) browser = "CHROME";
         setDriverManager(DriverManagerFactory.getManager(TypesOfBrowsers.valueOf(browser)));
         setDriver(getDriverManager().getDriver());
+        testFactory.set(new TestFactory(getDriver()));
         SettingUpTimeouts.timeOutSetup(getDriverManager().getDriver());
         softAssert.set(new SoftAssert());
         log.info(Thread.currentThread().getId() + ", " + getDriver());

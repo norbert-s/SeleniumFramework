@@ -4,22 +4,14 @@ import io.github.bonigarcia.wdm.WebDriverManager;
 import lombok.extern.slf4j.Slf4j;
 import org.openqa.selenium.WebDriver;
 import org.testng.asserts.SoftAssert;
+import pageObjectClasses.factory.ITestFactory;
+import pageObjectClasses.factory.TestFactory;
 import testSetup.deviceSetup.factory.DriverManager;
 @Slf4j
 public abstract class DriverBaseClassAbstract {
 
     private final ThreadLocal<DriverManager> driverManager = new ThreadLocal<>();
     private final ThreadLocal<WebDriver> driver = new ThreadLocal<>();
-
-    //private final ThreadLocal<WebDriverManager> wdm = new ThreadLocal<>();
-
-//    public WebDriverManager getWdm() {
-//        return this.wdm.get();
-//    }
-//
-//    public void setWdm(WebDriverManager wdm){
-//        this.wdm.set(wdm);
-//    }
     protected final ThreadLocal<SoftAssert> softAssert = new ThreadLocal<>();
 
     public DriverBaseClassAbstract() {
@@ -44,5 +36,14 @@ public abstract class DriverBaseClassAbstract {
 
     public SoftAssert getSoftAssert() {
         return this.softAssert.get();
+    }
+
+    protected final ThreadLocal<ITestFactory> testFactory = new ThreadLocal<>();
+
+    public ITestFactory getTestFactory() {
+        return testFactory.get();
+    }
+    public ITestFactory createTestFactory() {
+        return new TestFactory(getDriver());
     }
 }
