@@ -6,8 +6,7 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
-    env:
-      HUB_IP: ''
+
     steps:
       - uses: actions/checkout@v3
 
@@ -20,20 +19,23 @@ jobs:
           server-id: github
           settings-path: ${{ github.workspace }}
 
+      - name: Update package index
+        run: sudo apt-get update
+
+      - name: Install Docker dependencies
+        run: sudo apt-get install -y apt-transport-https ca-certificates curl software-properties-common
+
+      - name: Add Docker GPG key
+        run: curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
+
+      - name: Add Docker repository
+        run: sudo add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable"
+
+      - name: Update package index
+        run: sudo apt-get update
+
       - name: Install Docker
-        run: |
-          sudo apt-get update
-          sudo apt-get install -y docker.io
-
-      - name: Get Selenium Hub IP
-        id: hub-ip
-        run: |
-          HUB_IP=$(docker inspect -f '{{range.NetworkSettings.Networks}}{{.IPAddress}}{{end}}' selenium-hub)
-          echo "HUB_IP=$HUB_IP" >> $GITHUB_ENV
-
-      - name: Start Selenium Grid
-        run: |
-          docker-compose up -d
+        run: sudo apt-get install -y docker-ce
 
       - name: Cache Maven local repository
         uses: actions/cache@v3
@@ -52,13 +54,8 @@ jobs:
       - name: Test with Maven
         run: mvn test -Dsurefire.suiteXmlFiles=${{ vars.SUITE_XML_FILES }} -Dwaitfortime=${{ vars.WAITFOR_TIME }} -Dgrid-hub=${{ env.HUB_IP }}
 
-
       - name: Upload surefire report
         uses: actions/upload-artifact@v3
         with:
           name: surefire-report
           path: target/surefire-reports/emailable-report.html
-
-      - name: Stop Selenium Grid
-        run: |
-          docker-compose down
