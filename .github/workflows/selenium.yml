@@ -19,23 +19,13 @@ jobs:
           server-id: github
           settings-path: ${{ github.workspace }}
 
-      - name: Update package index
-        run: sudo apt-get update
-
-      - name: Install Docker dependencies
-        run: sudo apt-get install -y apt-transport-https ca-certificates curl software-properties-common
-
-      - name: Add Docker GPG key
-        run: curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
-
-      - name: Add Docker repository
-        run: sudo add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable"
-
-      - name: Update package index
-        run: sudo apt-get update
-
-      - name: Install Docker
-        run: sudo apt-get install -y docker-ce
+      - name: Install Docker using convenience script
+        run: |
+          curl -fsSL https://get.docker.com -o get-docker.sh
+          sudo sh get-docker.sh
+          sudo systemctl start docker
+          sudo systemctl enable docker
+          sudo docker --version
 
       - name: Cache Maven local repository
         uses: actions/cache@v3
@@ -52,7 +42,7 @@ jobs:
         run: echo "print out suite xml $SUITE_XML_FILES"
 
       - name: Test with Maven
-        run: mvn test -Dsurefire.suiteXmlFiles=${{ vars.SUITE_XML_FILES }} -Dwaitfortime=${{ vars.WAITFOR_TIME }} -Dgrid-hub=${{ env.HUB_IP }}
+        run: mvn test -Dsurefire.suiteXmlFiles=${{ vars.SUITE_XML_FILES }} -Dwaitfortime=${{ vars.WAITFOR_TIME }} -Denvironment=${{ env.HUB_IP }}
 
       - name: Upload surefire report
         uses: actions/upload-artifact@v3
