@@ -4,6 +4,7 @@ package testSetup.deviceSetup;
 import io.github.bonigarcia.wdm.WebDriverManager;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
+import org.openqa.selenium.remote.DesiredCapabilities;
 import testSetup.setters.GlobalSettingsGetterMethods;
 import testSetup.setters.SettingUpTimeouts;
 
@@ -12,7 +13,7 @@ public class ChromeDeviceSetup {
 
 
     public  static ChromeOptions settingUpDevices() throws Exception {
-        System.setProperty("webdriver.http.factory", "jdk-http-client");
+        //System.setProperty("webdriver.http.factory", "jdk-http-client");
         chromeOptions =new ChromeOptions();
 //            if (browser.toLowerCase().contains("chrome".toLowerCase(Locale.ROOT))) {
 //                if(GlobalSettingsGetterMethods.isIncognitoNeeded()){
@@ -32,23 +33,24 @@ public class ChromeDeviceSetup {
 //                chromeOptions.setHeadless(GlobalSettingsGetterMethods.getHeadless());
 //            }
         if(GlobalSettingsGetterMethods.getHeadless()){
-            chromeOptions.addArguments("--disable-gpu");
+//            chromeOptions.addArguments("--disable-gpu");
             chromeOptions.addArguments("--window-size=1920,1080");
-            chromeOptions.addArguments("--no-sandbox");
-            chromeOptions.addArguments("--disable-dev-shm-usage");
-            chromeOptions.addArguments("--disable-software-rasterizer");
+//            chromeOptions.addArguments("--no-sandbox");
+//            chromeOptions.addArguments("--disable-dev-shm-usage");
+//            chromeOptions.addArguments("--disable-software-rasterizer");
             chromeOptions.addArguments("--headless");
         }else{
-            chromeOptions.addArguments("start-maximized");
+            //chromeOptions.addArguments("start-maximized");
 
 
         }
-        chromeOptions.addArguments("disable-extensions");
-        if(GlobalSettingsGetterMethods.isIncognitoNeeded()){
-            chromeOptions.addArguments("--incognito");
-        }
-
-
+//        chromeOptions.addArguments("disable-extensions");
+//        if(GlobalSettingsGetterMethods.isIncognitoNeeded()){
+//            chromeOptions.addArguments("--incognito");
+//        }
+        //chromeOptions.setBrowserVersion("12.0.5615.138");
+        //chromeOptions.setPlatformName("chrome");
+//        chromeOptions.setCapability("version", "112");
         return chromeOptions;
     }
 }

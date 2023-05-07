@@ -3,10 +3,8 @@ package tests;
 import lombok.extern.slf4j.Slf4j;
 import org.testng.annotations.Listeners;
 import org.testng.annotations.Test;
-import pageObjectClasses.factory.ITestFactory;
-import pageObjectClasses.pageobjects.SpiceJetPageLocators;
 import pageObjectClasses.testclasses.ISpiceJetTest;
-import pageObjectClasses.testclasses.SpiceJetTest;
+import pageObjectClasses.testclasses.pageobjects.SpiceJetPageLocators;
 import testSetup.deviceSetup.base.DriverBaseClass;
 import testSetup.setters.GlobalSettingsGetterMethods;
 import testdata.DataProviderClass;
@@ -37,4 +35,5 @@ public class Parallel extends DriverBaseClass implements GlobalSettingsGetterMet
         log.info("expected number: "+spiceJetTest.getTextAfterPassengerSetupDone()+" current : "+testData.getExpectedPassengerText());
         log.info(adult+" "+children+" "+infants+" "+Thread.currentThread().getId());
     }
+
 }

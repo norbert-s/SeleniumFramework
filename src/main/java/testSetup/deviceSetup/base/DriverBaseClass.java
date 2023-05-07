@@ -46,7 +46,7 @@ public class DriverBaseClass extends DriverBaseClassAbstract {
         setDriverManager(DriverManagerFactory.getManager(TypesOfBrowsers.valueOf(browser)));
         setDriver(getDriverManager().getDriver());
         testFactory.set(new TestFactory(getDriver()));
-        SettingUpTimeouts.timeOutSetup(getDriverManager().getDriver());
+        //SettingUpTimeouts.timeOutSetup(getDriver());
         softAssert.set(new SoftAssert());
         log.info(Thread.currentThread().getId() + ", " + getDriver());
     }

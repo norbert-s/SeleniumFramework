@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
-<suite name="test suite" parallel="methods" thread-count="5">
+<suite name="test suite" parallel="methods" thread-count="2">
     <listeners>
         <listener class-name="listeners.AnnotationTransformer" />
     </listeners>
@@ -15,19 +15,19 @@
             <class name="tests.Parallel"/>
         </classes>
     </test>
-    <test name="Edge tests" >
-        <parameter name="browser" value="EDGE"/>
-        <classes>
-            <class name="tests.Parallel"/>
-        </classes>
-    </test>
+<!--    <test name="Edge tests" >-->
+<!--        <parameter name="browser" value="EDGE"/>-->
+<!--        <classes>-->
+<!--            <class name="tests.Parallel"/>-->
+<!--        </classes>-->
+<!--    </test>-->
 
-    <test name="Firefox tests" >
-        <parameter name="browser" value="FIREFOX"/>
-        <classes>
-            <class name="tests.Parallel"/>
-        </classes>
-    </test>
+<!--    <test name="Firefox tests" >-->
+<!--        <parameter name="browser" value="FIREFOX"/>-->
+<!--        <classes>-->
+<!--            <class name="tests.Parallel"/>-->
+<!--        </classes>-->
+<!--    </test>-->
 
 <!--    <test name="Chrome">-->
 

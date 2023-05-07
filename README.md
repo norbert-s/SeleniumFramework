@@ -6,7 +6,7 @@ Selenium framework
 
 - the architecture itself shows a kind of approach used in bigger projects
 
-  1. the webdriver instance is not exposed to the test classes (those which are are executed because testng recognise them for having @Test annotation)
+  1. the webdriver instance is exposed to the test classes (those which are are executed because testng recognise them for having @Test annotation)
   2. only certain methods are exposed to these classes (@Test)
   3. this kind of approach is used when a groups of test automation engineers are interacting with the page objects, and are implementing methods, etc
   4. and other test automation engineers use those methods to actually create the tests
