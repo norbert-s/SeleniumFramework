@@ -6,6 +6,13 @@ import org.apache.logging.log4j.core.config.Configurator;
 
 public interface GlobalSettingsGetterMethods {
 
+    static String getEnvironment(){
+        return System.getProperty("environment");
+    }
+    static String getGridHub(){
+        return System.getProperty("grid-hub");
+    }
+
     static boolean screenshotOnSuccess(){
         return Boolean.valueOf(System.getProperty("screenshot-on-success"));
     }
@@ -30,12 +37,12 @@ public interface GlobalSettingsGetterMethods {
     }
 
 
-    static String getEnvironment(){
-        return System.getProperty("practiceenvironment");
-    }
-    static String getEnvironment_static(){
-        return System.getProperty("practiceenvironment");
-    }
+//    static String getEnvironment(){
+//        return System.getProperty("practiceenvironment");
+//    }
+//    static String getEnvironment_static(){
+//        return System.getProperty("practiceenvironment");
+//    }
 
 
     static boolean getHeadless() {

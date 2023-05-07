@@ -5,7 +5,8 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
 import pageObjectClasses.abstracts.PageObjectGenericMethodsImpl;
-import pageObjectClasses.pageobjects.SpiceJetPageLocators;
+import pageObjectClasses.testclasses.pageobjects.SpiceJetPageLocators;
+
 
 import java.io.IOException;
 

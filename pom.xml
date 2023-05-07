@@ -15,18 +15,16 @@
         <webdrivermanager.version>5.3.2</webdrivermanager.version>
         <surefire.suiteXmlFiles>extracting_tests.xml</surefire.suiteXmlFiles>
         <waitfortime>40</waitfortime>
-        <practiceenvironment>local</practiceenvironment>
+        <environment>dev</environment>
         <retryfailed>1</retryfailed>
-        <sheetId>defaultSheetId</sheetId>
         <headless>true</headless>
         <debuglevel>INFO</debuglevel>
-        <branch_id>defaultBranchId</branch_id>
         <emailto>example@example.com</emailto>
         <isincognitoneeded>false</isincognitoneeded>
-        <surefire.suiteXmlFiles>extracting_tests.xml</surefire.suiteXmlFiles>
         <groups>smoke</groups>
         <extentreports-version>5.0.8</extentreports-version>
         <screenshot-on-success>false</screenshot-on-success>
+        <grid-hub>localhost</grid-hub>
     </properties>
     <dependencies>
 
@@ -222,16 +220,14 @@
                     <systemPropertyVariables>
                         <suiteXmlFile>extracting_tests.xml</suiteXmlFile>
                         <waitfortime>${waitfortime}</waitfortime>
-                        <myenvironment>${practiceenvironment}</myenvironment>
+                        <environment>${environment}</environment>
                         <retryFailedNumberOfTimes>${retryfailed}</retryFailedNumberOfTimes>
-                        <sheetToUse>${sheetId}</sheetToUse>
                         <headless>${headless}</headless>
                         <debuggingLevel>${debuglevel}</debuggingLevel>
-                        <branchid>${branch_id}</branchid>
-                        <reportemailto>${emailto}</reportemailto>
                         <isincognitoneeded>${isincognitoneeded}</isincognitoneeded>
                         <groups>${groups}</groups>
                         <screenshot-on-success>${screenshot-on-success}</screenshot-on-success>
+                        <grid-hub>${grid-hub}</grid-hub>
                     </systemPropertyVariables>
 
                 </configuration>
