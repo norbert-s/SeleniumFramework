@@ -5,13 +5,12 @@ import org.openqa.selenium.*;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
-import pageObjectClasses.testclasses.ISpiceJetTest;
 import testSetup.setters.GlobalSettingsGetterMethods;
 
 import java.io.IOException;
 
 @Slf4j
-public abstract class PageObjectGenericMethodsImpl extends PageObjectBaseMethods implements GlobalSettingsGetterMethods, ISpiceJetTest {
+public abstract class PageObjectGenericMethodsImpl extends PageObjectBaseMethods implements GlobalSettingsGetterMethods,IPageObjectGenericMethods {
 
     public PageObjectGenericMethodsImpl(WebDriver driver) throws IOException {
         super(driver);
@@ -92,7 +91,7 @@ public abstract class PageObjectGenericMethodsImpl extends PageObjectBaseMethods
      * this method should be used when the input field does not contain dropdowns or autocompletion
      * for instance when entering email address to an input field
      */
-    protected <T> T enterTextToSearchForm(By element, String text) {
+    public  <T> T enterTextToSearchForm(By element, String text) {
         try {
             clearText(element);
             waitForElementToBePresent(element);

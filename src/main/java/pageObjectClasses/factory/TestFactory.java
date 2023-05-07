@@ -1,8 +1,10 @@
 package pageObjectClasses.factory;
 
 import org.openqa.selenium.WebDriver;
-import pageObjectClasses.testclasses.ISpiceJetTest;
-import pageObjectClasses.testclasses.SpiceJetTest;
+import pageObjectClasses.testclasses.alza.AlzaTest;
+import pageObjectClasses.testclasses.alza.IAlzaTest;
+import pageObjectClasses.testclasses.spice.ISpiceJetTest;
+import pageObjectClasses.testclasses.spice.SpiceJetTest;
 
 import java.io.IOException;
 
@@ -19,5 +21,9 @@ public class TestFactory implements ITestFactory {
         return new SpiceJetTest(driver);
     }
 
+    @Override
+    public IAlzaTest createAlzaTest() throws IOException {
+        return new AlzaTest(driver);
+    }
 
 }
