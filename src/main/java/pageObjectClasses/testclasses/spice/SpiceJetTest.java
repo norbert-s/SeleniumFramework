@@ -1,6 +1,5 @@
-package pageObjectClasses.testclasses;
+package pageObjectClasses.testclasses.spice;
 
-import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
@@ -9,7 +8,7 @@ import pageObjectClasses.pageobjects.SpiceJetPageLocators;
 
 import java.io.IOException;
 
-public class SpiceJetTest extends PageObjectGenericMethodsImpl implements SpiceJetPageLocators {
+public class SpiceJetTest extends PageObjectGenericMethodsImpl implements SpiceJetPageLocators,ISpiceJetTest {
     public SpiceJetTest(WebDriver d) throws IOException {
         super(d);
     }

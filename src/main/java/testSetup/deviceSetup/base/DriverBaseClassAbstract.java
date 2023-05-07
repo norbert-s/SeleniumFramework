@@ -21,8 +21,7 @@ public abstract class DriverBaseClassAbstract {
     void setDriverManager(DriverManager driverManager){
         this.driverManager.set(driverManager);
     }
-
-    protected DriverManager getDriverManager(){
+    DriverManager getDriverManager(){
         return this.driverManager.get();
     }
 
@@ -30,7 +29,7 @@ public abstract class DriverBaseClassAbstract {
         this.driver.set(driver);
     }
 
-    protected WebDriver getDriver(){
+    WebDriver getDriver(){
         return this.driver.get();
     }
 

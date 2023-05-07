@@ -1,4 +1,4 @@
-package pageObjectClasses.testclasses;
+package pageObjectClasses.testclasses.spice;
 
 public interface ISpiceJetTest {
     ISpiceJetTest goToWebpage();

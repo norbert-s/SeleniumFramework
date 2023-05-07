@@ -3,10 +3,9 @@ package tests;
 import lombok.extern.slf4j.Slf4j;
 import org.testng.annotations.Listeners;
 import org.testng.annotations.Test;
-import pageObjectClasses.factory.ITestFactory;
-import pageObjectClasses.pageobjects.SpiceJetPageLocators;
-import pageObjectClasses.testclasses.ISpiceJetTest;
-import pageObjectClasses.testclasses.SpiceJetTest;
+import pageObjectClasses.testclasses.alza.AlzaTest;
+import pageObjectClasses.testclasses.alza.IAlzaTest;
+import pageObjectClasses.testclasses.spice.ISpiceJetTest;
 import testSetup.deviceSetup.base.DriverBaseClass;
 import testSetup.setters.GlobalSettingsGetterMethods;
 import testdata.DataProviderClass;
@@ -15,12 +14,11 @@ import testdata.PassengersAsData;
 
 @Slf4j
 @Listeners(DriverBaseClass.TestListener.class)
-public class Parallel extends DriverBaseClass implements GlobalSettingsGetterMethods, SpiceJetPageLocators {
+public class Parallel extends DriverBaseClass implements GlobalSettingsGetterMethods {
 
     @Test(groups = {"smoke"}, dataProvider = "spiceBasicTestData",dataProviderClass = DataProviderClass.class)
     public void testSpice(PassengersAsData testData) throws Exception {
         ISpiceJetTest spiceJetTest = getTestFactory().createSpiceJetTest();
-
         int adult = testData.getAdults();
         int children = testData.getChildren();
         int infants = testData.getInfants();
@@ -36,5 +34,13 @@ public class Parallel extends DriverBaseClass implements GlobalSettingsGetterMet
         getSoftAssert().assertTrue(testData.getExpectedPassengerText()== spiceJetTest.getTextAfterPassengerSetupDone());
         log.info("expected number: "+spiceJetTest.getTextAfterPassengerSetupDone()+" current : "+testData.getExpectedPassengerText());
         log.info(adult+" "+children+" "+infants+" "+Thread.currentThread().getId());
+    }
+
+    @Test(groups = {"smoke"})
+    public void alza() throws Exception {
+        IAlzaTest alzaTest = getTestFactory().createAlzaTest();
+        alzaTest.goToAlza();
+        alzaTest.waitForPageToLoadCompletely();
+
     }
 }
