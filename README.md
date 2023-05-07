@@ -14,14 +14,14 @@ A. The architecture itself shows approaches usually used in large projects
      In some projects a group of test automation engineers are interacting with the page objects,etc and are implementing methods, etc And other test automation engineers are working on creating tests -using the methods available.
 
   
-  2. The driver itself is not exposed to the most outer layer -where the actual tests are created - most of the methods usually used will have had an implementation and therefore no need to overwrite them
+2. The driver itself is not exposed to the most outer layer -where the actual tests are created - most of the methods usually used will have had an implementation and therefore no need to overwrite them
 
-  
-     This approach is achieved by layering responsibility of classes/interfaces and hiding some of the methods
-  
-     This can be reversed by taking away those layers 
+      This approach is achieved by layering responsibility of classes/interfaces and hiding some of the methods
+      
+      This can be reversed by taking away those layers 
+    
+   Depending on the expectations the tests can be created this way or the other
 
-      Depending on the expectations the tests can be created this way or the other
 
   3. In case of Alza tests 
      the generic pageObjectMethods - are filtered by using an interface which declares which methods should be avauilable on an instance on IAlzaTest
@@ -29,10 +29,14 @@ A. The architecture itself shows approaches usually used in large projects
      this way the methods declared on the IpageObjectgenericMethods are not needed to be reimplmeneted. An IAlzatest instance will 'see' those methods
      This way it is highly flexible and in line with SOLID principles
      Also its very easily extendable and maintenable
+
+
   4. In case of Alza tests the generic pageObjectMethods - are filtered by using an interface which declares which methods should be available on an instance on IAlzaTest the IAlzaTest interface extends the interface which declares which methods should be available from the generic methods this way the methods declared on the IpageObjectgenericMethods are not needed to be reimplmeneted. An IAlzatest instance will 'see' those methods This way it is highly flexible and in line with SOLID principles Also its very easily extendable and maintenable
 
 
   5. There is a factory which takes care of creating instances of the registered classes whenever a new class of tests are created, the new class/interface(obviously an instance on the class can be created as well) needs to be included in the ITestFactory interface and then a getter to be created in the TestFactory class and then in the actual tests an instance of the particular class can be created and all the methods 'exclusive' to that class of tests will be available to use
+
+
   6. Also in case of SpiceJetTests when declaring the methods the objects -'this' - is returned, - this way method chaining is possible.
 In the AlzaTests I did not use this approach. Again to show different flavours -that there are mutilple options how to approach a problem,. and that the question which one is the best can be answered looking at the particular problem. Sometimes method chaning is better, sometimes simply calling the methods on the instance, sometimes a mixture of the two.
 
