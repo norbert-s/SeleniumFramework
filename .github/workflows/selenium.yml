@@ -4,7 +4,6 @@ on:
   workflow_dispatch:
 env:
   HUB_IP: ''
-
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -29,6 +28,18 @@ jobs:
           sudo systemctl enable docker
           sudo docker --version
 
+      - name: Get Selenium Hub IP
+        run: |
+          HUB_IP=$(docker inspect -f '{{range.NetworkSettings.Networks}}{{.IPAddress}}{{end}}' $(docker ps -q --filter "ancestor=selenium/hub"))
+          echo "HUB_IP=$HUB_IP" >> $GITHUB_ENV
+
+      - name: Start Selenium Grid with Docker
+        run: |
+          sudo docker pull selenium/hub:latest
+          sudo docker pull selenium/node-chrome:latest
+          sudo docker run -d -p 4444:4444 --name selenium-hub selenium/hub:latest
+          sudo docker run -d --link selenium-hub:hub selenium/node-chrome:latest
+
       - name: Cache Maven local repository
         uses: actions/cache@v3
         with:
@@ -44,7 +55,7 @@ jobs:
         run: echo "print out suite xml $SUITE_XML_FILES"
 
       - name: Test with Maven
-        run: mvn test -Dsurefire.suiteXmlFiles=${{ vars.SUITE_XML_FILES }} -Dwaitfortime=${{ vars.WAITFOR_TIME }} -Dgrid-hub=${{ env.HUB_IP }}
+        run: mvn test -Dsurefire.suiteXmlFiles=${{ vars.SUITE_XML_FILES }} -Dwaitfortime=${{ vars.WAITFOR_TIME }} -Denvironment=${{ env.HUB_IP }}
 
       - name: Upload surefire report
         uses: actions/upload-artifact@v3
