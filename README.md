@@ -25,25 +25,44 @@ A. The architecture itself shows approaches usually used in large projects
 
   3. In case of Alza tests 
      the generic pageObjectMethods - are filtered by using an interface which declares which methods should be avauilable on an instance on IAlzaTest
-     the IalZaTest interface extends the interface which declares which methods should be available from the generic methods
+
+     the IAlzaTest interface extends the interface which declares which methods should be available from the generic methods
+
      this way the methods declared on the IpageObjectgenericMethods are not needed to be reimplmeneted. An IAlzatest instance will 'see' those methods
+
      This way it is highly flexible and in line with SOLID principles
+
      Also its very easily extendable and maintenable
 
 
-  4. In case of Alza tests the generic pageObjectMethods - are filtered by using an interface which declares which methods should be available on an instance on IAlzaTest the IAlzaTest interface extends the interface which declares which methods should be available from the generic methods this way the methods declared on the IpageObjectgenericMethods are not needed to be reimplmeneted. An IAlzatest instance will 'see' those methods This way it is highly flexible and in line with SOLID principles Also its very easily extendable and maintenable
+  4. In case of Alza tests the generic pageObjectMethods - are filtered by using an interface which declares which methods should be available on an instance on IAlzaTest 
+
+        the IAlzaTest interface extends the interface which declares which methods should be available from the generic methods 
+    
+        this way the methods declared on the IpageObjectgenericMethods are not needed to be reimplmeneted. 
+
+        An IAlzatest instance will 'see' those methods This way it is highly flexible and in line with SOLID principles Also its very easily extendable and maintenable
 
 
-  5. There is a factory which takes care of creating instances of the registered classes whenever a new class of tests are created, the new class/interface(obviously an instance on the class can be created as well) needs to be included in the ITestFactory interface and then a getter to be created in the TestFactory class and then in the actual tests an instance of the particular class can be created and all the methods 'exclusive' to that class of tests will be available to use
+  5. There is a factory which takes care of creating instances of the registered classes whenever a new class of tests are created, 
+        
+        the new class/interface(obviously an instance on the class can be created as well) needs to be included in the ITestFactory interface 
+        and then a getter to be created in the TestFactory class and then in the actual tests an instance of the particular class can be created 
+        and all the methods 'exclusive' to that class of tests will be available to use
+
 
 
   6. Also in case of SpiceJetTests when declaring the methods the objects -'this' - is returned, - this way method chaining is possible.
-In the AlzaTests I did not use this approach. Again to show different flavours -that there are mutilple options how to approach a problem,. and that the question which one is the best can be answered looking at the particular problem. Sometimes method chaning is better, sometimes simply calling the methods on the instance, sometimes a mixture of the two.
+
+        In the AlzaTests I did not use this approach. Again to show different flavours -that there are mutilple options how to approach a problem,. 
+        and that the question which one is the best can be answered looking at the particular problem. 
+        Sometimes method chaning is better, sometimes simply calling the methods on the instance, sometimes a mixture of the two.
 
   
    7. Another thing demonstrated is the fact that the page objects are exposed to the most upper layer.
 
-      This way in the upper layer the methods defined in more hidden layers can take page objects here and use them - instead of the page obejects being hidden Once again these different variations can be used interchangably and use them based on requirements
+      This way in the upper layer the methods defined in more hidden layers can take page objects here and use them - instead of the page obejects being hidden 
+        Once again these different variations can be used interchangably and use them based on requirements
 
 
 B. the webdriver instances -henceforth - the tests are running in Docker
