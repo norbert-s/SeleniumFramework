@@ -14,7 +14,9 @@ A. The architecture itself shows approaches usually used in large projects
      In some projects a group of test automation engineers are interacting with the page objects,etc and are implementing methods, etc And other test automation engineers are working on creating tests -using the methods available.
 
   
-2. The driver itself is not exposed to the most outer layer -where the actual tests are created - most of the methods usually used will have had an implementation and therefore no need to overwrite them
+2. The driver itself is not exposed to the most outer layer -where the actual tests are created - most of the methods usually used will have had an implementation -in a generic methods impleemntation class- and therefore the driver instance is not needed in the most outer layer, and the methods are not needed to be overwritten, only be used
+
+      If there is a need to have access to the driver then the getter of the driver can be made protected - instead of package private OR if the access is allowed to only specific tests then it can be achieved through an interface to limit what is available.
 
       This approach is achieved by layering responsibility of classes/interfaces and hiding some of the methods
       
@@ -33,15 +35,6 @@ A. The architecture itself shows approaches usually used in large projects
      This way it is highly flexible and in line with SOLID principles
 
      Also its very easily extendable and maintenable
-
-
-  4. In case of Alza tests the generic pageObjectMethods - are filtered by using an interface which declares which methods should be available on an instance on IAlzaTest 
-
-        the IAlzaTest interface extends the interface which declares which methods should be available from the generic methods 
-    
-        this way the methods declared on the IpageObjectgenericMethods are not needed to be reimplmeneted. 
-
-        An IAlzatest instance will 'see' those methods This way it is highly flexible and in line with SOLID principles Also its very easily extendable and maintenable
 
 
   5. There is a factory which takes care of creating instances of the registered classes whenever a new class of tests are created, 
