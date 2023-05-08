@@ -75,6 +75,16 @@ B. the webdriver instances -henceforth - the tests are running in Docker
 
    - and if the tests fail then push to main is not permitted
 
-7. These selenium tests in a pipeline make a lot more sense when their role is to test some applications, so later on i will be using this repository of UI test framework in a multi pipeline layout(triggering this repo to run specific tests from the repo of the app) to run tests for other applications (for instance bookstore,etc)
+C. These selenium tests in a pipeline make a lot more sense when their role is to test some applications, so later on i will be using this repository of UI test framework in a multi pipeline layout(triggering this repo to run specific tests    from the repo of the app) to run tests for other applications (for instance bookstore,etc)
 
-8. there are numerous values that can be supplied from the command line which are all set a default value for in pom.xml as properties
+D. There are numerous values that can be supplied from the command line which are all set a default value for in pom.xml as properties
+
+E. Reporting is done currently by surefire report. Which is a basic reporting tool- in terms of the layout, however it gives a quite usable report. 
+
+   - Besides that there is an ITestListener implementation by which the rerunning of thests is done as well, as the listener reports failing tests and those can be rerun.
+
+   - There is also an extent report implementation done. Currently it is being used only when testng is run programatically rather than using the main testng.xml. Later it will be improved to include logging events.
+
+F. There is also a loggin implementation developmernt in progress using also listeners to listen to events and decorate those events with logging. A basic version may be the usage of WebDriverEventListener which is an interface with basic      events logging. It can be further improveed by overwriting the base even listener and extend it then to decorate all the m,ethods that may be used. 
+
+   - Later the frameowork is going to contain an improved extent report with collected events logging, reported in the final report. Essentially it will contain all the steps included in a given test with all the necessary methds decorated with  logging with the extent reports's nicer interface.
