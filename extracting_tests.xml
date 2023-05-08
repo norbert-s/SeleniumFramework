@@ -28,19 +28,4 @@
             <class name="tests.Parallel"/>
         </classes>
     </test>
-
-<!--    <test name="Chrome">-->
-
-<!--        <groups>-->
-<!--            <define name="all">-->
-<!--                <include name="runner"/>-->
-<!--            </define>-->
-<!--        </groups>-->
-<!--        <classes>-->
-<!--            <class name="tests.TestRunner"/>-->
-
-<!--        </classes>-->
-
-<!--    </test>-->
-
 </suite> <!-- Suite -->
