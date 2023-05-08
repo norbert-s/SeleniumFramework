@@ -1,11 +1,8 @@
 package testSetup.deviceSetup;
 
 
-import io.github.bonigarcia.wdm.WebDriverManager;
-import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
-import testSetup.setters.GlobalSettingsGetterMethods;
-import testSetup.setters.SettingUpTimeouts;
+import testSetup.setters.EnvironmentVariables;
 
 public class ChromeDeviceSetup {
     private static ChromeOptions chromeOptions;
@@ -31,20 +28,16 @@ public class ChromeDeviceSetup {
 //                chromeOptions.setExperimentalOption("mobileEmulation", mobileEmulation);
 //                chromeOptions.setHeadless(GlobalSettingsGetterMethods.getHeadless());
 //            }
-        if(GlobalSettingsGetterMethods.getHeadless()){
-            chromeOptions.addArguments("--disable-gpu");
-            chromeOptions.addArguments("--window-size=1920,1080");
-            chromeOptions.addArguments("--no-sandbox");
-            chromeOptions.addArguments("--disable-dev-shm-usage");
-            chromeOptions.addArguments("--disable-software-rasterizer");
+        if(EnvironmentVariables.getHeadless()){
             chromeOptions.addArguments("--headless");
-        }else{
-            chromeOptions.addArguments("start-maximized");
-
-
         }
-        chromeOptions.addArguments("disable-extensions");
-        if(GlobalSettingsGetterMethods.isIncognitoNeeded()){
+//        chromeOptions.addArguments("--disable-gpu");
+        chromeOptions.addArguments("--window-size=1920,1080");
+//        chromeOptions.addArguments("--no-sandbox");
+//        chromeOptions.addArguments("--disable-dev-shm-usage");
+//        chromeOptions.addArguments("--disable-software-rasterizer");
+//        chromeOptions.addArguments("disable-extensions");
+        if(EnvironmentVariables.isIncognitoNeeded()){
             chromeOptions.addArguments("--incognito");
         }
 

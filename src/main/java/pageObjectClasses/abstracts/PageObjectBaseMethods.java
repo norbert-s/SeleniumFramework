@@ -8,14 +8,14 @@ import org.openqa.selenium.support.ui.ExpectedCondition;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.FluentWait;
 import org.openqa.selenium.support.ui.Wait;
-import testSetup.setters.GlobalSettingsGetterMethods;
+import testSetup.setters.EnvironmentVariables;
 
 import java.io.IOException;
 import java.time.Duration;
 
 import static org.testng.AssertJUnit.assertNotNull;
 
-public abstract class PageObjectBaseMethods extends PageObjectBasePage implements GlobalSettingsGetterMethods {
+public abstract class PageObjectBaseMethods extends PageObjectBasePage implements EnvironmentVariables {
 
     public PageObjectBaseMethods(WebDriver driver) throws IOException {
         super(driver);
@@ -25,7 +25,7 @@ public abstract class PageObjectBaseMethods extends PageObjectBasePage implement
         return new FluentWait<WebDriver>(driver)
                 .pollingEvery(Duration.ofMillis(100))
                 .ignoring(NoSuchElementException.class)
-                .withTimeout(Duration.ofSeconds(getwaitForTime()));
+                .withTimeout(Duration.ofSeconds(getWaitForTime()));
     }
 
     protected Wait<WebDriver> returnWait(long timeOut) {

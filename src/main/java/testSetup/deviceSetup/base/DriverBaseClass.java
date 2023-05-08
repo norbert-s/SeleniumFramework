@@ -16,8 +16,9 @@ import org.testng.asserts.SoftAssert;
 import pageObjectClasses.factory.TestFactory;
 import testSetup.constants.TypesOfBrowsers;
 import testSetup.deviceSetup.factory.DriverManagerFactory;
-import testSetup.setters.GlobalSettingsGetterMethods;
+import testSetup.setters.EnvironmentVariables;
 import testSetup.setters.SettingUpTimeouts;
+import testSetup.setters.WrapperSetupTestsAfterDriver;
 import testSetup.setters.WrapperSetupTestsBeforeDriver;
 import utilityClasses.date.DateTimeStampGetter;
 
@@ -43,7 +44,7 @@ public class DriverBaseClass extends DriverBaseClassAbstract {
         setDriverManager(DriverManagerFactory.getManager(TypesOfBrowsers.valueOf(browser)));
         setDriver(getDriverManager().getDriver());
         testFactory.set(new TestFactory(getDriver()));
-        SettingUpTimeouts.timeOutSetup(getDriverManager().getDriver());
+        WrapperSetupTestsAfterDriver.initializeAttributes(getDriver());
         softAssert.set(new SoftAssert());
         log.info(Thread.currentThread().getId() + ", " + getDriver());
     }
@@ -210,7 +211,7 @@ public class DriverBaseClass extends DriverBaseClassAbstract {
                 ITestContext context = result.getTestContext();
                 String suite = context.getSuite().getName();
                 String fileName = suite + "_" + result.getName() + "_" + DateTimeStampGetter.getDateTime() + "_test_has_passed";
-                if(GlobalSettingsGetterMethods.screenshotOnSuccess()){
+                if(EnvironmentVariables.getScreenshotOnSuccess()){
                     takeScreenshot(driverBaseClass.getDriver(), fileName);
                 }
                 log.info(suite + " " + result.getName() + " test has Passed ");

@@ -1,16 +1,14 @@
 package testSetup.deviceSetup;
 
 
-import io.github.bonigarcia.wdm.WebDriverManager;
-import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.edge.EdgeOptions;
-import testSetup.setters.GlobalSettingsGetterMethods;
+import testSetup.setters.EnvironmentVariables;
 
 public class EdgeDeviceSetup {
     public static EdgeOptions driverBuilder() throws Exception {
         EdgeOptions edgeOptions = new EdgeOptions();
 
-        if(GlobalSettingsGetterMethods.getHeadless()){
+        if(EnvironmentVariables.getHeadless()){
             edgeOptions.addArguments("--headless");
         }
 

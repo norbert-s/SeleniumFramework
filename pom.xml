@@ -14,15 +14,13 @@
         <extentreports-version>5.0.8</extentreports-version>
         <webdrivermanager.version>5.3.2</webdrivermanager.version>
         <surefire.suiteXmlFiles>extracting_tests.xml</surefire.suiteXmlFiles>
-        <waitfortime>20</waitfortime>
-        <practiceenvironment>local</practiceenvironment>
+        <waitfortime>45</waitfortime>
+        <environment>local</environment>
         <retryfailed>1</retryfailed>
-        <sheetId>defaultSheetId</sheetId>
         <headless>true</headless>
         <debuglevel>INFO</debuglevel>
-        <branch_id>defaultBranchId</branch_id>
         <emailto>example@example.com</emailto>
-        <isincognitoneeded>false</isincognitoneeded>
+        <incognitoneeded>false</incognitoneeded>
         <surefire.suiteXmlFiles>extracting_tests.xml</surefire.suiteXmlFiles>
         <groups>smoke</groups>
         <extentreports-version>5.0.8</extentreports-version>
@@ -222,18 +220,15 @@
                     <systemPropertyVariables>
                         <suiteXmlFile>extracting_tests.xml</suiteXmlFile>
                         <waitfortime>${waitfortime}</waitfortime>
-                        <myenvironment>${practiceenvironment}</myenvironment>
-                        <retryFailedNumberOfTimes>${retryfailed}</retryFailedNumberOfTimes>
-                        <sheetToUse>${sheetId}</sheetToUse>
+                        <environment>${environment}</environment>
+                        <retryFailed>${retryfailed}</retryFailed>
                         <headless>${headless}</headless>
                         <debuggingLevel>${debuglevel}</debuggingLevel>
-                        <branchid>${branch_id}</branchid>
                         <reportemailto>${emailto}</reportemailto>
-                        <isincognitoneeded>${isincognitoneeded}</isincognitoneeded>
+                        <incognitoneeded>${incognitoneeded}</incognitoneeded>
                         <groups>${groups}</groups>
                         <screenshot-on-success>${screenshot-on-success}</screenshot-on-success>
                     </systemPropertyVariables>
-
                 </configuration>
             </plugin>
             <plugin>

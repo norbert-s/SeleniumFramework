@@ -3,7 +3,7 @@ package listeners;
 import lombok.extern.slf4j.Slf4j;
 import org.testng.IRetryAnalyzer;
 import org.testng.ITestResult;
-import testSetup.setters.GlobalSettingsGetterMethods;
+import testSetup.setters.EnvironmentVariables;
 
 @Slf4j
 public class RetryFailedTests implements IRetryAnalyzer {
@@ -13,15 +13,15 @@ public class RetryFailedTests implements IRetryAnalyzer {
 
     @Override
     public synchronized boolean retry(ITestResult iTestResult) {
-        if(GlobalSettingsGetterMethods.setRetryNumberOfTimes()<0){
+        if(EnvironmentVariables.setRetryNumberOfTimes()<0){
             maxTry=0;
         }
-        if(GlobalSettingsGetterMethods.setRetryNumberOfTimes()>3){
-            log.warn("Max retry number is 3. Setting it to 3 even though it was "+GlobalSettingsGetterMethods.setRetryNumberOfTimes());
+        if(EnvironmentVariables.setRetryNumberOfTimes()>3){
+            log.warn("Max retry number is 3. Setting it to 3 even though it was "+ EnvironmentVariables.setRetryNumberOfTimes());
             maxTry=3;
         }
         else{
-            maxTry= GlobalSettingsGetterMethods.setRetryNumberOfTimes();
+            maxTry= EnvironmentVariables.setRetryNumberOfTimes();
         }
         if (!iTestResult.isSuccess()) {
             //Check if test not succeed
