@@ -5,12 +5,12 @@ import org.openqa.selenium.*;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
-import testSetup.setters.GlobalSettingsGetterMethods;
+import testSetup.setters.EnvironmentVariables;
 
 import java.io.IOException;
 
 @Slf4j
-public abstract class PageObjectGenericMethodsImpl extends PageObjectBaseMethods implements GlobalSettingsGetterMethods,IPageObjectGenericMethods {
+public abstract class PageObjectGenericMethodsImpl extends PageObjectBaseMethods implements EnvironmentVariables,IPageObjectGenericMethods {
 
     public PageObjectGenericMethodsImpl(WebDriver driver) throws IOException {
         super(driver);

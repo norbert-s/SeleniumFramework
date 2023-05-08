@@ -3,16 +3,13 @@ package testSetup.setters;
 import org.openqa.selenium.WebDriver;
 
 import java.time.Duration;
-/**
- * @see #timeOutSetup(WebDriver d)
- * default timeouts should be set here
- */
+
 public class SettingUpTimeouts {
     public static void timeOutSetup(WebDriver d){
         try{
-            d.manage().timeouts().implicitlyWait(Duration.ofSeconds(GlobalSettingsGetterMethods.getwaitForTime_static()));
-            d.manage().timeouts().pageLoadTimeout(Duration.ofSeconds(GlobalSettingsGetterMethods.getwaitForTime_static()));
-            d.manage().timeouts().scriptTimeout(Duration.ofSeconds(GlobalSettingsGetterMethods.getwaitForTime_static()));
+            d.manage().timeouts().implicitlyWait(Duration.ofSeconds(EnvironmentVariables.getWaitForTime_static()));
+            d.manage().timeouts().pageLoadTimeout(Duration.ofSeconds(EnvironmentVariables.getWaitForTime_static()));
+            d.manage().timeouts().scriptTimeout(Duration.ofSeconds(EnvironmentVariables.getWaitForTime_static()));
         }catch (Exception e){
             e.printStackTrace();
             throw (e);
