@@ -2,15 +2,52 @@
 
 
 First of all the test can be run locally as:
-mvn test 
+
+  - mvn test 
+
 In case there is docker installed then the tests are going to be run in a container
+
 Also a pipeline can be run by members of the project https://github.com/norbert-s/SeleniumFramework/actions
 
+with mvn test several command line parameters can be provided
 
+Those parameters all have a default value and are declared in the parameters section in pom.xml file
+
+
+With "mvn test" one can supply other parameters as follows:
+
+  - "surefire.suiteXmlFiles=", currently is running the tests listed in extracting_tests.xml, this file can be extended or other xmls can be created - following the rules of creating xml runners of testng (for examples see extracting_tests.xml)
+  - "-Dwaitfortime=" one can change the default timeout
+  - "-Denvironment=" the env can eb changed
+  - "-Dretryfailed=" can be changed which determines how many times a failed test will be rerun
+  - "-Dheadless=" is true by default but locally sometimes during development the browser is need to be exposed
+  - "-Ddebuglevel=" can take "INFO","ERROR","DEBUG","WARNING" arguments
+  - "-Dincognitoneeded=" can be true or false
+  - "-Dgroups=" can take the arguments declared besides @Test(groups ="theGroupTagYouDeclared"), currently only "smoke" is supplied in the tests
+  - "-Dgrid=" can take true or false - later a running version of the grid will be taken over to the main branch and then it can be decided at runtime if the tests needed to be run on a grid or by means of the default
+
+Parallel runs:
+  - test can be run in 3 different manners in parallel
+  
+    A. classes can be run in parallel. It means that if there are several classes listed in a single xml file, then those can be run in parallel
+    - for this the suite part of the xml file needs to be defined as follows : 
+    - "suite name="test suite" parallel="classes" thread-count="2""
+    
+    B. tests can be run in parallel
+    - "suite name="test suite" parallel="tests" thread-count="2""
+    
+    C. methods can be run in parallel
+    - "suite name="test suite" parallel="methods" thread-count="2""
+
+-----------------------------------
 
 About this demo project in general
 
-The general goal of the project is to highlight and show different flavours of approaches -and options for larger projects
+The general goal of the project is to highlight and show different flavours of architectural approaches -and options for larger projects
+
+The tests actually being run are rather simple in the sense that they do not run very complex UI tests, the focus is on the architecture
+
+the architecture shows several ways how to extend, use the classes, and how to implement tests - its called implementation details
 
 A. The architecture itself ( someof the approaces used can be applied also in other parts of a framework such as reporting, logging, utility classes handling csv,data,jsonxml files, etc)
 
