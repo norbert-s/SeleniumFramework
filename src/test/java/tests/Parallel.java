@@ -15,27 +15,29 @@ import testdata.PassengersAsData;
 @Listeners(DriverBaseClass.TestListener.class)
 public class Parallel extends DriverBaseClass implements EnvironmentVariables {
 
+
+
     @Test(groups = {"smoke"}, dataProvider = "spiceBasicTestData",dataProviderClass = DataProviderClass.class)
     public void testSpice(PassengersAsData testData) throws Exception {
         ISpiceJetTest spiceJetTest = getTestFactory().createSpiceJetTest();
 
-        spiceJetTest.goToWebpage().waitForPageToLoadCompletely();
+//        spiceJetTest.goToWebpage().waitForPageToLoadCompletely();
 
-//        int adult = testData.getAdults();
-//        int children = testData.getChildren();
-//        int infants = testData.getInfants();
-//        spiceJetTest.goToWebpage()
-//            .clickOnPassangers()
-//            .clickOnAdultsNumberOfTimes(adult)
-//            .clickOnChildrenNumberOfTimes(children)
-//            .clickOnInfantsNumberOfTimes(infants);
-//
-//        getSoftAssert().assertTrue(spiceJetTest.getNumberOfAdultsSelected()==(testData.getExpectedAdults()));
-//        getSoftAssert().assertTrue(spiceJetTest.getNumberOfChildrenSelected()==(testData.getChildren()));
-//        getSoftAssert().assertTrue(spiceJetTest.getNumberOfInfantsSelected()==(testData.getInfants()));
-//        getSoftAssert().assertTrue(testData.getExpectedPassengerText()== spiceJetTest.getTextAfterPassengerSetupDone());
-//        log.info("expected number: "+spiceJetTest.getTextAfterPassengerSetupDone()+" current : "+testData.getExpectedPassengerText());
-//        log.info(adult+" "+children+" "+infants+" "+Thread.currentThread().getId());
+        int adult = testData.getAdults();
+        int children = testData.getChildren();
+        int infants = testData.getInfants();
+        spiceJetTest.goToWebpage()
+            .clickOnPassangers()
+            .clickOnAdultsNumberOfTimes(adult)
+            .clickOnChildrenNumberOfTimes(children)
+            .clickOnInfantsNumberOfTimes(infants);
+
+        getSoftAssert().assertTrue(spiceJetTest.getNumberOfAdultsSelected()==(testData.getExpectedAdults()));
+        getSoftAssert().assertTrue(spiceJetTest.getNumberOfChildrenSelected()==(testData.getChildren()));
+        getSoftAssert().assertTrue(spiceJetTest.getNumberOfInfantsSelected()==(testData.getInfants()));
+        getSoftAssert().assertTrue(testData.getExpectedPassengerText()== spiceJetTest.getTextAfterPassengerSetupDone());
+        log.info("expected number: "+spiceJetTest.getTextAfterPassengerSetupDone()+" current : "+testData.getExpectedPassengerText());
+        log.info(adult+" "+children+" "+infants+" "+Thread.currentThread().getId());
     }
 
     @Test(groups = {"smoke"})
@@ -44,6 +46,5 @@ public class Parallel extends DriverBaseClass implements EnvironmentVariables {
         alzaTest.goToAlza();
         alzaTest.waitForPageToLoadCompletely();
         //alzaTest.findAllTarget();
-
     }
 }

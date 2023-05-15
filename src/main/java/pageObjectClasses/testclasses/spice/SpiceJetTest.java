@@ -4,11 +4,11 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
 import pageObjectClasses.abstracts.PageObjectGenericMethodsImpl;
-import pageObjectClasses.pageobjects.SpiceJetPageLocators;
+import pageObjectClasses.pageobjects.ISpiceJetPageLocators;
 
 import java.io.IOException;
 
-public class SpiceJetTest extends PageObjectGenericMethodsImpl implements SpiceJetPageLocators,ISpiceJetTest {
+public class SpiceJetTest extends PageObjectGenericMethodsImpl implements ISpiceJetPageLocators,ISpiceJetTest {
     public SpiceJetTest(WebDriver d) throws IOException {
         super(d);
     }

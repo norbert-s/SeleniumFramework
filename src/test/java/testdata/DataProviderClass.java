@@ -1,6 +1,7 @@
 package testdata;
 
 import org.testng.annotations.DataProvider;
+import testSetup.setters.Settings;
 import utilityClasses.mapkeys.Maps;
 
 import java.io.IOException;
@@ -17,6 +18,12 @@ public class DataProviderClass extends TestDataProvider{
     @DataProvider(name = "spiceBasicTestData2",parallel = true)
     public synchronized Object[][] spiceBasicTestData2() throws IOException {
         List<PassengersAsData> testDataList = (List<PassengersAsData>) loadTestData(Maps.basicSpiceTestPath2(),PassengersAsData.class);
+        return testDataProvider(testDataList);
+    }
+
+    @DataProvider(name = "mediaMarktTestData",parallel = true)
+    public synchronized Object[][] mediaMarktTestData() throws IOException {
+        List<MediaMarktAsData> testDataList = (List<MediaMarktAsData>) loadTestData(Settings.PATH_MEDIA_MARKT_CONFIG, MediaMarktAsData.class);
         return testDataProvider(testDataList);
     }
 }

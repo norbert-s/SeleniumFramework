@@ -137,8 +137,6 @@ public class ListenToEvents implements WebDriverEventListener {
 
     @Override
     public void afterGetText(WebElement element, WebDriver driver, String text) {
-        //what would i need to test here?
-
 
     }
 }

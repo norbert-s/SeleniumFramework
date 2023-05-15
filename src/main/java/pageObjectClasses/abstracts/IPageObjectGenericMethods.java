@@ -10,7 +10,7 @@ public interface IPageObjectGenericMethods {
 
     public void waitForElementToBePresent(By element,int time);
 
-    public void waitForVisiblityOfWebelement(WebElement element);
+    public void waitForVisibilityOfWebElement(WebElement element);
 
     public void waitForAndClick(By element);
 

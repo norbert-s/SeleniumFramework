@@ -14,4 +14,7 @@ public class Settings {
     public static final String DEBUG = "debug";
     public static final String ERROR = "error";
     public static final String WARN = "warn";
+
+    //pathes
+    public static final String PATH_MEDIA_MARKT_CONFIG = "src/test/java/mediamarkt.json";
 }

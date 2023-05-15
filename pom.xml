@@ -25,6 +25,7 @@
         <groups>smoke</groups>
         <extentreports-version>5.0.8</extentreports-version>
         <screenshot-on-success>false</screenshot-on-success>
+        <grid>false</grid>
     </properties>
     <dependencies>
 
@@ -228,6 +229,7 @@
                         <incognitoneeded>${incognitoneeded}</incognitoneeded>
                         <groups>${groups}</groups>
                         <screenshot-on-success>${screenshot-on-success}</screenshot-on-success>
+                        <grid>${grid}</grid>
                     </systemPropertyVariables>
                 </configuration>
             </plugin>

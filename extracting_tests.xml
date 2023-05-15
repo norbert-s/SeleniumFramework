@@ -9,23 +9,30 @@
 <!--            <class name="tests.TestRunner"/>-->
 <!--        </classes>-->
 <!--    </test>-->
+<!--    <test name="Chrome" >-->
+<!--        <parameter name="browser" value="CHROME"/>-->
+<!--        <classes>-->
+<!--            <class name="tests.Parallel"/>-->
+<!--        </classes>-->
+<!--    </test>-->
+<!--    <test name="Edge tests" >-->
+<!--        <parameter name="browser" value="EDGE"/>-->
+<!--        <classes>-->
+<!--            <class name="tests.Parallel"/>-->
+<!--        </classes>-->
+<!--    </test>-->
+
+<!--    <test name="Firefox tests" >-->
+<!--        <parameter name="browser" value="FIREFOX"/>-->
+<!--        <classes>-->
+<!--            <class name="tests.Parallel"/>-->
+<!--        </classes>-->
+<!--    </test>-->
     <test name="Chrome" >
         <parameter name="browser" value="CHROME"/>
         <classes>
-            <class name="tests.Parallel"/>
-        </classes>
-    </test>
-    <test name="Edge tests" >
-        <parameter name="browser" value="EDGE"/>
-        <classes>
-            <class name="tests.Parallel"/>
+            <class name="tests.MediaMarktTests"/>
         </classes>
     </test>
 
-    <test name="Firefox tests" >
-        <parameter name="browser" value="FIREFOX"/>
-        <classes>
-            <class name="tests.Parallel"/>
-        </classes>
-    </test>
 </suite> <!-- Suite -->

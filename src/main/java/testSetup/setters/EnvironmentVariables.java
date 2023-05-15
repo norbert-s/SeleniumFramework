@@ -21,7 +21,7 @@ public interface EnvironmentVariables {
     }
 
     default int getWaitForTime() {
-        Integer waitForTimeEnv = Integer.parseInt(System.getProperty(Settings.WAIT_FOR_TIME, String.valueOf(WAIT_FOR_TIME)));
+        Integer waitForTimeEnv = Integer.parseInt(System.getProperty(Settings.WAIT_FOR_TIME));
         if (waitForTimeEnv == null) return WAIT_FOR_TIME;
         else if (waitForTimeEnv >= 30 && waitForTimeEnv <= 120) {
             return waitForTimeEnv;

@@ -2,7 +2,7 @@ package pageObjectClasses.pageobjects;
 
 import org.openqa.selenium.By;
 
-public interface SpiceJetPageLocators {
+public interface ISpiceJetPageLocators {
     By passengers = By.xpath("//div[@data-testid='home-page-travellers']");
     By passengerAdult = By.xpath("//div[@data-testid='Adult-testID-plus-one-cta']");
 

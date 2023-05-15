@@ -13,17 +13,17 @@ import org.testng.ITestResult;
 import org.testng.TestListenerAdapter;
 import org.testng.annotations.*;
 import org.testng.asserts.SoftAssert;
-import pageObjectClasses.factory.TestFactory;
+import pageObjectClasses.test_factory.TestFactory;
 import testSetup.constants.TypesOfBrowsers;
 import testSetup.deviceSetup.factory.DriverManagerFactory;
 import testSetup.setters.EnvironmentVariables;
-import testSetup.setters.SettingUpTimeouts;
 import testSetup.setters.WrapperSetupTestsAfterDriver;
 import testSetup.setters.WrapperSetupTestsBeforeDriver;
 import utilityClasses.date.DateTimeStampGetter;
 
 import java.io.File;
 import java.io.IOException;
+import java.time.Duration;
 import java.util.Objects;
 
 import static testSetup.deviceSetup.base.ExtentTestManager.getTest;
@@ -44,9 +44,11 @@ public class DriverBaseClass extends DriverBaseClassAbstract {
         setDriverManager(DriverManagerFactory.getManager(TypesOfBrowsers.valueOf(browser)));
         setDriver(getDriverManager().getDriver());
         testFactory.set(new TestFactory(getDriver()));
-        WrapperSetupTestsAfterDriver.initializeAttributes(getDriver());
+        //WrapperSetupTestsAfterDriver.initializeAttributes(getDriver());
         softAssert.set(new SoftAssert());
         log.info(Thread.currentThread().getId() + ", " + getDriver());
+        getDriver().manage().timeouts().pageLoadTimeout(Duration.ofSeconds(30));
+        getDriver().manage().timeouts().scriptTimeout(Duration.ofSeconds(30));
     }
 
     @AfterMethod(alwaysRun = true)
@@ -205,7 +207,6 @@ public class DriverBaseClass extends DriverBaseClassAbstract {
         @Override
         public synchronized void onTestSuccess(ITestResult result) {
             Object testInstance = result.getInstance();
-
             if (testInstance instanceof DriverBaseClass) {
                 DriverBaseClass driverBaseClass = (DriverBaseClass) testInstance;
                 ITestContext context = result.getTestContext();

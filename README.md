@@ -88,3 +88,7 @@ E. Reporting is done currently by surefire report. Which is a basic reporting to
 F. There is also a loggin implementation developmernt in progress using also listeners to listen to events and decorate those events with logging. A basic version may be the usage of WebDriverEventListener which is an interface with basic      events logging. It can be further improveed by overwriting the base even listener and extend it then to decorate all the m,ethods that may be used. 
 
    - Later the frameowork is going to contain an improved extent report with collected events logging, reported in the final report. Essentially it will contain all the steps included in a given test with all the necessary methds decorated with  logging with the extent reports's nicer interface.
+
+------------------------
+The tests can be run as mvn test
+mvn test -Dheadless=false -Dwait-for-time=25
