@@ -1,9 +1,18 @@
 # Selenium Framework
 
 
+First of all the test can be run locally as:
+mvn test 
+In case there is docker installed then the tests are going to be run in a container
+Also a pipeline can be run by members of the project https://github.com/norbert-s/SeleniumFramework/actions
 
 
-A. The architecture itself shows approaches usually used in large projects
+
+About this demo project in general
+
+The general goal of the project is to highlight and show different flavours of approaches -and options for larger projects
+
+A. The architecture itself ( someof the approaces used can be applied also in other parts of a framework such as reporting, logging, utility classes handling csv,data,jsonxml files, etc)
 
   1. The methods of the test classes -for instance SpiceJetTests- are available through an interface -ISpiceJettest interface.
 
@@ -79,16 +88,18 @@ C. These selenium tests in a pipeline make a lot more sense when their role is t
 
 D. There are numerous values that can be supplied from the command line which are all set a default value for in pom.xml as properties
 
-E. Reporting is done currently by surefire report. Which is a basic reporting tool- in terms of the layout, however it gives a quite usable report. 
+E. In large projects for logging and report in java its usually best to develop a custom made "framework"-someclasses taking care of reporting and logging- to report to a database and to fullfill all the requirements
 
-   - Besides that there is an ITestListener implementation by which the rerunning of thests is done as well, as the listener reports failing tests and those can be rerun.
+   - In this demo the reporting is done currently by surefire report. Which is a basic reporting tool- in terms of the layout, however it gives a quite usable report. 
 
-   - There is also an extent report implementation done. Currently it is being used only when testng is run programatically rather than using the main testng.xml. Later it will be improved to include logging events.
+   - Besides that there is an ITestListener implementation by which the re-running of thests is done as well, as the listener reports failing tests and those can be rerun.
 
-F. There is also a loggin implementation developmernt in progress using also listeners to listen to events and decorate those events with logging. A basic version may be the usage of WebDriverEventListener which is an interface with basic      events logging. It can be further improveed by overwriting the base even listener and extend it then to decorate all the m,ethods that may be used. 
+   - There is also an extent report implementation done. Currently it is being used only when testng is run programatically rather than using the main testng.xml. Later it will be improved to include logging events. the control it gives is better than the surefire does, however it needs a whole lot more preparation.
+   - Allure report is also an option - in order to set it up it needs lots of decoration of methods - I rather had chosen the extent report and surefire to do the custom setup programatically - for this demo
 
-   - Later the frameowork is going to contain an improved extent report with collected events logging, reported in the final report. Essentially it will contain all the steps included in a given test with all the necessary methds decorated with  logging with the extent reports's nicer interface.
+F. There is also a loggin implementation developmernt in progress using also listeners to listen to events and decorate those events with logging. A basic version may be the usage of WebDriverEventListener which is an interface with basic events logging. It can be further improved by overwriting the base event listener and extend it then to decorate all the methods that may be used. 
 
-------------------------
-The tests can be run as mvn test
-mvn test -Dheadless=false -Dwait-for-time=25
+   - Later the frameowork is going to contain an improved extent report with collected events logging, reported in the final report - stored in a database. Essentially it will contain all the steps included in a given test with all the necessary methds decorated with  logging with the extent reports's nicer interface.
+
+
+
