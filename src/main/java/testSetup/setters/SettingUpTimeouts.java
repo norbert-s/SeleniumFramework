@@ -7,9 +7,9 @@ import java.time.Duration;
 public class SettingUpTimeouts {
     public static void timeOutSetup(WebDriver d){
         try{
-            d.manage().timeouts().implicitlyWait(Duration.ofSeconds(EnvironmentVariables.getWaitForTime_static()));
-            d.manage().timeouts().pageLoadTimeout(Duration.ofSeconds(EnvironmentVariables.getWaitForTime_static()));
-            d.manage().timeouts().scriptTimeout(Duration.ofSeconds(EnvironmentVariables.getWaitForTime_static()));
+            Duration timeOut = Duration.ofSeconds(Integer.valueOf(System.getProperty(Settings.WAIT_FOR_TIME)));
+            d.manage().timeouts().pageLoadTimeout(timeOut);
+            d.manage().timeouts().scriptTimeout(timeOut);
         }catch (Exception e){
             e.printStackTrace();
             throw (e);

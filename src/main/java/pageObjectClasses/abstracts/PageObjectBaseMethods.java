@@ -28,18 +28,18 @@ public abstract class PageObjectBaseMethods extends PageObjectBasePage implement
                 .withTimeout(Duration.ofSeconds(getWaitForTime()));
     }
 
-    protected Wait<WebDriver> returnWait(long timeOut) {
+    public Wait<WebDriver> returnWait(long timeOut) {
         return new FluentWait<WebDriver>(driver)
                 .pollingEvery(Duration.ofMillis(100))
                 .ignoring(NoSuchElementException.class)
-                .withTimeout(Duration.ofMillis(timeOut));
+                .withTimeout(Duration.ofSeconds(timeOut));
     }
 
     public WebElement convertByToWebElement(By locator){
         return driver.findElement(locator);
     }
 
-    protected void fluentWaitWithExpectedCondition(ExpectedCondition<WebElement> expectedCondition) {
+    public void fluentWaitWithExpectedCondition(ExpectedCondition<WebElement> expectedCondition) {
         assertNotNull(new Object() {
         }.getClass().getEnclosingMethod().getName() + " did not succeed " + expectedCondition, returnWait().until(expectedCondition));
     }

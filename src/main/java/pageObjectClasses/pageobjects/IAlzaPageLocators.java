@@ -3,7 +3,7 @@ package pageObjectClasses.pageobjects;
 import org.openqa.selenium.By;
 import utilityClasses.mapkeys.Maps;
 
-public interface AlzaPageLocators {
+public interface IAlzaPageLocators {
     By cookiePopupAlza = By.xpath("//*[contains(@class,\"cookies-info__buttons\")]//*[contains(text(),\"I understand\")]");
 
     By searchFieldAlza = By.xpath("//*[@id=\"edtSearch\"]");

@@ -6,7 +6,7 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import pageObjectClasses.abstracts.IPageObjectGenericMethods;
 import pageObjectClasses.abstracts.PageObjectGenericMethodsImpl;
-import pageObjectClasses.pageobjects.AlzaPageLocators;
+import pageObjectClasses.pageobjects.IAlzaPageLocators;
 import pageObjectClasses.pojo.DevicePojo;
 
 import java.io.IOException;
@@ -14,7 +14,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
-public class AlzaTest extends PageObjectGenericMethodsImpl implements AlzaPageLocators,IAlzaTest, IPageObjectGenericMethods {
+public class AlzaTest extends PageObjectGenericMethodsImpl implements IAlzaPageLocators,IAlzaTest, IPageObjectGenericMethods {
     private List<DevicePojo> allPojos = new ArrayList<>();
     public List<DevicePojo>getPojos(){
         return allPojos;

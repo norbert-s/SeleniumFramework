@@ -26,4 +26,6 @@ public class Maps {
     public static final String basicSpiceTestPath2() {
         return returnConfig("basic.spice.test.json.path2");
     }
+
+
 }

@@ -11,7 +11,6 @@ import lombok.ToString;
 @ToString
 @NoArgsConstructor
 public class PassengersAsData {
-
     private int adults;
     private int children;
     private int infants;
@@ -19,5 +18,4 @@ public class PassengersAsData {
     private int expectedChildren;
     private int expectedInfants;
     private String expectedPassengerText;
-
 }

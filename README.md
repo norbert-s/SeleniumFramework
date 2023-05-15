@@ -1,6 +1,13 @@
 # Selenium Framework
 
 
+First of all the test can be run locally as:
+mvn test 
+In case there is docker installed then the tests are going to be run in a container
+Also a pipeline can be run by members of the project https://github.com/norbert-s/SeleniumFramework/actions
+
+
+
 About this demo project in general
 
 The general goal of the project is to highlight and show different flavours of approaches -and options for larger projects
@@ -93,5 +100,6 @@ E. In large projects for logging and report in java its usually best to develop 
 F. There is also a loggin implementation developmernt in progress using also listeners to listen to events and decorate those events with logging. A basic version may be the usage of WebDriverEventListener which is an interface with basic events logging. It can be further improved by overwriting the base event listener and extend it then to decorate all the methods that may be used. 
 
    - Later the frameowork is going to contain an improved extent report with collected events logging, reported in the final report - stored in a database. Essentially it will contain all the steps included in a given test with all the necessary methds decorated with  logging with the extent reports's nicer interface.
+
 
 
