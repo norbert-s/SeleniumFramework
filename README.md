@@ -49,8 +49,6 @@ The tests actually being run are rather simple in the sense that they do not run
 
 the architecture shows several ways how to extend, use the classes, and how to implement tests.
 
-if you happen to find a locator that you do not like that feel free to optimize it in your tests - if it was hard to determine the goal of this demo is not to optimize locators for sites that most likely will change their locators frequently
-
 A. The architecture itself ( someof the approaces used can be applied also in other parts of a framework such as reporting, logging, utility classes handling csv,data,jsonxml files, etc)
 
   1. The methods of the test classes -for instance SpiceJetTests- are available through an interface -ISpiceJettest interface.
