@@ -15,7 +15,6 @@ public class MediaMarktAsData {
     private String url;
     private String device;
     private String productNameToLookFor;
-    private String url;
-    private String device;
+
 }
 
