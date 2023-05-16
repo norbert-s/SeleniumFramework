@@ -1,13 +1,10 @@
 package tests;
 
-import devices.Phone;
-import org.openqa.selenium.By;
+import devices.Product;
+import devices.ProductDetails;
 import org.openqa.selenium.JavascriptExecutor;
-import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.FluentWait;
-import org.openqa.selenium.support.ui.Wait;
 import org.testng.annotations.Test;
 import pageObjectClasses.pageobjects.IMediaMarktMainPageLocators;
 import testSetup.deviceSetup.base.DriverBaseClass;
@@ -16,8 +13,11 @@ import testdata.MediaMarktAsData;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
-import java.util.function.Function;
+import java.util.Map;
+import java.util.concurrent.atomic.AtomicInteger;
+import java.util.stream.IntStream;
 
 public class MediaMarktTests extends DriverBaseClass  {
 
@@ -36,8 +36,9 @@ public class MediaMarktTests extends DriverBaseClass  {
         mediaMarktMainPage.fluentWaitWithExpectedCondition(ExpectedConditions.elementToBeClickable(IMediaMarktMainPageLocators.getSearchForm()));
         mediaMarktMainPage.enterTextToSearchForm(IMediaMarktMainPageLocators.getSearchForm(),mediaMarktAsData.getDevice());
 
-        List<Phone> products = new ArrayList<>();
+        List<Product> products = new ArrayList<>();
         List<WebElement> allProductsNames = getDriver().findElements(IMediaMarktMainPageLocators.getProductThatContainsText(mediaMarktAsData.getProductNameToLookFor()));
+
         System.out.println(allProductsNames.size());
         System.out.println(allProductsNames.get(0).getText());
 
@@ -51,28 +52,40 @@ public class MediaMarktTests extends DriverBaseClass  {
 //                return elements.size() > 0 ? elements : null;
 //            }
 //        });
-        //mediaMarktMainPage.fluentWaitForAllElementsPresence();
+
 
         List<WebElement> allObjectsInDOM = mediaMarktMainPage.fluentWaitForJsExecutorWithQuerySelectorAll("return document.querySelectorAll(\"div[class='product-wrapper']\");");
 
-        allObjectsInDOM.forEach(i->{
-            JavascriptExecutor jsExecutor = (JavascriptExecutor) getDriver();
-            String value = (String) jsExecutor.executeScript("return arguments[0].children[2].innerText;", i);
+        IntStream.range(0,allProductsNames.size()).forEach(i-> {
+            Product product = new Product();
+            product.setProductName(allProductsNames.get(i).getText());
+            ProductDetails productDetails = new ProductDetails();
 
-            System.out.println(value);
+            //listOfProductDetails.forEach(System.out::println);
+            JavascriptExecutor jsExecutor = (JavascriptExecutor) getDriver();
+            long length = (long)jsExecutor.executeScript("return arguments[0].lastChild.previousSibling.children[4].children.length;", allObjectsInDOM.get(i));
+            System.out.println("lenght : "+length);
+
+//            IntStream.range(0, (int) length).forEach(j->{
+//                String value = (String) jsExecutor.executeScript("return arguments[0].lastChild.previousSibling.children[4].children["+j+"].innerText;", allObjectsInDOM.get(i));
+//
+//                System.out.printf(value+" ");
+//            });
+            Map<String,String> map = new HashMap<>();
+            IntStream.iterate(0, j -> j < length, j -> j + 2).forEach(j -> {
+                String value = (String) jsExecutor.executeScript("return arguments[0].lastChild.previousSibling.children[4].children[" + j + "].innerText;", allObjectsInDOM.get(i));
+                int temp = j;
+                String value2 = (String) jsExecutor.executeScript("return arguments[0].lastChild.previousSibling.children[4].children[" + (temp+1) + "].innerText;", allObjectsInDOM.get(i));
+                map.put(value,value2);
+
+            });
+            map.forEach((k,v)-> System.out.println(k+" "+v));
+            System.out.println();
+            product.setProductDetails(map);
+            products.add(product);
         });
 
-
-        //List<WebElement> allScripts = getDriver().findElements(IMediaMarktMainPageLocators.getScriptPart(mediaMarktAsData.getProductNameToLookFor()));
-//        System.out.println(allScripts.get(0).getText());
-        //System.out.println(allObjectsInDOM.get(0));
         System.out.println("--------------------------------");
-//        String str = elements.get(0).getText();
-//        List<String> strList = List.of(str.split(","));
-//        System.out.println(strList);
-//        WebElement element = elements.get(0).findElement(By.xpath("//div[@class=\"content\"]//h2"));
-//        System.out.println("apple iphone: "+element.getText());
-
     }
 
 
