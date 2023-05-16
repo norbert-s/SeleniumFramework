@@ -10,6 +10,8 @@ import pageObjectClasses.pageobjects.IMediaMarktMainPageLocators;
 import testSetup.deviceSetup.base.DriverBaseClass;
 import testdata.DataProviderClass;
 import testdata.MediaMarktAsData;
+import utilityClasses.json.json_util.Generic;
+import utilityClasses.json.json_util.JsonUtil;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -26,8 +28,9 @@ public class MediaMarktTests extends DriverBaseClass  {
     //PageObjectGenericmethodsImpl
 
 
+
     @Test(groups = "smoke",dataProvider = "mediaMarktTestData",dataProviderClass = DataProviderClass.class)
-    public void basicTest(MediaMarktAsData mediaMarktAsData) throws IOException, InterruptedException {
+    public void mediaMarktAllProductsCollection(MediaMarktAsData mediaMarktAsData) throws IOException, InterruptedException {
         pageObjectClasses.testclasses.mediamarkt.MediaMarktMainPage mediaMarktMainPage =  getTestFactory().createMediaMarktMainPage();
         mediaMarktMainPage.goToPage(mediaMarktAsData.getUrl());
         mediaMarktMainPage.acceptCookie();
@@ -39,38 +42,15 @@ public class MediaMarktTests extends DriverBaseClass  {
         List<Product> products = new ArrayList<>();
         List<WebElement> allProductsNames = getDriver().findElements(IMediaMarktMainPageLocators.getProductThatContainsText(mediaMarktAsData.getProductNameToLookFor()));
 
-        System.out.println(allProductsNames.size());
-        System.out.println(allProductsNames.get(0).getText());
-
-        List<WebElement> allProductSections = getDriver().findElements(IMediaMarktMainPageLocators.getProductDetails(mediaMarktAsData.getProductNameToLookFor()));
-        System.out.println(allProductSections.get(0).getText());
-        //WebElement element = getDriver().findElement(IMediaMarktMainPageLocators.getProductDetails(mediaMarktAsData.getProductNameToLookFor()));
-        //List<String> productSectionParts = allProductSections.get(0).getText().split("")
-//        List<WebElement> allProductSections = mediaMarktMainPage.returnWait().until(new Function<WebDriver, List<WebElement>>() {
-//            public List<WebElement> apply(WebDriver driver) {
-//                List<WebElement> elements = getDriver().findElements(IMediaMarktMainPageLocators.getProductDetails(mediaMarktAsData.getProductNameToLookFor()));
-//                return elements.size() > 0 ? elements : null;
-//            }
-//        });
-
-
         List<WebElement> allObjectsInDOM = mediaMarktMainPage.fluentWaitForJsExecutorWithQuerySelectorAll("return document.querySelectorAll(\"div[class='product-wrapper']\");");
 
         IntStream.range(0,allProductsNames.size()).forEach(i-> {
             Product product = new Product();
             product.setProductName(allProductsNames.get(i).getText());
-            ProductDetails productDetails = new ProductDetails();
 
-            //listOfProductDetails.forEach(System.out::println);
             JavascriptExecutor jsExecutor = (JavascriptExecutor) getDriver();
             long length = (long)jsExecutor.executeScript("return arguments[0].lastChild.previousSibling.children[4].children.length;", allObjectsInDOM.get(i));
             System.out.println("lenght : "+length);
-
-//            IntStream.range(0, (int) length).forEach(j->{
-//                String value = (String) jsExecutor.executeScript("return arguments[0].lastChild.previousSibling.children[4].children["+j+"].innerText;", allObjectsInDOM.get(i));
-//
-//                System.out.printf(value+" ");
-//            });
             Map<String,String> map = new HashMap<>();
             IntStream.iterate(0, j -> j < length, j -> j + 2).forEach(j -> {
                 String value = (String) jsExecutor.executeScript("return arguments[0].lastChild.previousSibling.children[4].children[" + j + "].innerText;", allObjectsInDOM.get(i));
@@ -84,20 +64,7 @@ public class MediaMarktTests extends DriverBaseClass  {
             product.setProductDetails(map);
             products.add(product);
         });
-
-        System.out.println("--------------------------------");
+        String str = JsonUtil.convertObjectToString(products);
+        Generic.outputStreamWriter("src/test/java/outputstream_"+mediaMarktAsData.getTestID()+".json",str);
     }
-
-
-
-//    @Test(groups = "smoke",dataProvider = "mediaMarktTestData",dataProviderClass = DataProviderClass.class)
-//    public void basicTest2(MediaMarktAsData mediaMarktAsData) throws IOException, InterruptedException {
-//        MediaMarktMainPage mediaMarktMainPage =  getTestFactory().createMediaMarktMainPage();
-//        mediaMarktMainPage.goToPageFirstTime(mediaMarktAsData.getUrl());
-//
-//        mediaMarktMainPage.fluentWaitWithVisibilityOfElementLocated(IMediaMarktMainPage.searchForm);
-//        mediaMarktMainPage.fluentWaitWithExpectedCondition(ExpectedConditions.elementToBeClickable(IMediaMarktMainPage.searchForm));
-//        mediaMarktMainPage.enterTextToSearchForm(searchForm,mediaMarktAsData.getDevice());
-//
-//    }
 }
