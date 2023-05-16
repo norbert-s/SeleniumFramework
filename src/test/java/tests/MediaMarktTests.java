@@ -2,6 +2,7 @@ package tests;
 
 import devices.Phone;
 import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
@@ -53,9 +54,18 @@ public class MediaMarktTests extends DriverBaseClass  {
         //mediaMarktMainPage.fluentWaitForAllElementsPresence();
 
         List<WebElement> allObjectsInDOM = mediaMarktMainPage.fluentWaitForJsExecutorWithQuerySelectorAll("return document.querySelectorAll(\"div[class='product-wrapper']\");");
+
+        allObjectsInDOM.forEach(i->{
+            JavascriptExecutor jsExecutor = (JavascriptExecutor) getDriver();
+            String value = (String) jsExecutor.executeScript("return arguments[0].children[2].innerText;", i);
+
+            System.out.println(value);
+        });
+
+
         //List<WebElement> allScripts = getDriver().findElements(IMediaMarktMainPageLocators.getScriptPart(mediaMarktAsData.getProductNameToLookFor()));
 //        System.out.println(allScripts.get(0).getText());
-        System.out.println(allObjectsInDOM.get(0));
+        //System.out.println(allObjectsInDOM.get(0));
         System.out.println("--------------------------------");
 //        String str = elements.get(0).getText();
 //        List<String> strList = List.of(str.split(","));
