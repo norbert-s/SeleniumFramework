@@ -28,7 +28,7 @@ public class MediaMarktTests extends DriverBaseClass  {
     //instantiating the class instead of an interface declaring the methods to be implemented the mediamarkpage has access to all of the methods in
     //PageObjectGenericmethodsImpl
 
-
+    //
 
 
     @Test(groups = "smoke",dataProvider = "mediaMarktTestData",dataProviderClass = DataProviderClass.class)
