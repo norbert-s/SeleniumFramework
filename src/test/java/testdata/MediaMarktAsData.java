@@ -12,15 +12,5 @@ import lombok.ToString;
 public class MediaMarktAsData {
     private String url;
     private String device;
-}
-class ProductDetails{
-
-    String processorText;
-    String processor;
-
-    String capacityText;
-
-    String capacity;
-
-
+    private String productNameToLookFor;
 }

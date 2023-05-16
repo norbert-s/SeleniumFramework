@@ -21,7 +21,7 @@ public abstract class PageObjectBaseMethods extends PageObjectBasePage implement
         super(driver);
     }
 
-    protected Wait<WebDriver> returnWait() {
+    public Wait<WebDriver> returnWait() {
         return new FluentWait<WebDriver>(driver)
                 .pollingEvery(Duration.ofMillis(100))
                 .ignoring(NoSuchElementException.class)
@@ -55,4 +55,5 @@ public abstract class PageObjectBaseMethods extends PageObjectBasePage implement
         }
         element.click();
     }
+
 }
