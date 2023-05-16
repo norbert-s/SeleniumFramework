@@ -14,7 +14,7 @@ import java.util.Arrays;
 public class TestRunner {
 
     @Test(groups = {"runner"})
-    public void bla() {
+    public void runner() {
         TestNG testng = new TestNG();
         XmlSuite suite = new XmlSuite();
         suite.setName("test suite");

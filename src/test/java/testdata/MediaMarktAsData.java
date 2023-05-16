@@ -10,17 +10,12 @@ import lombok.ToString;
 @ToString
 @NoArgsConstructor
 public class MediaMarktAsData {
+
+    private String testID;
+    private String url;
+    private String device;
+    private String productNameToLookFor;
     private String url;
     private String device;
 }
-class ProductDetails{
 
-    String processorText;
-    String processor;
-
-    String capacityText;
-
-    String capacity;
-
-
-}

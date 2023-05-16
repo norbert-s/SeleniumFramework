@@ -1,6 +1,14 @@
 [
   {
+    "testID": "01",
     "url": "http://mediamarkt.hu",
-    "device": "Iphone 14 pro max"
+    "device": "Iphone 14",
+    "productNameToLookFor": "IPHONE 14 128 GB"
+  },
+  {
+    "testID": "02",
+    "url": "http://mediamarkt.hu",
+    "device": "samsung galaxy s23",
+    "productNameToLookFor": "Galaxy S23 256 GB"
   }
 ]

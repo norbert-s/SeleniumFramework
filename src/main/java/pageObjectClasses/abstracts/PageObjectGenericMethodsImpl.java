@@ -8,6 +8,8 @@ import org.openqa.selenium.support.ui.Select;
 import testSetup.setters.EnvironmentVariables;
 
 import java.io.IOException;
+import java.util.List;
+import java.util.function.Function;
 
 @Slf4j
 public abstract class PageObjectGenericMethodsImpl extends PageObjectBaseMethods implements EnvironmentVariables,IPageObjectGenericMethods {
@@ -120,6 +122,22 @@ public abstract class PageObjectGenericMethodsImpl extends PageObjectBaseMethods
 
     public String fluentWaitWithExpectedConditionToReturnText(By locator){
         return returnWait().until(ExpectedConditions.presenceOfElementLocated(locator)).getText();
+    }
+
+    public void fluentWaitForAllElementsPresence(By locator){
+        returnWait().until(ExpectedConditions.presenceOfAllElementsLocatedBy(locator));
+    }
+
+    public List<WebElement> fluentWaitForJsExecutorWithQuerySelectorAll(String script){
+        JavascriptExecutor jsExecutor = (JavascriptExecutor) driver;
+        List<WebElement> allProductSections = returnWait().until(new Function<WebDriver, List<WebElement>>() {
+            public List<WebElement> apply(WebDriver driver) {
+                List<WebElement> elements = (List<WebElement>) jsExecutor.executeScript(
+                        script);
+                return elements.size() > 0 ? elements : null;
+            }
+        });
+        return allProductSections;
     }
 
 

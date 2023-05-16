@@ -38,13 +38,8 @@ public class Parallel extends DriverBaseClass implements EnvironmentVariables {
         getSoftAssert().assertTrue(testData.getExpectedPassengerText()== spiceJetTest.getTextAfterPassengerSetupDone());
         log.info("expected number: "+spiceJetTest.getTextAfterPassengerSetupDone()+" current : "+testData.getExpectedPassengerText());
         log.info(adult+" "+children+" "+infants+" "+Thread.currentThread().getId());
+
+
     }
 
-    @Test(groups = {"smoke"})
-    public void alza() throws Exception {
-        IAlzaTest alzaTest = getTestFactory().createAlzaTest();
-        alzaTest.goToAlza();
-        alzaTest.waitForPageToLoadCompletely();
-        //alzaTest.findAllTarget();
-    }
 }
