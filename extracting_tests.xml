@@ -32,7 +32,10 @@
         <parameter name="browser" value="CHROME"/>
         <classes>
             <class name="tests.MediaMarktTests"/>
+
 <!--            <class name="tests.Parallel"/>-->
+
+
         </classes>
     </test>
 

@@ -1,5 +1,6 @@
 package tests;
 
+
 import devices.Product;
 import devices.ProductDetails;
 import org.openqa.selenium.JavascriptExecutor;
@@ -26,6 +27,7 @@ public class MediaMarktTests extends DriverBaseClass  {
     //another approach how to instantiate the tests
     //instantiating the class instead of an interface declaring the methods to be implemented the mediamarkpage has access to all of the methods in
     //PageObjectGenericmethodsImpl
+
 
 
 
@@ -66,5 +68,5 @@ public class MediaMarktTests extends DriverBaseClass  {
         });
         String str = JsonUtil.convertObjectToString(products);
         Generic.outputStreamWriter("src/test/java/outputstream_"+mediaMarktAsData.getTestID()+".json",str);
-    }
+
 }
