@@ -5,11 +5,11 @@ import org.openqa.selenium.By;
 public interface IMediaMarktMainPageLocators {
 
     static By getSearchForm(){
-        return By.xpath("//input[@data-identifier='search-input-searchterm']");
+        return By.cssSelector("input[data-identifier='search-input-searchterm']");
     }
 
     static By getCookieAccept(){
-        return By.xpath("//*[contains(@class,'cookie-info-accept-button')]");
+        return By.cssSelector(".cookie-info-accept-button");
     }
 
     public static By getProductThatContainsText(String productName){
@@ -29,6 +29,6 @@ public interface IMediaMarktMainPageLocators {
     }
 
     static By getAllProductsFromPage(){
-        return By.xpath("//div[@class='product-wrapper']");
+        return By.cssSelector(".product-wrapper");
     }
 }

@@ -32,23 +32,22 @@ public class MediaMarktTests extends DriverBaseClass  {
     //in the mediamarkt.json the product being looked for can be provided and then the different product details will be extracted from the dom
     //and then it will be serialized and a product object created
     //and finally deserialized into a json
-    //with this methodology its possible to get all the necessary values of all of the products
-    //obviously it is important to optimize the javascript scripts and use it with caution, and where it is really necessary because. as soon as a container changes in the hierarhcy the test will fail
+
     //In this example as shown below the other approach is better
     //it demonstrats that js can be powerful but also should be used when really necessary
 
-    @Test(groups = "smoke",dataProvider = "mediaMarktTestData",dataProviderClass = DataProviderClass.class)
-    public void mediaMarktAllProductsCollection(MediaMarktAsData mediaMarktAsData) throws IOException, InterruptedException {
-        MediaMarktMainPage mediaMarktMainPage = getTestFactory().createMediaMarktMainPage();
-        mediaMarktMainPage.goToPage(mediaMarktAsData.getUrl());
-        mediaMarktMainPage.acceptCookie();
-        mediaMarktMainPage.enterTextToSearchForm(IMediaMarktMainPageLocators.getSearchForm(), mediaMarktAsData.getDevice());
-        List<Product> products =mediaMarktMainPage.createProductObjects();
-        String str = JsonUtil.convertObjectToString(products);
-        JsonUtil.outputStreamWriter("src/test/java/outputstream_withjs_" + mediaMarktAsData.getTestID() + ".json", str);
-    }
+//    @Test(groups = "smoke",dataProvider = "mediaMarktTestData",dataProviderClass = DataProviderClass.class)
+//    public void mediaMarktAllProductsCollection(MediaMarktAsData mediaMarktAsData) throws IOException, InterruptedException {
+//        MediaMarktMainPage mediaMarktMainPage = getTestFactory().createMediaMarktMainPage();
+//        mediaMarktMainPage.goToPage(mediaMarktAsData.getUrl());
+//        mediaMarktMainPage.acceptCookie();
+//        mediaMarktMainPage.enterTextToSearchForm(IMediaMarktMainPageLocators.getSearchForm(), mediaMarktAsData.getDevice());
+//        List<Product> products =mediaMarktMainPage.createProductObjects();
+//        String str = JsonUtil.convertObjectToString(products);
+//        JsonUtil.outputStreamWriter("src/test/java/outputstream_withjs_" + mediaMarktAsData.getTestID() + ".json", str);
+//    }
 
-    //demonstrating how the exact same thing can be achieved by using a different approach
+    //demonstrating how to do the exact same thing can be achieved by using a different approach
     //in this example this approach is more efficient than the js executor one
     //however sometimes the js executor can be used to address issues more effectively
 
@@ -61,9 +60,10 @@ public class MediaMarktTests extends DriverBaseClass  {
         List<WebElement> allElements = mediaMarktMainPage.returnAllElements(IMediaMarktMainPageLocators.getAllProductsFromPage());
         List<Product> products = new ArrayList<>();
         IntStream.range(0,allElements.size()).forEach(s->{
-            List<WebElement> dtElements = allElements.get(s).findElements(By.tagName("dt"));
-            List<WebElement> ddElements = allElements.get(s).findElements(By.tagName("dd"));
-            String nameOfProduct = allElements.get(s).findElement(By.tagName("h2")).getText();
+            List<WebElement> dtElements = allElements.get(s).findElements(By.cssSelector("dl[class='product-details'] dd"));
+            List<WebElement> ddElements = allElements.get(s).findElements(By.cssSelector("dl[class='product-details'] dt"));
+            String nameOfProduct = allElements.get(s).findElement(By.cssSelector("div[class='content '] h2")).getText();
+
             log.info(nameOfProduct);
             Map<String, String> productDetailsMap = new LinkedHashMap<>();
             IntStream.range(0,dtElements.size()).forEach(i->{

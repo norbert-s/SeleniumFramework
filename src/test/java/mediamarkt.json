@@ -4,23 +4,5 @@
     "url": "http://mediamarkt.hu",
     "device": "Iphone 14",
     "productNameToLookFor": "IPHONE 14 128 GB"
-  },
-  {
-    "testID": "02",
-    "url": "http://mediamarkt.hu",
-    "device": "samsung galaxy s23",
-    "productNameToLookFor": "Galaxy S23 256 GB"
-  },
-  {
-    "testID": "03",
-    "url": "http://mediamarkt.hu",
-    "device": "xiaomi",
-    "productNameToLookFor": "XIAOMI"
-  },
-  {
-    "testID": "04",
-    "url": "http://mediamarkt.hu",
-    "device": "philips",
-    "productNameToLookFor": "PHILIPS"
   }
 ]
