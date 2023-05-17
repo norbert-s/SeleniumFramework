@@ -4,9 +4,7 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-import java.io.BufferedReader;
-import java.io.FileReader;
-import java.io.IOException;
+import java.io.*;
 import java.util.stream.Collectors;
 
 public class JsonUtil {
@@ -25,15 +23,6 @@ public class JsonUtil {
         return mapper.readValue(str,JsonNode.class);
     }
 
-//    static JsonNode getExampleRoot() throws IOException {
-//        InputStream exampleInput =
-//                ExampleStructure.class.getClassLoader()
-//                        .getResourceAsStream("example.json");
-//
-//        JsonNode rootNode = mapper.readTree(exampleInput);
-//        return rootNode;
-//    }
-
     static public <T> String convertObjectToString(T t){
         ObjectMapper mapper = new ObjectMapper();
         String jsonString=null;
@@ -46,6 +35,13 @@ public class JsonUtil {
             e.printStackTrace();
         }
         return jsonString;
+    }
+
+    public static void outputStreamWriter(String filePath, String data) throws IOException {
+        try (OutputStream out = new FileOutputStream(filePath);
+             Writer writer = new OutputStreamWriter(out,"UTF-8")) {
+            writer.write(data);
+        }
     }
 }
 

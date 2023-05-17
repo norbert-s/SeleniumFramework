@@ -2,9 +2,7 @@ package utilityClasses.json.jackson_json_node;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import utilityClasses.json.jackson_json_node.pojos.Root;
-import utilityClasses.json.json_util.Generic;
 import utilityClasses.json.json_util.JsonUtil;
-
 import java.io.IOException;
 
 public class Main {
@@ -18,6 +16,6 @@ public class Main {
         System.out.println(root);
 //        System.out.println(jsonNode);
         String finalStr = JsonUtil.convertObjectToString(root);
-        Generic.outputStreamWriter("src/main/java/resources/newFile.json",finalStr);
+        JsonUtil.outputStreamWriter("src/main/java/resources/newFile.json",finalStr);
     }
 }

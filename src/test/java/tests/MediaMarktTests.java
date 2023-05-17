@@ -1,26 +1,23 @@
 package tests;
 
 
-import devices.Product;
-import devices.ProductDetails;
-import lombok.extern.slf4j.Slf4j;
-import org.openqa.selenium.JavascriptExecutor;
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.support.ui.ExpectedConditions;
+import pageObjectClasses.testclasses.mediamarkt.Product;
+import lombok.extern.slf4j.Slf4j;
 import org.testng.annotations.Test;
 import pageObjectClasses.pageobjects.IMediaMarktMainPageLocators;
+import pageObjectClasses.testclasses.mediamarkt.MediaMarktMainPage;
 import testSetup.deviceSetup.base.DriverBaseClass;
 import testdata.DataProviderClass;
 import testdata.MediaMarktAsData;
-import utilityClasses.json.json_util.Generic;
 import utilityClasses.json.json_util.JsonUtil;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.concurrent.atomic.AtomicInteger;
 import java.util.stream.IntStream;
 
 @Slf4j
@@ -36,51 +33,51 @@ public class MediaMarktTests extends DriverBaseClass  {
     //and then it will be serialized and a product object created
     //and finally deserialized into a json
     //with this methodology its possible to get all the necessary values of all of the products
-    //obviously it is important to optimize the javascript scripts and use it with caution, because as soon as a container changes in the hierarhcy the test will fail
-    //it is just a demonstration that it can be used get different values from the dom directly
-
-
+    //obviously it is important to optimize the javascript scripts and use it with caution, and where it is really necessary because. as soon as a container changes in the hierarhcy the test will fail
+    //In this example as shown below the other approach is better
+    //it demonstrats that js can be powerful but also should be used when really necessary
 
     @Test(groups = "smoke",dataProvider = "mediaMarktTestData",dataProviderClass = DataProviderClass.class)
     public void mediaMarktAllProductsCollection(MediaMarktAsData mediaMarktAsData) throws IOException, InterruptedException {
-        pageObjectClasses.testclasses.mediamarkt.MediaMarktMainPage mediaMarktMainPage = getTestFactory().createMediaMarktMainPage();
+        MediaMarktMainPage mediaMarktMainPage = getTestFactory().createMediaMarktMainPage();
         mediaMarktMainPage.goToPage(mediaMarktAsData.getUrl());
         mediaMarktMainPage.acceptCookie();
-
-        mediaMarktMainPage.fluentWaitWithVisibilityOfElementLocated(IMediaMarktMainPageLocators.getSearchForm());
-        mediaMarktMainPage.fluentWaitWithExpectedCondition(ExpectedConditions.elementToBeClickable(IMediaMarktMainPageLocators.getSearchForm()));
         mediaMarktMainPage.enterTextToSearchForm(IMediaMarktMainPageLocators.getSearchForm(), mediaMarktAsData.getDevice());
+        List<Product> products =mediaMarktMainPage.createProductObjects();
+        String str = JsonUtil.convertObjectToString(products);
+        JsonUtil.outputStreamWriter("src/test/java/outputstream_withjs_" + mediaMarktAsData.getTestID() + ".json", str);
+    }
 
+    //demonstrating how the exact same thing can be achieved by using a different approach
+    //in this example this approach is more efficient than the js executor one
+    //however sometimes the js executor can be used to address issues more effectively
+
+    @Test(groups = "smoke",dataProvider = "mediaMarktTestData",dataProviderClass = DataProviderClass.class)
+    public void mediaMarktAllProductsCollection2(MediaMarktAsData mediaMarktAsData) throws IOException, InterruptedException {
+        MediaMarktMainPage mediaMarktMainPage = getTestFactory().createMediaMarktMainPage();
+        mediaMarktMainPage.goToPage(mediaMarktAsData.getUrl());
+        mediaMarktMainPage.acceptCookie();
+        mediaMarktMainPage.enterTextToSearchForm(IMediaMarktMainPageLocators.getSearchForm(), mediaMarktAsData.getDevice());
+        List<WebElement> allElements = mediaMarktMainPage.returnAllElements(IMediaMarktMainPageLocators.getAllProductsFromPage());
         List<Product> products = new ArrayList<>();
-
-        //it is the container of all of the products on the page
-        List<WebElement> allObjectsInDOM = mediaMarktMainPage.fluentWaitForJsExecutorWithQuerySelectorAll("return document.querySelectorAll(\"div[class='product-wrapper']\");");
-
-        IntStream.range(0, allObjectsInDOM.size()).forEach(i -> {
-            Product product = new Product();
-
-            JavascriptExecutor jsExecutor = (JavascriptExecutor) getDriver();
-            long length = (long) jsExecutor.executeScript("return arguments[0].lastChild.previousSibling.children[4].children.length;", allObjectsInDOM.get(i));
-
-            //name of current product
-            String nameOfProduct = (String) jsExecutor.executeScript("return arguments[0].children[2].childNodes[3].innerText;", allObjectsInDOM.get(i));
-            product.setProductName(nameOfProduct);
-            log.info("length : " + length);
-
-            Map<String, String> map = new HashMap<>();
-            IntStream.iterate(0, j -> j < length, j -> j + 2).forEach(j -> {
-                String productDetailKey = (String) jsExecutor.executeScript("return arguments[0].lastChild.previousSibling.children[4].children[" + j + "].innerText;", allObjectsInDOM.get(i));
-                int temp = j;
-                String productDetailValue = (String) jsExecutor.executeScript("return arguments[0].lastChild.previousSibling.children[4].children[" + (temp + 1) + "].innerText;", allObjectsInDOM.get(i));
-                map.put(productDetailKey, productDetailValue);
-
+        IntStream.range(0,allElements.size()).forEach(s->{
+            List<WebElement> dtElements = allElements.get(s).findElements(By.tagName("dt"));
+            List<WebElement> ddElements = allElements.get(s).findElements(By.tagName("dd"));
+            String nameOfProduct = allElements.get(s).findElement(By.tagName("h2")).getText();
+            log.info(nameOfProduct);
+            Map<String, String> productDetailsMap = new LinkedHashMap<>();
+            IntStream.range(0,dtElements.size()).forEach(i->{
+                String key = dtElements.get(i).getText();
+                String value = ddElements.get(i).getText();
+                productDetailsMap.put(key, value);
             });
-            map.forEach((k, v) -> log.info(k + " " + v));
-            log.info("");
-            product.setProductDetails(map);
+            Product product = new Product();
+            product.setProductName(nameOfProduct);
+            product.setProductDetails(productDetailsMap);
             products.add(product);
+
         });
         String str = JsonUtil.convertObjectToString(products);
-        Generic.outputStreamWriter("src/test/java/outputstream_" + mediaMarktAsData.getTestID() + ".json", str);
+        JsonUtil.outputStreamWriter("src/test/java/outputstream_" + mediaMarktAsData.getTestID() + ".json", str);
     }
 }

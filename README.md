@@ -43,20 +43,38 @@ Parallel runs:
 
 About the tests:
 
-The MediamarktTests class demonstrates the usage of javascript executor
+The MediamarktTests class demonstrates two different approaches to solve the ame problem
+
+- the first one uses jsexecutor to get dom elements dinamically, the second one uses web elements list and tags to achieve the same
 
 - from the mediamarkt.json file one can control what kind of product to look for
 
-- then a product profile is created dinamically using javascript executor. Dinamically here means that the javascript script will loop through 
+- then a product profile is created dinamically using javascript executor/simply selenium approach. Dinamically here means that the javascript script will loop through :
 
-- all the product details - no matter what they are; whether it be a tv,smartphone, etc- and will attach all of the product details to the particular product object. Finally it will be deserialized and written out to a json.
+  all the product details - no matter what they are; whether it be a tv,smartphone, etc. 
 
-- The same way after the product profile is created randomly or in order its possible to loop through all the products and check if the information present in the main page matches the checkout page, in the basket etc or not.
+    Obviously different products have different attributes -for instance a tv does not have a dual sim, a smartphone does not have an hdmi connector, etc.
+    Therefor in these cases it would be quite laborious to hardcode the locators of all the different products and then extract them
+    Instead a js executor can be used which will extract all the features from the particular dom element
+  and will attach all of the product details to the particular product object. Finally it will be deserialized and written out to a json.
 
-- Again it is just a demonstration what can be achieved with javascript executor. However since I personally have zero control over the mediamark page, once the container structure changes there the tests will fail.
+- After the product profile is created -randomly/or in order-, its possible to loop through all the products and check if the information present in the main page matches the checkout page, in the basket etc or not.
 
-- But testing our own application - we may have much more control over what might change and therefore with enough attention paid the js executor can be used effectively - avoiding breaking or failing flaky tests.
+- Again it is just a demonstration what can be achieved with javascript executor/or without it. 
+
+- Testing our own application - we may have much more control over what might change and therefore with enough attention paid the js executor can be used effectively - avoiding breaking or failing flaky tests.
 Because as denmonstrated here using js executor can be very powerful. In prod it needs to be optimized and tested out so that it actually helps us to test more effectively. 
+- In this particualr case the js executor approach seems to be less effective and more error prone than the other version
+
+In general js executor can really be helpful when 
+
+- an element is not interactable
+- for scrolling
+- generating complex events
+- executing asynchronous JavaScript
+- changing attributes of elements, etc
+
+Again the above example in the Mediamarkttest class is an example and demonstration that js executor is a powerful tool and needs to be used judiciously - when really necessary
 
 The Parallel class runs a demo test using method chaining on the spicejet website.
 

@@ -128,6 +128,11 @@ public abstract class PageObjectGenericMethodsImpl extends PageObjectBaseMethods
         returnWait().until(ExpectedConditions.presenceOfAllElementsLocatedBy(locator));
     }
 
+    public List<WebElement> returnAllElements(By locator){
+        fluentWaitForAllElementsPresence(locator);
+        return driver.findElements(locator);
+    }
+
     public List<WebElement> fluentWaitForJsExecutorWithQuerySelectorAll(String script){
         JavascriptExecutor jsExecutor = (JavascriptExecutor) driver;
         List<WebElement> allProductSections = returnWait().until(new Function<WebDriver, List<WebElement>>() {
