@@ -38,6 +38,9 @@ public class MediaMarktTests extends DriverBaseClass  {
     //with this methodology its possible to get all the necessary values of all of the products
     //obviously it is important to optimize the javascript scripts and use it with caution, because as soon as a container changes in the hierarhcy the test will fail
     //it is just a demonstration that it can be used get different values from the dom directly
+
+
+
     @Test(groups = "smoke",dataProvider = "mediaMarktTestData",dataProviderClass = DataProviderClass.class)
     public void mediaMarktAllProductsCollection(MediaMarktAsData mediaMarktAsData) throws IOException, InterruptedException {
         pageObjectClasses.testclasses.mediamarkt.MediaMarktMainPage mediaMarktMainPage = getTestFactory().createMediaMarktMainPage();
