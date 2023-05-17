@@ -12,15 +12,6 @@ public interface IMediaMarktMainPageLocators {
         return By.xpath("//*[contains(@class,'cookie-info-accept-button')]");
     }
 
-
-//    static By productByText = By.xpath("//div[contains(@class,\"content\")]//*[contains(text(),\""+productName+"\")]");
-//
-    //static By productPrice = By.xpath("//div[contains(@class,\"content\")]//*[contains(text(),\""+productName+"\")]//parent::*//preceding-sibling::aside[contains(@class,\"product-price\")]");
-
-    //default String getAllProductsThatContainsText(String productName){
-    //   return "//div[contains(@class,\"content\")]//*[contains(text(),\""+productName+"\")]";
-    //}
-
     public static By getProductThatContainsText(String productName){
         return By.xpath("//div[contains(@class,'content')]//*[contains(text(),'"+productName+"')]");
     }
@@ -37,11 +28,7 @@ public interface IMediaMarktMainPageLocators {
         return By.xpath("//div[contains(@class,'content')]//*[contains(text(),'"+productName+"')]//ancestor::div[@class='product-wrapper']//preceding-sibling::script");
     }
 
-
-
-
-    //div[contains(@class,"content")]//*[contains(text(),"IPHONE 14")]//parent::*//preceding-sibling::aside[contains(@class,"product-price")]
-    //By getAllProductsFromPage(){
-//        return By.xpath("//li//*[@class='product-wrapper']");
-//    }
+    static By getAllProductsFromPage(){
+        return By.xpath("//div[@class='product-wrapper']");
+    }
 }

@@ -1,4 +1,4 @@
-package devices;
+package pageObjectClasses.testclasses.mediamarkt;
 
 
 import lombok.Getter;

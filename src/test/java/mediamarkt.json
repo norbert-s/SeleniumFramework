@@ -1,10 +1,9 @@
 [
 
-
   {
-    "testID": "04",
+    "testID": "03",
     "url": "http://mediamarkt.hu",
-    "device": "tv",
-    "productNameToLookFor": "HD"
+    "device": "xiaomi",
+    "productNameToLookFor": "XIAOMI"
   }
 ]

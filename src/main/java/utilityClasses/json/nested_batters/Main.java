@@ -1,7 +1,6 @@
 package utilityClasses.json.nested_batters;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import utilityClasses.json.json_util.Generic;
 import utilityClasses.json.json_util.JsonUtil;
 
 import java.io.IOException;
@@ -16,6 +15,6 @@ public class Main {
         List<BatterRoot> root = List.of(mapper.readValue(str, BatterRoot[].class));
         System.out.println(root);
         String finalStr = JsonUtil.convertObjectToString(root);
-        Generic.outputStreamWriter("src/main/java/resources/newFile.json",finalStr);
+        JsonUtil.outputStreamWriter("src/main/java/resources/newFile.json",finalStr);
     }
 }
