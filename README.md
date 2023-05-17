@@ -41,6 +41,31 @@ Parallel runs:
 
 -----------------------------------
 
+About the tests:
+
+The MediamarktTests class demonstrates the usage of javascript executor
+
+- from the mediamarkt.json file one can control what kind of product to look for
+
+- then a product profile is created dinamically using javascript executor. Dinamically here means that the javascript script will loop through 
+
+- all the product details - no matter what they are; whether it be a tv,smartphone, etc- and will attach all of the product details to the particular product object. Finally it will be deserialized and written out to a json.
+
+- The same way after the product profile is created randomly or in order its possible to loop through all the products and check if the information present in the main page matches the checkout page, in the basket etc or not.
+
+- Again it is just a demonstration what can be achieved with javascript executor. However since I personally have zero control over the mediamark page, once the container structure changes there the tests will fail.
+
+- But testing our own application - we may have much more control over what might change and therefore with enough attention paid the js executor can be used effectively - avoiding breaking or failing flaky tests.
+Because as denmonstrated here using js executor can be very powerful. In prod it needs to be optimized and tested out so that it actually helps us to test more effectively. 
+
+The Parallel class runs a demo test using method chaining on the spicejet website.
+
+- in order to test if parallel running of tests work in the test runner json of "spicetest.json" several variation of suuplied values and values to be asserted are provided
+- and then those tests can be run against different browsers
+- obviously any kind of tests can be run in parallel, however this class demonstrates that the tests methods(or if the tests are set to run in parallel as "classes", then the classes) use separate "driver" instances from the thread pool.
+
+-----------------------------------
+
 About this demo project in general
 
 The general goal of the project is to highlight and show different flavours of architectural approaches -and options for larger projects
