@@ -43,28 +43,24 @@ Parallel runs:
 
 About the tests:
 
-The MediamarktTests class demonstrates two different approaches to solve the ame problem
-
-- the first one uses jsexecutor to get dom elements dinamically, the second one uses web elements list and tags to achieve the same
+The MediamarktTests class demonstrates creating a profile of all found elements dinamically, then compares the values found with values found when product is selected and on checkout page,etc.
 
 - from the mediamarkt.json file one can control what kind of product to look for
 
-- then a product profile is created dinamically using javascript executor/simply selenium approach. Dinamically here means that the javascript script will loop through :
+- then a product profile is created dinamically. Dinamically here means that a loop is going through:
 
   all the product details - no matter what they are; whether it be a tv,smartphone, etc. 
 
     Obviously different products have different attributes -for instance a tv does not have a dual sim, a smartphone does not have an hdmi connector, etc.
     Therefor in these cases it would be quite laborious to hardcode the locators of all the different products and then extract them
-    Instead a js executor can be used which will extract all the features from the particular dom element
+    Instead which will extract all the features from the particular dom element
   and will attach all of the product details to the particular product object. Finally it will be deserialized and written out to a json.
 
 - After the product profile is created -randomly/or in order-, its possible to loop through all the products and check if the information present in the main page matches the checkout page, in the basket etc or not.
 
-- Again it is just a demonstration what can be achieved with javascript executor/or without it. 
+- Also the locator technique used is cssSelector and if possible it is better to use that instead of xpath, because it is known to be much faster. 
 
-- Testing our own application - we may have much more control over what might change and therefore with enough attention paid the js executor can be used effectively - avoiding breaking or failing flaky tests.
-Because as denmonstrated here using js executor can be very powerful. In prod it needs to be optimized and tested out so that it actually helps us to test more effectively. 
-- In this particualr case the js executor approach seems to be less effective and more error prone than the other version
+- There is an instance of creating the product objects with jsExecutor -as an experiment-, however in this case the js executor version seems to be much more error prone.
 
 In general js executor can really be helpful when 
 

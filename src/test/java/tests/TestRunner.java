@@ -2,14 +2,13 @@ package tests;
 
 import lombok.extern.slf4j.Slf4j;
 import org.testng.TestNG;
-import org.testng.annotations.Listeners;
 import org.testng.annotations.Test;
 import org.testng.xml.XmlClass;
 import org.testng.xml.XmlSuite;
 import org.testng.xml.XmlTest;
-import testSetup.deviceSetup.base.DriverBaseClass;
 
 import java.util.Arrays;
+
 @Slf4j
 public class TestRunner {
 

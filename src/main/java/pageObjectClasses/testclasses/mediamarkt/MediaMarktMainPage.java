@@ -7,10 +7,7 @@ import org.openqa.selenium.WebElement;
 import pageObjectClasses.abstracts.PageObjectGenericMethodsImpl;
 import pageObjectClasses.pageobjects.IMediaMarktMainPageLocators;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.stream.IntStream;
 
 @Slf4j
@@ -34,7 +31,7 @@ public class MediaMarktMainPage extends PageObjectGenericMethodsImpl  {
         goToPage(url);
         acceptCookie();
     }
-    public List<Product> createProductObjects(){
+    public List<Product> createProductObjectsWithJs(){
         //it is the container of all of the products on the page
         List<WebElement> allObjectsInDOM = fluentWaitForJsExecutorWithQuerySelectorAll("return document.querySelectorAll(\"div[class='product-wrapper']\");");
         List<Product> products=new ArrayList<>();
@@ -57,9 +54,30 @@ public class MediaMarktMainPage extends PageObjectGenericMethodsImpl  {
                 map.put(productDetailKey, productDetailValue);
 
             });
-            map.forEach((k, v) -> log.info(k + " " + v));
             log.info("");
             product.setProductDetails(map);
+            products.add(product);
+        });
+        return products;
+    }
+
+    public List<Product> getProductObjects(){
+        List<WebElement> allElements = returnAllElements(IMediaMarktMainPageLocators.getAllProductsFromPage());
+        List<Product> products = new ArrayList<>();
+        IntStream.range(0,allElements.size()).forEach(s->{
+            List<WebElement> dtElements = allElements.get(s).findElements(IMediaMarktMainPageLocators.getProductDetailsKey());
+            List<WebElement> ddElements = allElements.get(s).findElements(IMediaMarktMainPageLocators.getProductDetailsValue());
+            String nameOfProduct = allElements.get(s).findElement(IMediaMarktMainPageLocators.getProductName()).getText();
+            log.info(nameOfProduct);
+            Map<String, String> productDetailsMap = new LinkedHashMap<>();
+            IntStream.range(0,dtElements.size()).forEach(i->{
+                String key = dtElements.get(i).getText();
+                String value = ddElements.get(i).getText();
+                productDetailsMap.put(key, value);
+            });
+            Product product = new Product();
+            product.setProductName(nameOfProduct);
+            product.setProductDetails(productDetailsMap);
             products.add(product);
         });
         return products;
