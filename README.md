@@ -43,36 +43,24 @@ Parallel runs:
 
 About the tests:
 
-The MediamarktTests class demonstrates creating a profile of all found elements dinamically, then compares the values found with values found when product is selected and on checkout page,etc.
+The MediamarktTest class demonstrates assertions done against an initial porducts profile in a generalized way after with the details page, then selecting a product, then checkout, etc.
 
 - from the mediamarkt.json file one can control what kind of product to look for
 
-- then a product profile is created dinamically. Dinamically here means that a loop is going through:
+- then a product profile is created dinamically. 
 
   all the product details - no matter what they are; whether it be a tv,smartphone, etc. 
 
-    Obviously different products have different attributes -for instance a tv does not have a dual sim, a smartphone does not have an hdmi connector, etc.
+   different products have different attributes -for instance a tv does not have a dual sim, a smartphone does not have an hdmi connector, etc.
     Therefor in these cases it would be quite laborious to hardcode the locators of all the different products and then extract them
     Instead which will extract all the features from the particular dom element
-  and will attach all of the product details to the particular product object. Finally it will be deserialized and written out to a json.
+  and will attach all of the product details to the particular product object. 
+  
+  One or more products can be selected for purhase and be checked against the initial product feature values. Also it can be extended to be checked against an initial values list as test oracle.
 
-- After the product profile is created -randomly/or in order-, its possible to loop through all the products and check if the information present in the main page matches the checkout page, in the basket etc or not.
+- Also the locator technique used is cssSelector and if possible it is better to use that instead of xpath, because it is known to be much faster.
 
-- Also the locator technique used is cssSelector and if possible it is better to use that instead of xpath, because it is known to be much faster. 
-
-- There is an instance of creating the product objects with jsExecutor -as an experiment-, however in this case the js executor version seems to be much more error prone.
-
-In general js executor can really be helpful when 
-
-- an element is not interactable
-- for scrolling
-- generating complex events
-- executing asynchronous JavaScript
-- changing attributes of elements, etc
-
-Again the above example in the Mediamarkttest class is an example and demonstration that js executor is a powerful tool and needs to be used judiciously - when really necessary
-
-The Parallel class runs a demo test using method chaining on the spicejet website.
+The SpiceJetTest class runs a demo test using method chaining on the spicejet website.
 
 - in order to test if parallel running of tests work in the test runner json of "spicetest.json" several variation of suuplied values and values to be asserted are provided
 - and then those tests can be run against different browsers
