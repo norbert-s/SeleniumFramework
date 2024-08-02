@@ -1,0 +1,38 @@
+[
+  {
+    "adults": 3,
+    "children": 3,
+    "infants": 1,
+    "expectedAdults": 4,
+    "expectedChildren": 3,
+    "expectedInfants": 1,
+    "expectedPassengerText": "4 Adults, 3 Child, 1 Infant"
+  },
+  {
+    "adults": 2,
+    "children": 2,
+    "infants": 1,
+    "expectedAdults": 2,
+    "expectedChildren": 2,
+    "expectedInfants": 1,
+    "expectedPassengerText": "2 Adults, 2 Child, 1 Infant"
+  },
+  {
+    "adults": 1,
+    "children": 1,
+    "infants": 1,
+    "expectedAdults": 1,
+    "expectedChildren": 1,
+    "expectedInfants": 1,
+    "expectedPassengerText": "1 Adults, 1 Child, 1 Infant"
+  },
+  {
+    "adults": 1,
+    "children": 2,
+    "infants": 1,
+    "expectedAdults": 1,
+    "expectedChildren": 2,
+    "expectedInfants": 1,
+    "expectedPassengerText": "1 Adults, 2 Child, 1 Infant"
+  }
+]
