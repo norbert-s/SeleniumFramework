@@ -17,15 +17,9 @@ jobs:
           server-id: github
           settings-path: ${{ github.workspace }}
           
-      - name: Set up Docker Buildx
-        uses: docker/setup-buildx-action@v3
-      
-      # Optional: Login to Docker Hub if you need to pull private images
-      - name: Login to Docker Hub
-        uses: docker/login-action@v3
-        with:
-          username: ${{ secrets.DOCKERHUB_USERNAME }}
-          password: ${{ secrets.DOCKERHUB_TOKEN }}
+      # Verify Docker installation
+      - name: Verify Docker Installation
+        run: docker --version
           
       - name: Cache Maven local repository
         uses: actions/cache@v3
