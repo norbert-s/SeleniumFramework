@@ -8,8 +8,6 @@ The test can be run locally as:
 
 In case there is docker installed then the tests are going to be run in a container
 
-Also a pipeline can be run by members of the project https://github.com/norbert-s/SeleniumFramework/actions
-
 with mvn test several command line parameters can be provided
 
 Those parameters all have a default value and are declared in the parameters section in pom.xml file
