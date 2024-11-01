@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+<suite name="test suite" parallel="tests" thread-count="6">
+    <listeners>
+        <listener class-name="listeners.AnnotationTransformer"/>
+    </listeners>
+    <test name="Firefox tests">
+        <parameter name="browser" value="FIREFOX"/>
+        <classes>
+            <class name="tests.SpiceJetTest"/>
+        </classes>
+    </test>
+<!--    <test name="Chrome tests">-->
+<!--        <parameter name="browser" value="CHROME"/>-->
+<!--        <classes>-->
+<!--            <class name="tests.SpiceJetTest"/>-->
+<!--        </classes>-->
+<!--    </test>-->
+</suite> <!-- Suite -->
