@@ -10,10 +10,10 @@
             <class name="tests.SpiceJetTest"/>
         </classes>
     </test>
-<!--    <test name="Chrome tests">-->
-<!--        <parameter name="browser" value="CHROME"/>-->
-<!--        <classes>-->
-<!--            <class name="tests.SpiceJetTest"/>-->
-<!--        </classes>-->
-<!--    </test>-->
+    <test name="Chrome">
+        <parameter name="browser" value="CHROME"/>
+        <classes>
+            <class name="tests.SpiceJetTest"/>
+        </classes>
+    </test>
 </suite> <!-- Suite -->
