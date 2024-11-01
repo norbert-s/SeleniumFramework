@@ -21,10 +21,10 @@ jobs:
           server-id: github
           settings-path: ${{ github.workspace }}
 
-      #      - name: Install Docker
-      #        run: |
-      #          sudo apt-get update
-      #          sudo apt-get install -y docker.io
+      - name: Install Docker
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y docker.io
 
       - name: Cache Maven local repository
         uses: actions/cache@v3
