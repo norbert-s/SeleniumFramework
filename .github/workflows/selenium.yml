@@ -1,13 +1,15 @@
 name: Build and Test
+
 on:
   workflow_dispatch:
 
 jobs:
   build:
     runs-on: ubuntu-latest
+
     steps:
       - uses: actions/checkout@v3
-      
+
       - name: Set up JDK 17
         uses: actions/setup-java@v3
         with:
@@ -16,13 +18,12 @@ jobs:
           cache: maven
           server-id: github
           settings-path: ${{ github.workspace }}
-      
-      # Verify Docker installation
-      - name: Verify Docker Installation
-        run: |
-          docker --version
-          docker ps
-          
+
+      #      - name: Install Docker
+      #        run: |
+      #          sudo apt-get update
+      #          sudo apt-get install -y docker.io
+
       - name: Cache Maven local repository
         uses: actions/cache@v3
         with:
@@ -30,30 +31,24 @@ jobs:
           key: ${{ runner.os }}-maven-${{ hashFiles('**/pom.xml') }}
           restore-keys: |
             ${{ runner.os }}-maven-
-            
+
       - name: Creating Env vars
         env:
           WAITFOR_TIME: ${{ vars.WAITFOR_TIME }}
           SUITE_XML_FILES: ${{ vars.SUITE_XML_FILES }}
           IS_DOCKER_NEEDED: ${{ vars.IS_DOCKER_NEEDED }}
-        run: |
-          echo "SUITE_XML_FILES=$SUITE_XML_FILES" >> $GITHUB_ENV
-          echo "WAITFOR_TIME=$WAITFOR_TIME" >> $GITHUB_ENV
-          echo "IS_DOCKER_NEEDED=$IS_DOCKER_NEEDED" >> $GITHUB_ENV
-          echo "print out suite xml $SUITE_XML_FILES"
-          
+        run: echo "print out suite xml $SUITE_XML_FILES"
+
       - name: Test with Maven
-        run: mvn test -Dsurefire.suiteXmlFiles=${{ vars.SUITE_XML_FILES }} -Dwaitfortime=${{ vars.WAITFOR_TIME }} -Ddocker=${{ vars.IS_DOCKER_NEEDED }}
-        
+        run: mvn test -Dsurefire.suiteXmlFiles=${{ vars.SUITE_XML_FILES }} -Dwaitfortime=${{ vars.WAITFOR_TIME }} -Ddocker=${{ vars.DOCKER }}
+
       - name: Upload surefire report
-        if: always()
         uses: actions/upload-artifact@v3
         with:
           name: surefire-report
           path: target/surefire-reports/emailable-report.html
-          
+
       - name: Upload JSON files
-        if: always()
         uses: actions/upload-artifact@v3
         with:
           name: JSON-files
