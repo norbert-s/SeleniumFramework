@@ -48,9 +48,3 @@ jobs:
           name: surefire-report
           path: target/surefire-reports/emailable-report.html
 
-      - name: Upload JSON files
-        uses: actions/upload-artifact@v4
-        with:
-          name: JSON-files
-          path: src/test/java/outputstream*.json
-
