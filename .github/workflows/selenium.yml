@@ -16,26 +16,13 @@ jobs:
           cache: maven
           server-id: github
           settings-path: ${{ github.workspace }}
-          
-      # Install Chrome
-      - name: Setup Chrome
+      
+      # Verify Docker installation
+      - name: Verify Docker Installation
         run: |
-          sudo mkdir -p /etc/apt/sources.list.d
-          wget -q -O - https://dl.google.com/linux/linux_signing_key.pub | sudo gpg --dearmor -o /usr/share/keyrings/google-chrome.gpg
-          echo "deb [arch=amd64 signed-by=/usr/share/keyrings/google-chrome.gpg] http://dl.google.com/linux/chrome/deb/ stable main" | sudo tee /etc/apt/sources.list.d/google-chrome.list
-          sudo apt-get update
-          sudo apt-get install -y google-chrome-stable
-          google-chrome --version
+          docker --version
+          docker ps
           
-      # Setup Chrome cache
-      - name: Cache Selenium Drivers
-        uses: actions/cache@v3
-        with:
-          path: ~/.cache/selenium
-          key: ${{ runner.os }}-selenium-${{ hashFiles('**/pom.xml') }}
-          restore-keys: |
-            ${{ runner.os }}-selenium-
-            
       - name: Cache Maven local repository
         uses: actions/cache@v3
         with:
@@ -56,15 +43,7 @@ jobs:
           echo "print out suite xml $SUITE_XML_FILES"
           
       - name: Test with Maven
-        env:
-          CHROME_VERSION: $(google-chrome --version | awk '{print $3}')
-        run: |
-          echo "Chrome version: $CHROME_VERSION"
-          mvn test -Dsurefire.suiteXmlFiles=${{ vars.SUITE_XML_FILES }} \
-                   -Dwaitfortime=${{ vars.WAITFOR_TIME }} \
-                   -Ddocker=${{ vars.IS_DOCKER_NEEDED }} \
-                   -Dwebdriver.chrome.whitelistedIps="" \
-                   -Dwebdriver.chrome.version=$CHROME_VERSION
+        run: mvn test -Dsurefire.suiteXmlFiles=${{ vars.SUITE_XML_FILES }} -Dwaitfortime=${{ vars.WAITFOR_TIME }} -Ddocker=${{ vars.IS_DOCKER_NEEDED }}
         
       - name: Upload surefire report
         if: always()
