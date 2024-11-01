@@ -24,7 +24,7 @@
         <groups>smoke</groups>
         <extentreports-version>5.0.8</extentreports-version>
         <screenshot-on-success>false</screenshot-on-success>
-        <docker>true</docker>
+        <docker>false</docker>
         <grid>false</grid>
     </properties>
     <dependencies>
@@ -133,7 +133,7 @@
     <build>
         <testResources>
             <testResource>
-                <directory>src/main/resources</directory>
+                <directory>src/main/resources/</directory>
                 <filtering>true</filtering>
             </testResource>
         </testResources>
