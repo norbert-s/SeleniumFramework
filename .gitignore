@@ -8,4 +8,8 @@ selenium-server-4.0.0.jar
 selenium-standalone.zip
 selenium-standalone/
 /bin/
+# Ignore all XML files
 *.xml
+/target/
+# But do track pom.xml
+!pom.xml
