@@ -17,10 +17,24 @@ jobs:
           server-id: github
           settings-path: ${{ github.workspace }}
           
-      # Verify Docker installation
-      - name: Verify Docker Installation
-        run: docker --version
+      # Install specific version of Chrome
+      - name: Setup Chrome
+        run: |
+          wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | sudo apt-key add -
+          echo "deb http://dl.google.com/linux/chrome/deb/ stable main" | sudo tee -a /etc/sources.list.d/google-chrome.list
+          sudo apt-get update
+          sudo apt-get install google-chrome-stable
+          google-chrome --version
           
+      # Setup Chrome cache
+      - name: Cache Selenium Drivers
+        uses: actions/cache@v3
+        with:
+          path: ~/.cache/selenium
+          key: ${{ runner.os }}-selenium-${{ hashFiles('**/pom.xml') }}
+          restore-keys: |
+            ${{ runner.os }}-selenium-
+            
       - name: Cache Maven local repository
         uses: actions/cache@v3
         with:
@@ -41,7 +55,15 @@ jobs:
           echo "print out suite xml $SUITE_XML_FILES"
           
       - name: Test with Maven
-        run: mvn test -Dsurefire.suiteXmlFiles=${{ vars.SUITE_XML_FILES }} -Dwaitfortime=${{ vars.WAITFOR_TIME }} -Ddocker=${{ vars.IS_DOCKER_NEEDED }}
+        env:
+          CHROME_VERSION: $(google-chrome --version | awk '{print $3}')
+        run: |
+          echo "Chrome version: $CHROME_VERSION"
+          mvn test -Dsurefire.suiteXmlFiles=${{ vars.SUITE_XML_FILES }} \
+                   -Dwaitfortime=${{ vars.WAITFOR_TIME }} \
+                   -Ddocker=${{ vars.IS_DOCKER_NEEDED }} \
+                   -Dwebdriver.chrome.whitelistedIps="" \
+                   -Dwebdriver.chrome.version=$CHROME_VERSION
         
       - name: Upload surefire report
         if: always()
