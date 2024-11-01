@@ -13,3 +13,4 @@ selenium-standalone/
 /target/
 # But do track pom.xml
 !pom.xml
+!test_runner.xml
