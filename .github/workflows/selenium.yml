@@ -20,10 +20,10 @@ jobs:
       # Install specific version of Chrome
       - name: Setup Chrome
         run: |
-          wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | sudo apt-key add -
-          echo "deb http://dl.google.com/linux/chrome/deb/ stable main" | sudo tee -a /etc/sources.list.d/google-chrome.list
+          sudo wget -q -O /etc/apt/keyrings/google-chrome.gpg https://dl.google.com/linux/linux_signing_key.pub
+          echo "deb [arch=amd64 signed-by=/etc/apt/keyrings/google-chrome.gpg] http://dl.google.com/linux/chrome/deb/ stable main" | sudo tee /etc/apt/sources.list.d/google-chrome.list
           sudo apt-get update
-          sudo apt-get install google-chrome-stable
+          sudo apt-get install -y google-chrome-stable
           google-chrome --version
           
       # Setup Chrome cache
