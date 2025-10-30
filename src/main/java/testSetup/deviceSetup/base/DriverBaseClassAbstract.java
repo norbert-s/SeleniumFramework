@@ -12,7 +12,7 @@ public abstract class DriverBaseClassAbstract {
 
     private final ThreadLocal<DriverManager> driverManager = new ThreadLocal<>();
     private final ThreadLocal<WebDriver> driver = new ThreadLocal<>();
-    protected final ThreadLocal<SoftAssert> softAssert = new ThreadLocal<>();
+
 
     public DriverBaseClassAbstract() {
         log.info("BaseClass constructor called");
@@ -32,10 +32,6 @@ public abstract class DriverBaseClassAbstract {
 
     protected WebDriver getDriver() {
         return this.driver.get();
-    }
-
-    public SoftAssert getSoftAssert() {
-        return this.softAssert.get();
     }
 
     protected final ThreadLocal<ITestFactory> testFactory = new ThreadLocal<>();

@@ -8,62 +8,59 @@ import pageObjectClasses.pageobjects.ISpiceJetPageLocators;
 
 import java.io.IOException;
 
-public class SpiceJetTest extends PageObjectGenericMethodsImpl implements ISpiceJetPageLocators, ISpiceJetTest {
+public class SpiceJetTest extends PageObjectGenericMethodsImpl implements ISpiceJetTest {
     public SpiceJetTest(WebDriver d) throws IOException {
         super(d);
     }
 
     public SpiceJetTest goToWebpage() {
         driver.get("https://www.spicejet.com/");
-        //waitForElementToBeClickable(By.cssSelector("svg[data-testid=\"svg-img\"]"));
-
         return this;
     }
 
-
     public SpiceJetTest clickOnPassangers() {
-        waitForAndClick(passengers);
+        waitForAndClick(ISpiceJetPageLocators.getPassengers());
         return this;
     }
 
     public SpiceJetTest clickOnAdultsNumberOfTimes(int numberOfPassangers) {
-        for (int i = 0; i < numberOfPassangers; i++) {
-            waitForAndClick(passengerAdult);
+        for (int i = 1; i < numberOfPassangers; i++) {
+            waitForAndClick(ISpiceJetPageLocators.getPassengerAdult());
         }
         return this;
     }
 
     public SpiceJetTest clickOnChildrenNumberOfTimes(int numberOfPassangers) {
         for (int i = 0; i < numberOfPassangers; i++) {
-            waitForAndClick(passengerChildren);
+            waitForAndClick(ISpiceJetPageLocators.getPassengerChildren());
         }
         return this;
     }
 
     public SpiceJetTest clickOnInfantsNumberOfTimes(int numberOfPassangers) {
         for (int i = 0; i < numberOfPassangers; i++) {
-            waitForAndClick(passengerInfants);
+            waitForAndClick(ISpiceJetPageLocators.getPassengerInfants());
         }
         return this;
     }
 
     public SpiceJetTest clickOnAdultsMinusNumberOfTimes(int numberOfPassangers) {
         for (int i = 0; i < numberOfPassangers; i++) {
-            waitForAndClick(passengerAdultMinus);
+            waitForAndClick(ISpiceJetPageLocators.getPassengerAdultMinus());
         }
         return this;
     }
 
     public SpiceJetTest clickOnChildrenMinusNumberOfTimes(int numberOfPassangers) {
         for (int i = 0; i < numberOfPassangers; i++) {
-            waitForAndClick(passengerChildrenMinus);
+            waitForAndClick(ISpiceJetPageLocators.getPassengerChildrenMinus());
         }
         return this;
     }
 
     public SpiceJetTest clickOnInfantsMinusNumberOfTimes(int numberOfPassangers) {
         for (int i = 0; i < numberOfPassangers; i++) {
-            waitForAndClick(passengerInfantsMinus);
+            waitForAndClick(ISpiceJetPageLocators.getPassengerInfantsMinus());
         }
         return this;
     }
@@ -71,30 +68,30 @@ public class SpiceJetTest extends PageObjectGenericMethodsImpl implements ISpice
 
     public int getNumberOfAdultsSelected() {
         //return d.findElement(By.xpath(""//div[@data-testid='Adult-testID-minus-one-cta']//following-sibling::*//div")).getText();
-        return Integer.valueOf(fluentWaitWithExpectedConditionToReturnText(numberOfAdultsText));
+        return Integer.valueOf(fluentWaitWithExpectedConditionToReturnText(ISpiceJetPageLocators.getNumberOfAdultsText()));
     }
 
 
     public int getNumberOfChildrenSelected() {
-        return Integer.valueOf(fluentWaitWithExpectedConditionToReturnText(numberOfChildrentext));
+        return Integer.valueOf(fluentWaitWithExpectedConditionToReturnText(ISpiceJetPageLocators.getNumberOfChildrenText()));
     }
 
 
     public int getNumberOfInfantsSelected() {
-        return Integer.valueOf(fluentWaitWithExpectedConditionToReturnText(numberOfInfantsText));
+        return Integer.valueOf(fluentWaitWithExpectedConditionToReturnText(ISpiceJetPageLocators.getNumberOfInfantsText()));
     }
 
     public String getTextAfterPassengerSetupDone() {
-        System.out.println(driver.findElement(resultOfSettingPassengers).getText());
-        return driver.findElement(resultOfSettingPassengers).getText();
+        System.out.println(driver.findElement(ISpiceJetPageLocators.getResultOfSettingPassengers()).getText());
+        return driver.findElement(ISpiceJetPageLocators.getResultOfSettingPassengers()).getText();
         //return fluentWaitWithExpectedConditionToReturnText(resultOfSettingPassengers);
     }
 
 
     public int actions3() {
         Actions advancedActions = new Actions(driver);
-        advancedActions.moveToElement(convertByToWebElement(passengers)).click().build().perform();
-        advancedActions.moveToElement(convertByToWebElement(passengers)).click().build().perform();
+        advancedActions.moveToElement(convertByToWebElement(ISpiceJetPageLocators.getPassengers())).click().build().perform();
+        advancedActions.moveToElement(convertByToWebElement(ISpiceJetPageLocators.getPassengers())).click().build().perform();
         return 0;
     }
 
@@ -107,7 +104,7 @@ public class SpiceJetTest extends PageObjectGenericMethodsImpl implements ISpice
     }
 
     public void testTest() {
-        driver.findElement(passengers).sendKeys("test");
-        driver.findElement(passengers).submit();
+        driver.findElement(ISpiceJetPageLocators.getPassengers()).sendKeys("test");
+        driver.findElement(ISpiceJetPageLocators.getPassengers()).submit();
     }
 }

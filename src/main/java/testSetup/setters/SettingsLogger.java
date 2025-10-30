@@ -7,7 +7,6 @@ public class SettingsLogger {
 
     public static void printOutSetupInfo() {
         try {
-
             log.warn("webdriver instance has been created");
             log.warn("environment -> " + EnvironmentVariables.getEnvironment());
             log.warn("headless -> " + EnvironmentVariables.getHeadless());

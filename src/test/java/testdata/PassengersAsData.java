@@ -12,7 +12,7 @@ import lombok.ToString;
 @NoArgsConstructor
 public class PassengersAsData {
     private int adults;
-    private int children;
+    private int child;
     private int infants;
     private int expectedAdults;
     private int expectedChildren;

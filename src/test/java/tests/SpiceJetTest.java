@@ -9,20 +9,18 @@ import testSetup.setters.EnvironmentVariables;
 import testdata.DataProviderClass;
 import testdata.PassengersAsData;
 
+import static org.testng.Assert.*;
+
 
 @Slf4j
 @Listeners(DriverBaseClass.TestListener.class)
 public class SpiceJetTest extends DriverBaseClass implements EnvironmentVariables {
-
-
     @Test(groups = {"smoke"}, dataProvider = "spiceBasicTestData", dataProviderClass = DataProviderClass.class)
     public void testSpice(PassengersAsData testData) throws Exception {
         ISpiceJetTest spiceJetTest = getTestFactory().createSpiceJetTest();
 
-//        spiceJetTest.goToWebpage().waitForPageToLoadCompletely();
-
         int adult = testData.getAdults();
-        int children = testData.getChildren();
+        int children = testData.getChild();
         int infants = testData.getInfants();
         spiceJetTest.goToWebpage()
                 .clickOnPassangers()
@@ -30,10 +28,10 @@ public class SpiceJetTest extends DriverBaseClass implements EnvironmentVariable
                 .clickOnChildrenNumberOfTimes(children)
                 .clickOnInfantsNumberOfTimes(infants);
 
-        getSoftAssert().assertTrue(spiceJetTest.getNumberOfAdultsSelected() == (testData.getExpectedAdults()));
-        getSoftAssert().assertTrue(spiceJetTest.getNumberOfChildrenSelected() == (testData.getChildren()));
-        getSoftAssert().assertTrue(spiceJetTest.getNumberOfInfantsSelected() == (testData.getInfants()));
-        getSoftAssert().assertTrue(testData.getExpectedPassengerText() == spiceJetTest.getTextAfterPassengerSetupDone());
+        assertEquals(spiceJetTest.getNumberOfAdultsSelected(), testData.getExpectedAdults());
+        assertEquals(spiceJetTest.getNumberOfChildrenSelected(), testData.getChild());
+        assertEquals(spiceJetTest.getNumberOfInfantsSelected(), testData.getInfants());
+        assertEquals(spiceJetTest.getTextAfterPassengerSetupDone(), testData.getExpectedPassengerText());
         log.info("expected number: " + spiceJetTest.getTextAfterPassengerSetupDone() + " current : " + testData.getExpectedPassengerText());
         log.info(adult + " " + children + " " + infants + " " + Thread.currentThread().getId());
     }

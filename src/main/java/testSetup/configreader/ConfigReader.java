@@ -10,22 +10,6 @@ import java.util.Properties;
 public class ConfigReader {
 
     private static Properties properties;
-
-//    public ConfigReader() throws IOException {
-//        System.out.println("constructor config reader");
-//        properties = new Properties();
-//
-//        try (InputStream inputStream =  getClass().getClassLoader().getResourceAsStream("data.properties")) {
-//            if (inputStream != null) {
-//                properties.load(inputStream);
-//            } else {
-//                throw new IOException("data.properties not found");
-//            }
-//        } catch (IOException e) {
-//            e.printStackTrace();
-//        }
-//    }
-
     static {
         log.info("Static initializer block in ConfigReader");
         properties = new Properties();
@@ -40,7 +24,6 @@ public class ConfigReader {
             e.printStackTrace();
         }
     }
-
 
     public synchronized static Properties getProps() {
         return properties;

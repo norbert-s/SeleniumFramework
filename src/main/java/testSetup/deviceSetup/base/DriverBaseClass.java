@@ -17,6 +17,7 @@ import pageObjectClasses.test_factory.TestFactory;
 import testSetup.constants.TypesOfBrowsers;
 import testSetup.deviceSetup.factory.DriverManagerFactory;
 import testSetup.setters.EnvironmentVariables;
+import testSetup.setters.SettingUpTimeouts;
 import testSetup.setters.WrapperSetupTestsBeforeDriver;
 import utilityClasses.date.DateTimeStampGetter;
 
@@ -48,6 +49,7 @@ public class DriverBaseClass extends DriverBaseClassAbstract {
         log.info(Thread.currentThread().getId() + ", " + getDriver());
         getDriver().manage().timeouts().pageLoadTimeout(Duration.ofSeconds(30));
         getDriver().manage().timeouts().scriptTimeout(Duration.ofSeconds(30));
+        SettingUpTimeouts.timeOutSetup(getDriver());
     }
 
     @AfterMethod(alwaysRun = true)

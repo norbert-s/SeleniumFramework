@@ -84,6 +84,6 @@ public interface EnvironmentVariables {
     }
 
     static boolean isDockerNeeded() {
-        return Boolean.parseBoolean(System.getProperty(Settings.DOCKER_NEEDED, String.valueOf(Boolean.FALSE)));
+        return Boolean.parseBoolean(System.getProperty(Settings.DOCKER_NEEDED, String.valueOf(Boolean.TRUE)));
     }
 }

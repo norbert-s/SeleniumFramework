@@ -21,16 +21,17 @@ public abstract class PageObjectBaseMethods extends PageObjectBasePage implement
         super(driver);
     }
 
+    @Override
     public Wait<WebDriver> returnWait() {
         return new FluentWait<WebDriver>(driver)
-                .pollingEvery(Duration.ofMillis(100))
+                .pollingEvery(Duration.ofMillis(50))
                 .ignoring(NoSuchElementException.class)
                 .withTimeout(Duration.ofSeconds(getWaitForTime()));
     }
-
+    @Override
     public Wait<WebDriver> returnWait(long timeOut) {
         return new FluentWait<WebDriver>(driver)
-                .pollingEvery(Duration.ofMillis(100))
+                .pollingEvery(Duration.ofMillis(50))
                 .ignoring(NoSuchElementException.class)
                 .withTimeout(Duration.ofSeconds(timeOut));
     }
@@ -38,18 +39,18 @@ public abstract class PageObjectBaseMethods extends PageObjectBasePage implement
     public WebElement convertByToWebElement(By locator) {
         return driver.findElement(locator);
     }
-
+    @Override
     public void fluentWaitWithExpectedCondition(ExpectedCondition<WebElement> expectedCondition) {
         assertNotNull(new Object() {
         }.getClass().getEnclosingMethod().getName() + " did not succeed " + expectedCondition, returnWait().until(expectedCondition));
     }
-
+    @Override
     protected void fluentWaitWithExpectedCondition(ExpectedCondition<WebElement> expectedCondition, long timeOut) {
         assertNotNull(new Object() {
         }.getClass().getEnclosingMethod().getName() + " did not succeed " + expectedCondition, returnWait(timeOut).until(expectedCondition));
     }
 
-    protected void waitForAndClick(WebElement element) throws Exception {
+    protected void waitForAndClick(WebElement element)  {
         fluentWaitWithExpectedCondition(ExpectedConditions.elementToBeClickable(element));
         if (element instanceof By) {
             driver.findElement((By) element).click();

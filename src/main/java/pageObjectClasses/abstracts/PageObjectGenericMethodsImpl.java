@@ -19,30 +19,6 @@ public abstract class PageObjectGenericMethodsImpl extends PageObjectBaseMethods
 
     }
 
-    public void waitForAndMoveToElement(By element) {
-        fluentWaitWithExpectedCondition(ExpectedConditions.presenceOfElementLocated(element));
-        new Actions(driver).moveToElement(convertByToWebElement(element)).build().perform();
-    }
-
-    public void waitForElementToBeClickableBy(By element) {
-        fluentWaitWithExpectedCondition(ExpectedConditions.elementToBeClickable(element));
-    }
-
-    public void selectFromDropDownByVisibleText(WebElement element, String text) {
-        Select select = new Select(element);
-        select.selectByVisibleText(text);
-    }
-
-    public void selectFromDropDownByindex(WebElement element, int index) {
-        Select select = new Select(element);
-        select.selectByIndex(index);
-    }
-
-    public void selectFromDropDownByValue(WebElement element, String value) {
-        Select select = new Select(element);
-        select.selectByValue(value);
-    }
-
     public void waitForElementToBeClickable(By element) {
         fluentWaitWithExpectedCondition(ExpectedConditions.elementToBeClickable(element));
     }
@@ -69,15 +45,11 @@ public abstract class PageObjectGenericMethodsImpl extends PageObjectBaseMethods
     }
 
 
-    public void waitForAndClick(WebElement element) throws Exception {
+    public void waitForAndClick(WebElement element)  {
         fluentWaitWithExpectedCondition(ExpectedConditions.elementToBeClickable(element));
         element.click();
     }
 
-    public void waitForAndClick(WebElement element, int time) throws Exception {
-        fluentWaitWithExpectedCondition(ExpectedConditions.elementToBeClickable(element), time);
-        element.click();
-    }
 
     public <T> T enterTextToSearchForm(By element, String text) {
         try {
@@ -104,24 +76,6 @@ public abstract class PageObjectGenericMethodsImpl extends PageObjectBaseMethods
         convertByToWebElement(element).click();
         return this;
     }
-
-    public void clickOnNthElementInList(By element, int index) throws Exception {
-        waitForAndClick(driver.findElements(element).get(index));
-    }
-
-    public void fluentWaitWithVisibilityOfElementLocated(By locator) {
-        returnWait().until(ExpectedConditions.visibilityOfElementLocated(locator));
-    }
-
-    public void fluentWaitWithElementToBeSelected(By locator) {
-        returnWait().until(ExpectedConditions.elementToBeSelected(locator));
-    }
-
-    public void fluentWaitWithInvisibilityOfElementLocated(By locator) {
-        returnWait().until(ExpectedConditions.invisibilityOfElementLocated(locator));
-    }
-
-    //create a method with fluentWaitWithExpectedCondition to wait for an element and return text
 
     public String fluentWaitWithExpectedConditionToReturnText(By locator) {
         return returnWait().until(ExpectedConditions.presenceOfElementLocated(locator)).getText();
