@@ -3,11 +3,19 @@ package pageObjectClasses.testclasses.spice;
 public interface ISpiceJetTest {
     ISpiceJetTest goToWebpage();
 
-    ISpiceJetTest clickOnPassangers();
+    ISpiceJetTest clickOnPassengers();
 
-    ISpiceJetTest clickOnAdultsNumberOfTimes(int numberOfPassangers);
+    ISpiceJetTest clickOnAdultsNumberOfTimes(int numberOfPassengers);
 
-    SpiceJetTest clickOnChildrenNumberOfTimes(int children);
+    ISpiceJetTest clickOnChildrenNumberOfTimes(int children);
+
+    ISpiceJetTest clickOnInfantsNumberOfTimes(int infants);
+
+    ISpiceJetTest clickOnAdultsMinusNumberOfTimes(int numberOfPassengers);
+
+    ISpiceJetTest clickOnChildrenMinusNumberOfTimes(int numberOfPassengers);
+
+    ISpiceJetTest clickOnInfantsMinusNumberOfTimes(int numberOfPassengers);
 
     int getNumberOfAdultsSelected();
 
@@ -17,7 +25,5 @@ public interface ISpiceJetTest {
 
     String getTextAfterPassengerSetupDone();
 
-    public <T> T waitForPageToLoadCompletely();
-
+    <T> T waitForPageToLoadCompletely();
 }
-

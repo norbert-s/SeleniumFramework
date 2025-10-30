@@ -8,6 +8,7 @@ import pageObjectClasses.pageobjects.ISpiceJetPageLocators;
 
 import java.io.IOException;
 
+
 public class SpiceJetTest extends PageObjectGenericMethodsImpl implements ISpiceJetTest {
     public SpiceJetTest(WebDriver d) throws IOException {
         super(d);
@@ -18,75 +19,76 @@ public class SpiceJetTest extends PageObjectGenericMethodsImpl implements ISpice
         return this;
     }
 
-    public SpiceJetTest clickOnPassangers() {
+    public SpiceJetTest clickOnPassengers() {
         waitForAndClick(ISpiceJetPageLocators.getPassengers());
         return this;
     }
 
-    public SpiceJetTest clickOnAdultsNumberOfTimes(int numberOfPassangers) {
-        for (int i = 1; i < numberOfPassangers; i++) {
+    public SpiceJetTest clickOnAdultsNumberOfTimes(int numberOfPassengers) {
+        for (int i = 1; i < numberOfPassengers; i++) {
             waitForAndClick(ISpiceJetPageLocators.getPassengerAdult());
         }
         return this;
     }
 
-    public SpiceJetTest clickOnChildrenNumberOfTimes(int numberOfPassangers) {
-        for (int i = 0; i < numberOfPassangers; i++) {
+    public SpiceJetTest clickOnChildrenNumberOfTimes(int numberOfPassengers) {
+        for (int i = 0; i < numberOfPassengers; i++) {
             waitForAndClick(ISpiceJetPageLocators.getPassengerChildren());
         }
         return this;
     }
 
-    public SpiceJetTest clickOnInfantsNumberOfTimes(int numberOfPassangers) {
-        for (int i = 0; i < numberOfPassangers; i++) {
+    public SpiceJetTest clickOnInfantsNumberOfTimes(int numberOfPassengers) {
+        for (int i = 0; i < numberOfPassengers; i++) {
             waitForAndClick(ISpiceJetPageLocators.getPassengerInfants());
         }
         return this;
     }
 
-    public SpiceJetTest clickOnAdultsMinusNumberOfTimes(int numberOfPassangers) {
-        for (int i = 0; i < numberOfPassangers; i++) {
+    public SpiceJetTest clickOnAdultsMinusNumberOfTimes(int numberOfPassengers) {
+        for (int i = 0; i < numberOfPassengers; i++) {
             waitForAndClick(ISpiceJetPageLocators.getPassengerAdultMinus());
         }
         return this;
     }
 
-    public SpiceJetTest clickOnChildrenMinusNumberOfTimes(int numberOfPassangers) {
-        for (int i = 0; i < numberOfPassangers; i++) {
+    public SpiceJetTest clickOnChildrenMinusNumberOfTimes(int numberOfPassengers) {
+        for (int i = 0; i < numberOfPassengers; i++) {
             waitForAndClick(ISpiceJetPageLocators.getPassengerChildrenMinus());
         }
         return this;
     }
 
-    public SpiceJetTest clickOnInfantsMinusNumberOfTimes(int numberOfPassangers) {
-        for (int i = 0; i < numberOfPassangers; i++) {
+    public SpiceJetTest clickOnInfantsMinusNumberOfTimes(int numberOfPassengers) {
+        for (int i = 0; i < numberOfPassengers; i++) {
             waitForAndClick(ISpiceJetPageLocators.getPassengerInfantsMinus());
         }
         return this;
     }
 
-
     public int getNumberOfAdultsSelected() {
-        //return d.findElement(By.xpath(""//div[@data-testid='Adult-testID-minus-one-cta']//following-sibling::*//div")).getText();
-        return Integer.valueOf(fluentWaitWithExpectedConditionToReturnText(ISpiceJetPageLocators.getNumberOfAdultsText()));
+        return Integer.parseInt(fluentWaitWithExpectedConditionToReturnText(ISpiceJetPageLocators.getNumberOfAdultsText()));
     }
 
 
     public int getNumberOfChildrenSelected() {
-        return Integer.valueOf(fluentWaitWithExpectedConditionToReturnText(ISpiceJetPageLocators.getNumberOfChildrenText()));
+        return Integer.parseInt(fluentWaitWithExpectedConditionToReturnText(ISpiceJetPageLocators.getNumberOfChildrenText()));
     }
 
 
     public int getNumberOfInfantsSelected() {
-        return Integer.valueOf(fluentWaitWithExpectedConditionToReturnText(ISpiceJetPageLocators.getNumberOfInfantsText()));
+        return Integer.parseInt(fluentWaitWithExpectedConditionToReturnText(ISpiceJetPageLocators.getNumberOfInfantsText()));
     }
 
     public String getTextAfterPassengerSetupDone() {
         System.out.println(driver.findElement(ISpiceJetPageLocators.getResultOfSettingPassengers()).getText());
         return driver.findElement(ISpiceJetPageLocators.getResultOfSettingPassengers()).getText();
-        //return fluentWaitWithExpectedConditionToReturnText(resultOfSettingPassengers);
     }
 
+    @Override
+    public <T> T waitForPageToLoadCompletely() {
+        return (T) super.waitForPageToLoadCompletely();
+    }
 
     public int actions3() {
         Actions advancedActions = new Actions(driver);

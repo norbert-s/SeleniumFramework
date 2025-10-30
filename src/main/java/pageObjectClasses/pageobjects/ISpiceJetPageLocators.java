@@ -2,13 +2,6 @@ package pageObjectClasses.pageobjects;
 
 import org.openqa.selenium.By;
 
-/**
- * Centralized locators for the SpiceJet page.
- *
- * Converted from an interface of By fields to a final utility class with private
- * static constants and public static getters. This enforces encapsulation while
- * preserving the locators for tests and page objects.
- */
 public final class ISpiceJetPageLocators {
     private ISpiceJetPageLocators() { /* utility class */ }
 

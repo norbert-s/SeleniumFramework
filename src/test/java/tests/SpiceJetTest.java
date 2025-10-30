@@ -5,6 +5,7 @@ import org.testng.annotations.Listeners;
 import org.testng.annotations.Test;
 import pageObjectClasses.testclasses.spice.ISpiceJetTest;
 import testSetup.deviceSetup.base.DriverBaseClass;
+import testSetup.deviceSetup.listeners.TestListener;
 import testSetup.setters.EnvironmentVariables;
 import testdata.DataProviderClass;
 import testdata.PassengersAsData;
@@ -13,7 +14,7 @@ import static org.testng.Assert.*;
 
 
 @Slf4j
-@Listeners(DriverBaseClass.TestListener.class)
+@Listeners(TestListener.class)
 public class SpiceJetTest extends DriverBaseClass implements EnvironmentVariables {
     @Test(groups = {"smoke"}, dataProvider = "spiceBasicTestData", dataProviderClass = DataProviderClass.class)
     public void testSpice(PassengersAsData testData) throws Exception {
@@ -23,7 +24,7 @@ public class SpiceJetTest extends DriverBaseClass implements EnvironmentVariable
         int children = testData.getChild();
         int infants = testData.getInfants();
         spiceJetTest.goToWebpage()
-                .clickOnPassangers()
+                .clickOnPassengers()
                 .clickOnAdultsNumberOfTimes(adult)
                 .clickOnChildrenNumberOfTimes(children)
                 .clickOnInfantsNumberOfTimes(infants);
