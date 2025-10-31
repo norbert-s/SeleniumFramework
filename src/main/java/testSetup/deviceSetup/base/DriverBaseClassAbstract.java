@@ -73,7 +73,6 @@ public abstract class DriverBaseClassAbstract {
             }
         }
 
-        // Remove all ThreadLocal state for this thread
         driverManager.remove();
         driver.remove();
         testFactory.remove();

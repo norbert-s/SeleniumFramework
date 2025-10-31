@@ -84,7 +84,7 @@ public class SpiceJetTest extends PageObjectGenericMethodsImpl implements ISpice
         System.out.println(driver.findElement(ISpiceJetPageLocators.getResultOfSettingPassengers()).getText());
         return driver.findElement(ISpiceJetPageLocators.getResultOfSettingPassengers()).getText();
     }
-
+    
     @Override
     public <T> T waitForPageToLoadCompletely() {
         return (T) super.waitForPageToLoadCompletely();
