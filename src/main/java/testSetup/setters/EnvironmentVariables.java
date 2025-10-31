@@ -10,16 +10,6 @@ public interface EnvironmentVariables {
 
     final int WAIT_FOR_TIME = 30;
 
-    static boolean getScreenshotOnSuccess() {
-        boolean screenshotOnSuccess = Boolean.parseBoolean(System.getProperty(Settings.SCREENSHOT_ON_SUCCESS, String.valueOf(Boolean.FALSE)));
-        if (screenshotOnSuccess == true || screenshotOnSuccess == false) return screenshotOnSuccess;
-        else return false;
-    }
-
-    static String getEmailTo() {
-        return System.getProperty(Settings.EMAIL_TO);
-    }
-
     default int getWaitForTime() {
         Integer waitForTimeEnv = Integer.parseInt(System.getProperty(Settings.WAIT_FOR_TIME));
         if (waitForTimeEnv == null) return WAIT_FOR_TIME;
@@ -36,10 +26,6 @@ public interface EnvironmentVariables {
         return System.getProperty(Settings.ENVIRONMENT);
     }
 
-    static String getEnvironment_static() {
-        return System.getProperty(Settings.ENVIRONMENT);
-    }
-
     static boolean getHeadless() {
         return Boolean.parseBoolean(System.getProperty(Settings.HEADLESS, "true"));
     }
@@ -52,7 +38,6 @@ public interface EnvironmentVariables {
             Configurator.setRootLevel(Level.WARN);
         }
     }
-
 
     static int setRetryNumberOfTimes() {
         int retry = Integer.valueOf(System.getProperty(Settings.RETRY_FAILED, String.valueOf(RETRY_FAILED)));
@@ -84,6 +69,6 @@ public interface EnvironmentVariables {
     }
 
     static boolean isDockerNeeded() {
-        return Boolean.parseBoolean(System.getProperty(Settings.DOCKER_NEEDED, String.valueOf(Boolean.FALSE)));
+        return Boolean.parseBoolean(System.getProperty(Settings.DOCKER_NEEDED, String.valueOf(Boolean.TRUE)));
     }
 }

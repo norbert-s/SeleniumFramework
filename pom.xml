@@ -17,7 +17,7 @@
         <waitfortime>45</waitfortime>
         <environment>local</environment>
         <retryfailed>1</retryfailed>
-        <headless>false</headless>
+        <headless>true</headless>
         <debuglevel>INFO</debuglevel>
         <emailto>example@example.com</emailto>
         <incognitoneeded>false</incognitoneeded>

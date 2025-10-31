@@ -8,7 +8,7 @@ import java.io.IOException;
 import java.util.List;
 
 public abstract class TestDataProvider {
-    public synchronized Object[][] testDataProvider(List<?> testDataList) throws IOException {
+    public synchronized Object[][] testDataProvider(List<?> testDataList) {
         Object[][] testDataArray = new Object[testDataList.size()][1];
         for (int i = 0; i < testDataList.size(); i++) {
             testDataArray[i][0] = testDataList.get(i);

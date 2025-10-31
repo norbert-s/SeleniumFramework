@@ -2,25 +2,69 @@ package pageObjectClasses.pageobjects;
 
 import org.openqa.selenium.By;
 
-public interface ISpiceJetPageLocators {
-    By passengers = By.xpath("//div[@data-testid='home-page-travellers']");
-    By passengerAdult = By.xpath("//div[@data-testid='Adult-testID-plus-one-cta']");
+public final class ISpiceJetPageLocators {
+    private ISpiceJetPageLocators() { /* utility class */ }
 
-    By passengerChildren = By.xpath("//div[@data-testid='Children-testID-plus-one-cta']");
-    By passengerInfants = By.xpath("//div[@data-testid='Infant-testID-plus-one-cta']");
+    private static final By PASSENGERS = By.xpath("//div[@data-testid='home-page-travellers']");
+    private static final By PASSENGER_ADULT = By.xpath("//div[@data-testid='Adult-testID-plus-one-cta']");
 
-    By passengerAdultMinus = By.xpath("//div[@data-testid='Adult-testID-minus-one-cta']");
-    By passengerChildrenMinus = By.xpath("//div[@data-testid='Children-testID-minus-one-cta']");
-    By passengerInfantsMinus = By.xpath("//div[@data-testid='Infant-testID-minus-one-cta']");
+    private static final By PASSENGER_CHILDREN = By.xpath("//div[@data-testid='Children-testID-plus-one-cta']");
+    private static final By PASSENGER_INFANTS = By.xpath("//div[@data-testid='Infant-testID-plus-one-cta']");
 
-    By resultOfSettingPassengers = By.xpath("//div[@data-testid='home-page-travellers']//descendant::div[3]");
+    private static final By PASSENGER_ADULT_MINUS = By.xpath("//div[@data-testid='Adult-testID-minus-one-cta']");
+    private static final By PASSENGER_CHILDREN_MINUS = By.xpath("//div[@data-testid='Children-testID-minus-one-cta']");
+    private static final By PASSENGER_INFANTS_MINUS = By.xpath("//div[@data-testid='Infant-testID-minus-one-cta']");
 
+    private static final By RESULT_OF_SETTING_PASSENGERS = By.xpath("//div[@data-testid='home-page-travellers']//descendant::div[3]");
 
-    By numberOfInfantsText = By.xpath("//div[@data-testid='Infant-testID-minus-one-cta']//following-sibling::*//div");
+    private static final By NUMBER_OF_INFANTS_TEXT = By.xpath("//div[@data-testid='Infant-testID-minus-one-cta']//following-sibling::*//div");
 
-    By numberOfAdultsText = By.xpath("//div[@data-testid='Adult-testID-minus-one-cta']//following-sibling::*//div");
+    private static final By NUMBER_OF_ADULTS_TEXT = By.xpath("//div[@data-testid='Adult-testID-minus-one-cta']//following-sibling::*//div");
 
-    By numberOfChildrentext = By.xpath("//div[@data-testid='Children-testID-minus-one-cta']//following-sibling::*//div");
+    private static final By NUMBER_OF_CHILDREN_TEXT = By.xpath("//div[@data-testid='Children-testID-minus-one-cta']//following-sibling::*//div");
 
+    // Getters
+    public static By getPassengers() {
+        return PASSENGERS;
+    }
 
+    public static By getPassengerAdult() {
+        return PASSENGER_ADULT;
+    }
+
+    public static By getPassengerChildren() {
+        return PASSENGER_CHILDREN;
+    }
+
+    public static By getPassengerInfants() {
+        return PASSENGER_INFANTS;
+    }
+
+    public static By getPassengerAdultMinus() {
+        return PASSENGER_ADULT_MINUS;
+    }
+
+    public static By getPassengerChildrenMinus() {
+        return PASSENGER_CHILDREN_MINUS;
+    }
+
+    public static By getPassengerInfantsMinus() {
+        return PASSENGER_INFANTS_MINUS;
+    }
+
+    public static By getResultOfSettingPassengers() {
+        return RESULT_OF_SETTING_PASSENGERS;
+    }
+
+    public static By getNumberOfInfantsText() {
+        return NUMBER_OF_INFANTS_TEXT;
+    }
+
+    public static By getNumberOfAdultsText() {
+        return NUMBER_OF_ADULTS_TEXT;
+    }
+
+    public static By getNumberOfChildrenText() {
+        return NUMBER_OF_CHILDREN_TEXT;
+    }
 }

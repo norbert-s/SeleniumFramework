@@ -2,7 +2,6 @@ package testSetup.deviceSetup.base;
 
 import lombok.extern.slf4j.Slf4j;
 import org.openqa.selenium.WebDriver;
-import org.testng.asserts.SoftAssert;
 import pageObjectClasses.test_factory.ITestFactory;
 import pageObjectClasses.test_factory.TestFactory;
 import testSetup.deviceSetup.factory.DriverManager;
@@ -12,7 +11,7 @@ public abstract class DriverBaseClassAbstract {
 
     private final ThreadLocal<DriverManager> driverManager = new ThreadLocal<>();
     private final ThreadLocal<WebDriver> driver = new ThreadLocal<>();
-    protected final ThreadLocal<SoftAssert> softAssert = new ThreadLocal<>();
+    protected final ThreadLocal<ITestFactory> testFactory = new ThreadLocal<>();
 
     public DriverBaseClassAbstract() {
         log.info("BaseClass constructor called");
@@ -30,21 +29,53 @@ public abstract class DriverBaseClassAbstract {
         this.driver.set(driver);
     }
 
-    protected WebDriver getDriver() {
+    public WebDriver getDriver() {
         return this.driver.get();
     }
 
-    public SoftAssert getSoftAssert() {
-        return this.softAssert.get();
-    }
-
-    protected final ThreadLocal<ITestFactory> testFactory = new ThreadLocal<>();
-
     public ITestFactory getTestFactory() {
-        return testFactory.get();
+        ITestFactory tf = testFactory.get();
+        if (tf == null) {
+            // lazy initialize so callers don't get NPE if called before explicit create
+            tf = createTestFactory();
+            testFactory.set(tf);
+        }
+        return tf;
     }
 
     public ITestFactory createTestFactory() {
-        return new TestFactory(getDriver());
+        TestFactory tf = new TestFactory(getDriver());
+        testFactory.set(tf);
+        return tf;
+    }
+
+    /**
+     * per-thread DriverManager and associated webDriver, testFactory
+     * implements the stateful driverManager pattern -  manager owns the driver instance.
+     */
+    public void initDriverManager(DriverManager dm) throws Exception {
+        if (dm == null) throw new IllegalArgumentException("DriverManager must not be null");
+        setDriverManager(dm);
+        WebDriver d = dm.getDriver();
+        setDriver(d);
+        testFactory.set(new TestFactory(getDriver()));
+        DriverProvider.setDriver(getDriver());
+    }
+
+
+    public void quitDriverAndCleanup() {
+        DriverManager dm = getDriverManager();
+        if (dm != null) {
+            try {
+                dm.quitDriver();
+            } catch (Exception ignored) {
+                // ignore
+            }
+        }
+
+        driverManager.remove();
+        driver.remove();
+        testFactory.remove();
+        DriverProvider.remove();
     }
 }
