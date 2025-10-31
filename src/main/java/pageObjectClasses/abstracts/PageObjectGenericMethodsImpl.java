@@ -15,33 +15,37 @@ public abstract class PageObjectGenericMethodsImpl extends PageObjectBaseMethods
 
     }
 
-    public void waitForElementToBeClickable(By element) {
+    public IPageObjectGenericMethods waitForElementToBeClickable(By element) {
         fluentWaitWithExpectedCondition(ExpectedConditions.elementToBeClickable(element));
+        return this;
     }
 
-    public void waitForElementToBePresent(By element) {
+    public IPageObjectGenericMethods waitForElementToBePresent(By element) {
         fluentWaitWithExpectedCondition(ExpectedConditions.presenceOfElementLocated(element));
+        return this;
     }
 
-    public void waitForElementToBePresent(By element, int time) {
+    public IPageObjectGenericMethods waitForElementToBePresent(By element, int time) {
         fluentWaitWithExpectedCondition(ExpectedConditions.presenceOfElementLocated(element), time);
+        return this;
     }
 
-    public void waitForVisibilityOfWebElement(WebElement element) {
+    public IPageObjectGenericMethods waitForVisibilityOfWebElement(WebElement element) {
         fluentWaitWithExpectedCondition(ExpectedConditions.visibilityOf(element));
+        return this;
     }
 
-    public void waitForAndClick(By element) {
+    public IPageObjectGenericMethods waitForAndClick(By element) {
         waitForElementToBeClickable(element);
         convertByToWebElement(element).click();
+        return this;
     }
 
-
-    public void waitForAndClick(WebElement element)  {
+    public IPageObjectGenericMethods waitForAndClick(WebElement element)  {
         fluentWaitWithExpectedCondition(ExpectedConditions.elementToBeClickable(element));
         element.click();
+        return this;
     }
-
 
     public <T> T enterTextToSearchForm(By element, String text) {
         try {
@@ -49,7 +53,6 @@ public abstract class PageObjectGenericMethodsImpl extends PageObjectBaseMethods
             waitForElementToBePresent(element);
             clearText(element);
             driver.findElement(element).sendKeys(text + Keys.ENTER);
-            //d.findElement(element).sendKeys(Keys.RETURN);
         } catch (Exception e) {
             log.error("entering text into search form  did not succeed " + element + " " + text + " ");
             throw (e);
@@ -57,17 +60,19 @@ public abstract class PageObjectGenericMethodsImpl extends PageObjectBaseMethods
         return (T) this;
     }
 
-    public void clearText(By element) {
+    public IPageObjectGenericMethods clearText(By element) {
         waitForAndClick(element);
         driver.findElement(element).clear();
+        return this;
     }
 
     public String fluentWaitWithExpectedConditionToReturnText(By locator) {
         return returnWait().until(ExpectedConditions.presenceOfElementLocated(locator)).getText();
     }
 
-    public void fluentWaitForAllElementsPresence(By locator) {
+    public IPageObjectGenericMethods fluentWaitForAllElementsPresence(By locator) {
         returnWait().until(ExpectedConditions.presenceOfAllElementsLocatedBy(locator));
+        return this;
     }
 
     public <T> T waitForPageToLoadCompletely() {

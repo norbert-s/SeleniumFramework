@@ -11,7 +11,7 @@ public abstract class DriverBaseClassAbstract {
 
     private final ThreadLocal<DriverManager> driverManager = new ThreadLocal<>();
     private final ThreadLocal<WebDriver> driver = new ThreadLocal<>();
-
+    protected final ThreadLocal<ITestFactory> testFactory = new ThreadLocal<>();
 
     public DriverBaseClassAbstract() {
         log.info("BaseClass constructor called");
@@ -33,8 +33,6 @@ public abstract class DriverBaseClassAbstract {
         return this.driver.get();
     }
 
-    protected final ThreadLocal<ITestFactory> testFactory = new ThreadLocal<>();
-
     public ITestFactory getTestFactory() {
         ITestFactory tf = testFactory.get();
         if (tf == null) {
@@ -52,7 +50,7 @@ public abstract class DriverBaseClassAbstract {
     }
 
     /**
-     * per-thread DriverManager and associated WebDriver, TestFactory
+     * per-thread DriverManager and associated webDriver, testFactory
      * implements the stateful driverManager pattern -  manager owns the driver instance.
      */
     public void initDriverManager(DriverManager dm) throws Exception {

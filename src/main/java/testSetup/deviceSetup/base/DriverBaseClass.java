@@ -8,7 +8,6 @@ import testSetup.constants.TypesOfBrowsers;
 import testSetup.deviceSetup.factory.DriverManagerFactory;
 import testSetup.setters.SettingUpTimeouts;
 import testSetup.setters.WrapperSetupTestsBeforeDriver;
-import java.time.Duration;
 
 @Slf4j
 public class DriverBaseClass extends DriverBaseClassAbstract {
@@ -24,8 +23,6 @@ public class DriverBaseClass extends DriverBaseClassAbstract {
         if (browser == null) browser = "CHROME";
         initDriverManager(DriverManagerFactory.getManager(TypesOfBrowsers.valueOf(browser)));
         log.info(Thread.currentThread().getId() + ", " + getDriver());
-        getDriver().manage().timeouts().pageLoadTimeout(Duration.ofSeconds(30));
-        getDriver().manage().timeouts().scriptTimeout(Duration.ofSeconds(30));
         SettingUpTimeouts.timeOutSetup(getDriver());
     }
 

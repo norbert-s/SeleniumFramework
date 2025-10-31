@@ -5,7 +5,6 @@ import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedCondition;
-import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.FluentWait;
 import org.openqa.selenium.support.ui.Wait;
 import testSetup.setters.EnvironmentVariables;
@@ -48,14 +47,6 @@ public abstract class PageObjectBaseMethods extends PageObjectBasePage implement
     protected void fluentWaitWithExpectedCondition(ExpectedCondition<WebElement> expectedCondition, long timeOut) {
         assertNotNull(new Object() {
         }.getClass().getEnclosingMethod().getName() + " did not succeed " + expectedCondition, returnWait(timeOut).until(expectedCondition));
-    }
-
-    protected void waitForAndClick(WebElement element)  {
-        fluentWaitWithExpectedCondition(ExpectedConditions.elementToBeClickable(element));
-        if (element instanceof By) {
-            driver.findElement((By) element).click();
-        }
-        element.click();
     }
 
 }
