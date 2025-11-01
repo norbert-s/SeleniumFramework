@@ -36,4 +36,25 @@ public class SpiceJetTest extends DriverBaseClass implements EnvironmentVariable
         log.info("expected number: " + spiceJetTest.getTextAfterPassengerSetupDone() + " current : " + testData.getExpectedPassengerText());
         log.info(adult + " " + children + " " + infants + " " + Thread.currentThread().getId());
     }
+
+    @Test(groups = {"smoke"}, dataProvider = "spiceBasicTestData2", dataProviderClass = DataProviderClass.class)
+    public void testSpice2(PassengersAsData testData) throws Exception {
+        ISpiceJetTest spiceJetTest = getTestFactory().createSpiceJetTest();
+
+        int adult = testData.getAdults();
+        int children = testData.getChild();
+        int infants = testData.getInfants();
+        spiceJetTest.goToWebpage()
+                .clickOnPassengers()
+                .clickOnAdultsNumberOfTimes(adult)
+                .clickOnChildrenNumberOfTimes(children)
+                .clickOnInfantsNumberOfTimes(infants);
+
+        assertEquals(spiceJetTest.getNumberOfAdultsSelected(), testData.getExpectedAdults());
+        assertEquals(spiceJetTest.getNumberOfChildrenSelected(), testData.getChild());
+        assertEquals(spiceJetTest.getNumberOfInfantsSelected(), testData.getInfants());
+        assertEquals(spiceJetTest.getTextAfterPassengerSetupDone(), testData.getExpectedPassengerText());
+        log.info("expected number: " + spiceJetTest.getTextAfterPassengerSetupDone() + " current : " + testData.getExpectedPassengerText());
+        log.info(adult + " " + children + " " + infants + " " + Thread.currentThread().getId());
+    }
 }
