@@ -5,16 +5,7 @@ on:
 
 jobs:
   build:
-    strategy:
-      matrix:
-        include:
-          - os: ubuntu-latest
-            browser: CHROME
-          - os: ubuntu-latest
-            browser: FIREFOX
-          - os: macos-latest
-            browser: SAFARI
-    runs-on: ${{ matrix.os }}
+    runs-on: macos-latest
 
     steps:
       - uses: actions/checkout@v3
@@ -25,33 +16,24 @@ jobs:
           java-version: 17
           distribution: 'temurin'
           cache: maven
-          server-id: github
-          settings-path: ${{ github.workspace }}
 
       - name: Cache Maven local repository
         uses: actions/cache@v3
         with:
           path: ~/.m2/repository
-          key: ${{ runner.os }}-maven-${{ hashFiles('**/pom.xml') }}-${{ matrix.browser }}
+          key: ${{ runner.os }}-maven-${{ hashFiles('**/pom.xml') }}
           restore-keys: |
             ${{ runner.os }}-maven-
 
-      - name: Creating Env vars
-        env:
-          WAITFOR_TIME: ${{ vars.WAITFOR_TIME }}
-          SUITE_XML_FILES: ${{ vars.SUITE_XML_FILES }}
-          IS_DOCKER_NEEDED: ${{ vars.IS_DOCKER_NEEDED }}
-        run: echo "print out suite xml $SUITE_XML_FILES"
-
-      - name: Enable safaridriver (macOS only)
-        if: matrix.browser == 'SAFARI'
+      - name: Enable safaridriver
         run: sudo safaridriver --enable
 
       - name: Test with Maven
-        run: mvn test -Dsurefire.suiteXmlFiles=${{ vars.SUITE_XML_FILES }} -Dwaitfortime=${{ vars.WAITFOR_TIME }} -Ddocker=${{ vars.DOCKER }} -Dbrowser=${{ matrix.browser }}
+        run: mvn test -Dsurefire.suiteXmlFiles=test_runner.xml -Dwaitfortime=${{ vars.WAITFOR_TIME }} -Ddocker=${{ vars.DOCKER }}
 
       - name: Upload surefire report
+        if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: surefire-report-${{ matrix.browser }}
+          name: surefire-report
           path: target/surefire-reports/emailable-report.html
