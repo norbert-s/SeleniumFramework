@@ -4,16 +4,22 @@
     <listeners>
         <listener class-name="listeners.AnnotationTransformer"/>
     </listeners>
-    <test name="Firefox tests">
-        <parameter name="browser" value="FIREFOX"/>
-        <classes>
-            <class name="tests.SpiceJetTest"/>
-        </classes>
-    </test>
+<!--    <test name="Firefox tests">-->
+<!--        <parameter name="browser" value="FIREFOX"/>-->
+<!--        <classes>-->
+<!--            <class name="tests.SpiceJetTest"/>-->
+<!--        </classes>-->
+<!--    </test>-->
 <!--    <test name="Chrome">-->
 <!--        <parameter name="browser" value="CHROME"/>-->
 <!--        <classes>-->
 <!--            <class name="tests.SpiceJetTest"/>-->
 <!--        </classes>-->
 <!--    </test>-->
-</suite> <!-- Suite -->
+    <test name="SAFARI">
+        <parameter name="browser" value="SAFARI"/>
+        <classes>
+            <class name="tests.SpiceJetTest"/>
+        </classes>
+    </test>
+</suite>

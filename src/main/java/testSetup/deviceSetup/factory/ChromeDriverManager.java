@@ -8,12 +8,6 @@ public class ChromeDriverManager extends DriverManager {
 
     @Override
     public WebDriver createDriver() throws Exception {
-
-        wdm = WebDriverManager.chromedriver().driverVersion("126").capabilities(ChromeDeviceSetup.settingUpDevices());
-
-        driver = wdm.create();
-
-        return driver;
-
+        return WebDriverManager.chromedriver().capabilities(ChromeDeviceSetup.settingUpDevices()).create();
     }
 }
