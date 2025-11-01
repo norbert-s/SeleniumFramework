@@ -16,6 +16,7 @@
 <!--            <class name="tests.SpiceJetTest"/>-->
 <!--        </classes>-->
 <!--    </test>-->
+
     <test name="SAFARI">
         <parameter name="browser" value="SAFARI"/>
         <classes>
