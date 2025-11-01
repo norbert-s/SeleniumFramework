@@ -5,7 +5,7 @@ on:
 
 jobs:
   build:
-    runs-on: macos-latest
+    runs-on: ubuntu-latest
 
     steps:
       - uses: actions/checkout@v3
@@ -24,9 +24,6 @@ jobs:
           key: ${{ runner.os }}-maven-${{ hashFiles('**/pom.xml') }}
           restore-keys: |
             ${{ runner.os }}-maven-
-
-      - name: Enable safaridriver
-        run: sudo safaridriver --enable
 
       - name: Test with Maven
         run: mvn test -Dsurefire.suiteXmlFiles=test_runner.xml -Dwaitfortime=${{ vars.WAITFOR_TIME }} -Ddocker=${{ vars.DOCKER }}
