@@ -9,11 +9,11 @@ jobs:
       matrix:
         include:
           - os: ubuntu-latest
-            browser: chrome
+            browser: CHROME
           - os: ubuntu-latest
-            browser: firefox
+            browser: FIREFOX
           - os: macos-latest
-            browser: safari
+            browser: SAFARI
     runs-on: ${{ matrix.os }}
 
     steps:
@@ -44,7 +44,7 @@ jobs:
         run: echo "print out suite xml $SUITE_XML_FILES"
 
       - name: Enable safaridriver (macOS only)
-        if: matrix.browser == 'safari'
+        if: matrix.browser == 'SAFARI'
         run: sudo safaridriver --enable
 
       - name: Test with Maven
