@@ -13,6 +13,7 @@ public class DriverManagerFactory {
             case CHROME -> isDocker ? new DockerChromeDriverManager() : new ChromeDriverManager();
             case FIREFOX -> isDocker ? new DockerFirefoxDriverManager() : new FirefoxDriverManager();
             case EDGE -> isDocker ? new DockerEdgeDriverManager() : new EdgeDriverManager();
+            case SAFARI -> isDocker ? new DockerSafariDriverManager() : new SafariDriverManager();
             default -> throw new IllegalStateException("Unexpected value: " + typesOfBrowsers);
         };
     }
