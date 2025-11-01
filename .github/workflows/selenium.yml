@@ -16,13 +16,6 @@ jobs:
           java-version: 17
           distribution: 'temurin'
           cache: maven
-          server-id: github
-          settings-path: ${{ github.workspace }}
-
-      #      - name: Install Docker
-      #        run: |
-      #          sudo apt-get update
-      #          sudo apt-get install -y docker.io
 
       - name: Cache Maven local repository
         uses: actions/cache@v3
@@ -32,19 +25,12 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-maven-
 
-      - name: Creating Env vars
-        env:
-          WAITFOR_TIME: ${{ vars.WAITFOR_TIME }}
-          SUITE_XML_FILES: ${{ vars.SUITE_XML_FILES }}
-          IS_DOCKER_NEEDED: ${{ vars.IS_DOCKER_NEEDED }}
-        run: echo "print out suite xml $SUITE_XML_FILES"
-
       - name: Test with Maven
-        run: mvn test -Dsurefire.suiteXmlFiles=${{ vars.SUITE_XML_FILES }} -Dwaitfortime=${{ vars.WAITFOR_TIME }} -Ddocker=${{ vars.DOCKER }}
+        run: mvn test -Dsurefire.suiteXmlFiles=test_runner.xml -Dwaitfortime=${{ vars.WAITFOR_TIME }} -Ddocker=${{ vars.DOCKER }}
 
       - name: Upload surefire report
+        if: always()
         uses: actions/upload-artifact@v4
         with:
           name: surefire-report
           path: target/surefire-reports/emailable-report.html
-
