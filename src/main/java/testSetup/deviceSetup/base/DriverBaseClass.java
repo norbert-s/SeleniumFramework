@@ -11,6 +11,8 @@ import testSetup.setters.WrapperSetupTestsBeforeDriver;
 
 @Slf4j
 public class DriverBaseClass extends DriverBaseClassAbstract {
+    private static final Object DRIVER_SETUP_LOCK = new Object();
+
     @BeforeSuite(alwaysRun = true)
     public void beforeSuite() {
         log.info("driver base class before suite called");
@@ -21,7 +23,9 @@ public class DriverBaseClass extends DriverBaseClassAbstract {
     @BeforeMethod(alwaysRun = true)
     public synchronized void startDriver(@Optional String browser) throws Exception {
         if (browser == null) browser = "CHROME";
-        initDriverManager(DriverManagerFactory.getManager(TypesOfBrowsers.valueOf(browser)));
+        synchronized (DRIVER_SETUP_LOCK) {
+            initDriverManager(DriverManagerFactory.getManager(TypesOfBrowsers.valueOf(browser)));
+        }
         log.info(Thread.currentThread().getId() + ", " + getDriver());
         SettingUpTimeouts.timeOutSetup(getDriver());
     }
