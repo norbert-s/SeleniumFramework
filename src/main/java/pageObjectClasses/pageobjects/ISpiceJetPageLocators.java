@@ -5,23 +5,15 @@ import org.openqa.selenium.By;
 public final class ISpiceJetPageLocators {
     private ISpiceJetPageLocators() { /* utility class */ }
 
-    private static final By PASSENGERS = By.xpath("//div[@data-testid='home-page-travellers']");
-    private static final By PASSENGER_ADULT = By.xpath("//div[@data-testid='Adult-testID-plus-one-cta']");
+    private static final By PASSENGERS = By.id("divpaxinfo");
+    private static final By PASSENGER_ADULT = By.id("ControlGroupSearchView_AvailabilitySearchInputSearchView_DropDownListPassengerType_ADT");
 
-    private static final By PASSENGER_CHILDREN = By.xpath("//div[@data-testid='Children-testID-plus-one-cta']");
-    private static final By PASSENGER_INFANTS = By.xpath("//div[@data-testid='Infant-testID-plus-one-cta']");
+    private static final By PASSENGER_CHILDREN = By.id("ControlGroupSearchView_AvailabilitySearchInputSearchView_DropDownListPassengerType_CHD");
+    private static final By PASSENGER_INFANTS = By.id("ControlGroupSearchView_AvailabilitySearchInputSearchView_DropDownListPassengerType_INFANT");
 
-    private static final By PASSENGER_ADULT_MINUS = By.xpath("//div[@data-testid='Adult-testID-minus-one-cta']");
-    private static final By PASSENGER_CHILDREN_MINUS = By.xpath("//div[@data-testid='Children-testID-minus-one-cta']");
-    private static final By PASSENGER_INFANTS_MINUS = By.xpath("//div[@data-testid='Infant-testID-minus-one-cta']");
-
-    private static final By RESULT_OF_SETTING_PASSENGERS = By.xpath("//div[@data-testid='home-page-travellers']//descendant::div[3]");
-
-    private static final By NUMBER_OF_INFANTS_TEXT = By.xpath("//div[@data-testid='Infant-testID-minus-one-cta']//following-sibling::*//div");
-
-    private static final By NUMBER_OF_ADULTS_TEXT = By.xpath("//div[@data-testid='Adult-testID-minus-one-cta']//following-sibling::*//div");
-
-    private static final By NUMBER_OF_CHILDREN_TEXT = By.xpath("//div[@data-testid='Children-testID-minus-one-cta']//following-sibling::*//div");
+    private static final By NUMBER_OF_INFANTS_TEXT = PASSENGER_INFANTS;
+    private static final By NUMBER_OF_ADULTS_TEXT = PASSENGER_ADULT;
+    private static final By NUMBER_OF_CHILDREN_TEXT = PASSENGER_CHILDREN;
 
     // Getters
     public static By getPassengers() {
@@ -40,20 +32,8 @@ public final class ISpiceJetPageLocators {
         return PASSENGER_INFANTS;
     }
 
-    public static By getPassengerAdultMinus() {
-        return PASSENGER_ADULT_MINUS;
-    }
-
-    public static By getPassengerChildrenMinus() {
-        return PASSENGER_CHILDREN_MINUS;
-    }
-
-    public static By getPassengerInfantsMinus() {
-        return PASSENGER_INFANTS_MINUS;
-    }
-
     public static By getResultOfSettingPassengers() {
-        return RESULT_OF_SETTING_PASSENGERS;
+        return PASSENGERS;
     }
 
     public static By getNumberOfInfantsText() {
