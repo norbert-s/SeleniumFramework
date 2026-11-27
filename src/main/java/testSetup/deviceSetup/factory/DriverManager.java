@@ -11,20 +11,40 @@ public abstract class DriverManager {
     protected abstract WebDriver createDriver() throws Exception;
 
     public void quitDriver() {
-        if (wdm != null) {
-            wdm.quit();
+        RuntimeException failure = null;
+        try {
+            if (wdm != null) {
+                wdm.quit();
+            }
+        } catch (RuntimeException e) {
+            failure = e;
         }
-        if (driver != null) {
-
-            driver.quit();
+        try {
+            if (driver != null) {
+                driver.quit();
+            }
+        } catch (RuntimeException e) {
+            if (failure == null) {
+                failure = e;
+            } else {
+                failure.addSuppressed(e);
+            }
+        } finally {
+            driver = null;
+            wdm = null;
+        }
+        if (failure != null) {
+            throw failure;
         }
     }
 
     public WebDriver getDriver() throws Exception {
         if (driver == null) {
-            createDriver();
+            driver = createDriver();
+            if (driver == null) {
+                throw new IllegalStateException("Driver creation returned null");
+            }
         }
         return driver;
     }
 }
-

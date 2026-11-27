@@ -6,7 +6,7 @@ import org.openqa.selenium.WebDriver;
 public class DockerEdgeDriverManager extends DriverManager {
     @Override
     public WebDriver createDriver() {
-        WebDriverManager wdm = WebDriverManager.edgedriver().browserInDocker();
+        wdm = WebDriverManager.edgedriver().browserInDocker();
         driver = wdm.create();
         return driver;
     }

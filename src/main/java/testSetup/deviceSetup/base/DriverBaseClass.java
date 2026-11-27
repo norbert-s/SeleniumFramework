@@ -19,7 +19,7 @@ public class DriverBaseClass extends DriverBaseClassAbstract {
 
     @Parameters("browser")
     @BeforeMethod(alwaysRun = true)
-    public synchronized void startDriver(@Optional String browser) throws Exception {
+    public void startDriver(@Optional String browser) throws Exception {
         if (browser == null) browser = "CHROME";
         initDriverManager(DriverManagerFactory.getManager(TypesOfBrowsers.valueOf(browser)));
         log.info(Thread.currentThread().getId() + ", " + getDriver());
@@ -27,7 +27,7 @@ public class DriverBaseClass extends DriverBaseClassAbstract {
     }
 
     @AfterMethod(alwaysRun = true)
-    public synchronized void quitDriver(@Optional String browser, ITestResult result) {
+    public void quitDriver(@Optional String browser, ITestResult result) {
         log.info(Thread.currentThread().getId() + ", " + getDriver());
         quitDriverAndCleanup();
     }

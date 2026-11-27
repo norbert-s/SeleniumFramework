@@ -10,7 +10,6 @@ import testSetup.deviceSetup.factory.DriverManager;
 public abstract class DriverBaseClassAbstract {
 
     private final ThreadLocal<DriverManager> driverManager = new ThreadLocal<>();
-    private final ThreadLocal<WebDriver> driver = new ThreadLocal<>();
     protected final ThreadLocal<ITestFactory> testFactory = new ThreadLocal<>();
 
     public DriverBaseClassAbstract() {
@@ -25,12 +24,8 @@ public abstract class DriverBaseClassAbstract {
         return this.driverManager.get();
     }
 
-    void setDriver(WebDriver driver) {
-        this.driver.set(driver);
-    }
-
     public WebDriver getDriver() {
-        return this.driver.get();
+        return DriverProvider.getDriver();
     }
 
     public ITestFactory getTestFactory() {
@@ -57,25 +52,21 @@ public abstract class DriverBaseClassAbstract {
         if (dm == null) throw new IllegalArgumentException("DriverManager must not be null");
         setDriverManager(dm);
         WebDriver d = dm.getDriver();
-        setDriver(d);
-        testFactory.set(new TestFactory(getDriver()));
-        DriverProvider.setDriver(getDriver());
+        DriverProvider.setDriver(d);
+        testFactory.set(new TestFactory(d));
     }
 
 
     public void quitDriverAndCleanup() {
         DriverManager dm = getDriverManager();
-        if (dm != null) {
-            try {
+        try {
+            if (dm != null) {
                 dm.quitDriver();
-            } catch (Exception ignored) {
-                // ignore
             }
+        } finally {
+            driverManager.remove();
+            testFactory.remove();
+            DriverProvider.remove();
         }
-
-        driverManager.remove();
-        driver.remove();
-        testFactory.remove();
-        DriverProvider.remove();
     }
 }
