@@ -4,13 +4,9 @@ package testSetup.deviceSetup;
 import org.openqa.selenium.edge.EdgeOptions;
 import testSetup.setters.EnvironmentVariables;
 
-import java.util.Map;
-
 public class EdgeDeviceSetup {
     public static EdgeOptions driverBuilder() throws Exception {
         EdgeOptions edgeOptions = new EdgeOptions();
-        edgeOptions.setExperimentalOption("prefs",
-                Map.of("profile.default_content_setting_values.geolocation", 2));
 
         if (EnvironmentVariables.getHeadless()) {
             edgeOptions.addArguments("--headless");
@@ -20,5 +16,4 @@ public class EdgeDeviceSetup {
 
     }
 }
-
 

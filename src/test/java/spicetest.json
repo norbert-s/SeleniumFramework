@@ -8,7 +8,7 @@
     "expectedAdults": 3,
     "expectedChildren": 3,
     "expectedInfants": 1,
-    "expectedPassengerText": "3 Adults, 3 Children, 1 Infant"
+    "expectedPassengerText": "3 Adult, 3 Child, 1 Infant"
   },
   {
     "testId": "TC-SPICE-001",
@@ -19,7 +19,7 @@
     "expectedAdults": 2,
     "expectedChildren": 2,
     "expectedInfants": 1,
-    "expectedPassengerText": "2 Adults, 2 Children, 1 Infant"
+    "expectedPassengerText": "2 Adult, 2 Child, 1 Infant"
   },
   {
     "testId": "TC-SPICE-001",
@@ -30,7 +30,7 @@
     "expectedAdults": 4,
     "expectedChildren": 1,
     "expectedInfants": 1,
-    "expectedPassengerText": "4 Adults, 1 Child, 1 Infant"
+    "expectedPassengerText": "4 Adult, 1 Child, 1 Infant"
   },
   {
     "testId": "TC-SPICE-001",
@@ -41,7 +41,7 @@
     "expectedAdults": 4,
     "expectedChildren": 2,
     "expectedInfants": 1,
-    "expectedPassengerText": "4 Adults, 2 Children, 1 Infant"
+    "expectedPassengerText": "4 Adult, 2 Child, 1 Infant"
   },
   {
     "testId": "TC-SPICE-001",
@@ -52,6 +52,6 @@
     "expectedAdults": 1,
     "expectedChildren": 2,
     "expectedInfants": 1,
-    "expectedPassengerText": "1 Adult, 2 Children, 1 Infant"
+    "expectedPassengerText": "1 Adult, 2 Child, 1 Infant"
   }
 ]

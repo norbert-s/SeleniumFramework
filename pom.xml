@@ -24,11 +24,11 @@
         <surefire.suiteXmlFiles>test_runner.xml</surefire.suiteXmlFiles>
         <waitfortime>45</waitfortime>
         <environment>local</environment>
-        <retryfailed>1</retryfailed>
+        <retryfailed>0</retryfailed>
         <headless>true</headless>
         <debuglevel>INFO</debuglevel>
         <emailto>example@example.com</emailto>
-        <incognitoneeded>false</incognitoneeded>
+        <incognitoneeded>true</incognitoneeded>
         <groups>smoke</groups>
         <screenshot-on-success>false</screenshot-on-success>
         <docker>false</docker>
