@@ -6,6 +6,7 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
+    timeout-minutes: 15
     permissions:
       contents: read
 
@@ -18,6 +19,9 @@ jobs:
           java-version: 17
           distribution: 'temurin'
           cache: maven
+
+      - name: Prepare WebDriverManager Docker network
+        run: docker network inspect grid >/dev/null 2>&1 || docker network create grid
 
       - name: Test with Maven
         run: >-
