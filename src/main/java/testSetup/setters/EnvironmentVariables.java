@@ -25,6 +25,10 @@ public interface EnvironmentVariables {
         return Boolean.parseBoolean(System.getProperty(Settings.HEADLESS, "true"));
     }
 
+    static boolean isScreenshotOnSuccess() {
+        return Boolean.parseBoolean(System.getProperty(Settings.SCREENSHOT_ON_SUCCESS, "false"));
+    }
+
     static int setRetryNumberOfTimes() {
         int retry = Integer.valueOf(System.getProperty(Settings.RETRY_FAILED, String.valueOf(RETRY_FAILED)));
         if (retry >= 0 && retry <= 3) {

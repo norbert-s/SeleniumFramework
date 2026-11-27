@@ -12,6 +12,8 @@ public final class TestExecutionContextHolder {
         CONTEXT.set(context);
         MDC.put("runId", context.runId());
         MDC.put("testId", context.testId());
+        MDC.put("testName", context.testName());
+        MDC.put("browser", context.browser());
         putOrRemove("datasetId", context.datasetId());
         putOrRemove("jiraId", context.jiraId());
     }
@@ -44,6 +46,8 @@ public final class TestExecutionContextHolder {
         CONTEXT.remove();
         MDC.remove("runId");
         MDC.remove("testId");
+        MDC.remove("testName");
+        MDC.remove("browser");
         MDC.remove("datasetId");
         MDC.remove("jiraId");
     }

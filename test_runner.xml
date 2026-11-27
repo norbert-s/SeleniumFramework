@@ -10,10 +10,16 @@
             <class name="tests.SpiceJetTest"/>
         </classes>
     </test>
-<!--    <test name="Chrome">-->
-<!--        <parameter name="browser" value="CHROME"/>-->
-<!--        <classes>-->
-<!--            <class name="tests.SpiceJetTest"/>-->
-<!--        </classes>-->
-<!--    </test>-->
+    <test name="Chrome">
+        <parameter name="browser" value="CHROME"/>
+        <classes>
+            <class name="tests.SpiceJetTest"/>
+        </classes>
+    </test>
+    <test name="Edge">
+        <parameter name="browser" value="EDGE"/>
+        <classes>
+            <class name="tests.SpiceJetTest"/>
+        </classes>
+    </test>
 </suite>

@@ -14,6 +14,7 @@ public class SpiceJetTest extends PageObjectGenericMethodsImpl implements ISpice
 
     public SpiceJetTest goToWebpage() {
         driver.get("https://www.spicejet.com/");
+        waitForPageToLoadCompletely();
         return this;
     }
 

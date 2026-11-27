@@ -16,7 +16,7 @@ import static org.testng.Assert.*;
 @Listeners(TestListener.class)
 public class SpiceJetTest extends DriverBaseClass {
     @Test(groups = {"smoke"}, dataProvider = "spiceBasicTestData", dataProviderClass = DataProviderClass.class)
-    public void testSpice(PassengersAsData testData) throws Exception {
+    public void spicePassengerCounts(PassengersAsData testData) throws Exception {
         ISpiceJetTest spiceJetTest = new pageObjectClasses.testclasses.spice.SpiceJetTest(getDriver());
 
         int adult = testData.getAdults();

@@ -32,14 +32,14 @@ public class DriverBaseClass extends DriverBaseClassAbstract {
                 ? result.getMethod().getQualifiedName()
                 : executionIdentity.getTestId();
         String datasetId = executionIdentity == null ? null : executionIdentity.getDatasetId();
-        TestCaseId annotation = result.getTestMethod() == null
-                ? null
-                : result.getTestMethod().getConstructorOrMethod().getMethod().getAnnotation(TestCaseId.class);
+        TestCaseId annotation = result.getMethod().getConstructorOrMethod()
+                .getMethod().getAnnotation(TestCaseId.class);
         String jiraId = annotation == null ? null : annotation.value();
+        TypesOfBrowsers browserType = TypesOfBrowsers.valueOf(selectedBrowser.toUpperCase(Locale.ROOT));
         TestExecutionContext context = testLifecycleService.createContext(
-                result.getMethod().getQualifiedName(), testId, datasetId, jiraId);
+                result.getMethod().getMethodName(), testId, datasetId, jiraId, browserType);
         result.setAttribute(TestLifecycleService.TEST_CONTEXT_ATTRIBUTE, context);
-        testLifecycleService.startTest(context, TypesOfBrowsers.valueOf(selectedBrowser.toUpperCase(Locale.ROOT)));
+        testLifecycleService.startTest(context, browserType);
     }
 
     private TestExecutionIdentity findExecutionIdentity(Object[] testParameters) {

@@ -21,9 +21,11 @@ public class TestLifecycleService {
             String testName,
             String testId,
             String datasetId,
-            String jiraId
+            String jiraId,
+            TypesOfBrowsers browser
     ) {
-        return TestExecutionContext.create(RUN_ID, testId, datasetId, jiraId, testName);
+        return TestExecutionContext.create(
+                RUN_ID, testId, datasetId, jiraId, testName, browser.name());
     }
 
     public void startTest(TestExecutionContext context, TypesOfBrowsers browser) throws Exception {

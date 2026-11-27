@@ -4,6 +4,8 @@ package testSetup.deviceSetup;
 import org.openqa.selenium.chrome.ChromeOptions;
 import testSetup.setters.EnvironmentVariables;
 
+import java.util.Map;
+
 public class ChromeDeviceSetup {
     private static ChromeOptions chromeOptions;
 
@@ -11,6 +13,8 @@ public class ChromeDeviceSetup {
     public static ChromeOptions settingUpDevices() throws Exception {
         System.setProperty("webdriver.http.factory", "jdk-http-client");
         chromeOptions = new ChromeOptions();
+        chromeOptions.setExperimentalOption("prefs",
+                Map.of("profile.default_content_setting_values.geolocation", 2));
 //            if (browser.toLowerCase().contains("chrome".toLowerCase(Locale.ROOT))) {
 //                if(GlobalSettingsGetterMethods.isIncognitoNeeded()){
 //                    //chromeOptions.addArguments("--incognito");
@@ -45,4 +49,3 @@ public class ChromeDeviceSetup {
         return chromeOptions;
     }
 }
-

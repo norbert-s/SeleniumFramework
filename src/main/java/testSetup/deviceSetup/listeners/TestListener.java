@@ -15,22 +15,31 @@ import testSetup.deviceSetup.base.DriverProvider;
 import testSetup.deviceSetup.base.ExtentTestManager;
 import testSetup.deviceSetup.base.ExtentManager;
 import testSetup.lifecycle.TestLifecycleService;
+import testSetup.setters.EnvironmentVariables;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.Base64;
 
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 public class TestListener implements ITestListener {
 
-    private void saveScreenshot(WebDriver driver, String fileName) {
-        byte[] screenshotBytes = ((TakesScreenshot) driver).getScreenshotAs(OutputType.BYTES);
+    private byte[] saveScreenshot(WebDriver driver, String fileName) {
+        byte[] screenshotBytes;
+        try {
+            screenshotBytes = ((TakesScreenshot) driver).getScreenshotAs(OutputType.BYTES);
+        } catch (org.openqa.selenium.WebDriverException e) {
+            log.warn("Failed to capture screenshot {}", fileName, e);
+            return null;
+        }
         try {
             FileUtils.writeByteArrayToFile(new File("./screenshots/" + fileName + ".png"), screenshotBytes);
         } catch (IOException e) {
             log.warn("Failed to save screenshot {}", fileName, e);
         }
+        return screenshotBytes;
     }
 
     private static String getTestMethodName(ITestResult iTestResult) {
@@ -60,6 +69,7 @@ public class TestListener implements ITestListener {
             TestExecutionContext context = TestExecutionContextHolder.get();
             String description = context == null ? "" : "runId=" + context.runId()
                     + ", testId=" + context.testId()
+                    + ", browser=" + context.browser()
                     + (context.datasetId() == null ? "" : ", datasetId=" + context.datasetId())
                     + (context.jiraId() == null ? "" : ", jiraId=" + context.jiraId());
             ExtentTestManager.startTest(iTestResult.getMethod().getMethodName(), description);
@@ -70,7 +80,10 @@ public class TestListener implements ITestListener {
     public void onTestFailure(ITestResult iTestResult) {
         try {
             withTestContext(iTestResult, () -> {
-                log.info("Test failed: {}", getTestMethodName(iTestResult), iTestResult.getThrowable());
+                log.error("Test result: status=FAILED method={} durationMs={}",
+                        getTestMethodName(iTestResult),
+                        iTestResult.getEndMillis() - iTestResult.getStartMillis(),
+                        iTestResult.getThrowable());
                 WebDriver driver = DriverProvider.getDriver();
                 ExtentTest test = ExtentTestManager.getTest();
                 if (test == null) {
@@ -78,9 +91,15 @@ public class TestListener implements ITestListener {
                     return;
                 }
                 if (driver != null) {
-                    String base64Screenshot = "data:image/png;base64," + ((TakesScreenshot) driver).getScreenshotAs(OutputType.BASE64);
-                    test.log(Status.FAIL, "Test Failed",
-                            test.addScreenCaptureFromBase64String(base64Screenshot).getModel().getMedia().get(0));
+                    String fileName = getTestMethodName(iTestResult) + "_" + System.currentTimeMillis();
+                    byte[] screenshotBytes = saveScreenshot(driver, fileName);
+                    if (screenshotBytes != null) {
+                        String base64Screenshot = Base64.getEncoder().encodeToString(screenshotBytes);
+                        test.log(Status.FAIL, "Test Failed",
+                                test.addScreenCaptureFromBase64String(base64Screenshot).getModel().getMedia().get(0));
+                    } else {
+                        test.log(Status.FAIL, "Test Failed");
+                    }
                 } else {
                     log.warn("No WebDriver available in DriverProvider for onTestFailure");
                     test.log(Status.FAIL, "Test Failed");
@@ -101,7 +120,9 @@ public class TestListener implements ITestListener {
     public void onTestSuccess(ITestResult iTestResult) {
         try {
             withTestContext(iTestResult, () -> {
-                log.info("Test succeeded: {}", getTestMethodName(iTestResult));
+                log.info("Test result: status=PASSED method={} durationMs={}",
+                        getTestMethodName(iTestResult),
+                        iTestResult.getEndMillis() - iTestResult.getStartMillis());
 
                 ExtentTest test = ExtentTestManager.getTest();
                 if (test == null) {
@@ -110,13 +131,15 @@ public class TestListener implements ITestListener {
                 }
                 test.log(Status.PASS, "Test passed");
                 WebDriver driver = DriverProvider.getDriver();
-                if (driver != null) {
-                    String base64Screenshot = "data:image/png;base64," + ((TakesScreenshot) driver).getScreenshotAs(OutputType.BASE64);
+                if (driver != null && EnvironmentVariables.isScreenshotOnSuccess()) {
                     String fileName = iTestResult.getName() + "_" + System.currentTimeMillis();
-                    saveScreenshot(driver, fileName);
-                    test.log(Status.PASS, "Test Passed",
-                            test.addScreenCaptureFromBase64String(base64Screenshot).getModel().getMedia().get(0));
-                } else {
+                    byte[] screenshotBytes = saveScreenshot(driver, fileName);
+                    if (screenshotBytes != null) {
+                        String base64Screenshot = Base64.getEncoder().encodeToString(screenshotBytes);
+                        test.log(Status.PASS, "Test Passed",
+                                test.addScreenCaptureFromBase64String(base64Screenshot).getModel().getMedia().get(0));
+                    }
+                } else if (driver == null) {
                     log.warn("No WebDriver available in DriverProvider for onTestSuccess");
                 }
             });
@@ -129,7 +152,10 @@ public class TestListener implements ITestListener {
     public void onTestSkipped(ITestResult iTestResult) {
         try {
             withTestContext(iTestResult, () -> {
-                log.info("Test skipped: {}", getTestMethodName(iTestResult));
+                log.warn("Test result: status=SKIPPED method={} durationMs={}",
+                        getTestMethodName(iTestResult),
+                        iTestResult.getEndMillis() - iTestResult.getStartMillis(),
+                        iTestResult.getThrowable());
                 ExtentTest test = ExtentTestManager.getTest();
                 if (test != null) {
                     test.log(Status.SKIP, "Test Skipped");

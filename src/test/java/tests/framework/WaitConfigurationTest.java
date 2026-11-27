@@ -1,6 +1,7 @@
 package tests.framework;
 
 import org.testng.annotations.Test;
+import testSetup.setters.EnvironmentVariables;
 import testSetup.wait.WaitConfiguration;
 
 import java.time.Duration;
@@ -31,11 +32,34 @@ public class WaitConfigurationTest {
         }
     }
 
+    @Test(groups = {"smoke"})
+    public void successfulTestScreenshotsAreDisabledByDefaultAndConfigurable() {
+        String oldValue = System.getProperty("screenshot-on-success");
+        System.clearProperty("screenshot-on-success");
+        try {
+            assertEquals(EnvironmentVariables.isScreenshotOnSuccess(), false);
+            System.setProperty("screenshot-on-success", "true");
+            assertEquals(EnvironmentVariables.isScreenshotOnSuccess(), true);
+            System.setProperty("screenshot-on-success", "false");
+            assertEquals(EnvironmentVariables.isScreenshotOnSuccess(), false);
+        } finally {
+            restoreScreenshotProperty(oldValue);
+        }
+    }
+
     private void restoreProperty(String value) {
         if (value == null) {
             System.clearProperty("waitfortime");
         } else {
             System.setProperty("waitfortime", value);
+        }
+    }
+
+    private void restoreScreenshotProperty(String value) {
+        if (value == null) {
+            System.clearProperty("screenshot-on-success");
+        } else {
+            System.setProperty("screenshot-on-success", value);
         }
     }
 }

@@ -1,6 +1,6 @@
 [
   {
-    "testId": "SPICE-PASSENGER-COUNTS",
+    "testId": "TC-SPICE-001",
     "datasetId": "1",
     "adults": 3,
     "child": 3,
@@ -11,7 +11,7 @@
     "expectedPassengerText": "3 Adults, 3 Children, 1 Infant"
   },
   {
-    "testId": "SPICE-PASSENGER-COUNTS",
+    "testId": "TC-SPICE-001",
     "datasetId": "2",
     "adults": 2,
     "child": 2,
@@ -22,7 +22,7 @@
     "expectedPassengerText": "2 Adults, 2 Children, 1 Infant"
   },
   {
-    "testId": "SPICE-PASSENGER-COUNTS",
+    "testId": "TC-SPICE-001",
     "datasetId": "3",
     "adults": 4,
     "child": 1,
@@ -33,7 +33,7 @@
     "expectedPassengerText": "4 Adults, 1 Child, 1 Infant"
   },
   {
-    "testId": "SPICE-PASSENGER-COUNTS",
+    "testId": "TC-SPICE-001",
     "datasetId": "4",
     "adults": 4,
     "child": 2,
@@ -44,7 +44,7 @@
     "expectedPassengerText": "4 Adults, 2 Children, 1 Infant"
   },
   {
-    "testId": "SPICE-PASSENGER-COUNTS",
+    "testId": "TC-SPICE-001",
     "datasetId": "5",
     "adults": 1,
     "child": 2,
