@@ -6,7 +6,6 @@ import org.testng.annotations.Test;
 import pageObjectClasses.testclasses.spice.ISpiceJetTest;
 import testSetup.deviceSetup.base.DriverBaseClass;
 import testSetup.deviceSetup.listeners.TestListener;
-import testSetup.setters.EnvironmentVariables;
 import testdata.DataProviderClass;
 import testdata.PassengersAsData;
 
@@ -15,10 +14,10 @@ import static org.testng.Assert.*;
 
 @Slf4j
 @Listeners(TestListener.class)
-public class SpiceJetTest extends DriverBaseClass implements EnvironmentVariables {
+public class SpiceJetTest extends DriverBaseClass {
     @Test(groups = {"smoke"}, dataProvider = "spiceBasicTestData", dataProviderClass = DataProviderClass.class)
     public void testSpice(PassengersAsData testData) throws Exception {
-        ISpiceJetTest spiceJetTest = getTestFactory().createSpiceJetTest();
+        ISpiceJetTest spiceJetTest = new pageObjectClasses.testclasses.spice.SpiceJetTest(getDriver());
 
         int adult = testData.getAdults();
         int children = testData.getChild();

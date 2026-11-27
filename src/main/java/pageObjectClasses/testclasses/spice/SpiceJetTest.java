@@ -6,11 +6,9 @@ import org.openqa.selenium.interactions.Actions;
 import pageObjectClasses.abstracts.PageObjectGenericMethodsImpl;
 import pageObjectClasses.pageobjects.ISpiceJetPageLocators;
 
-import java.io.IOException;
-
 
 public class SpiceJetTest extends PageObjectGenericMethodsImpl implements ISpiceJetTest {
-    public SpiceJetTest(WebDriver d) throws IOException {
+    public SpiceJetTest(WebDriver d) {
         super(d);
     }
 
@@ -86,14 +84,15 @@ public class SpiceJetTest extends PageObjectGenericMethodsImpl implements ISpice
     }
     
     @Override
-    public <T> T waitForPageToLoadCompletely() {
-        return (T) super.waitForPageToLoadCompletely();
+    public SpiceJetTest waitForPageToLoadCompletely() {
+        super.waitForPageToLoadCompletely();
+        return this;
     }
 
     public int actions3() {
         Actions advancedActions = new Actions(driver);
-        advancedActions.moveToElement(convertByToWebElement(ISpiceJetPageLocators.getPassengers())).click().build().perform();
-        advancedActions.moveToElement(convertByToWebElement(ISpiceJetPageLocators.getPassengers())).click().build().perform();
+        advancedActions.moveToElement(driver.findElement(ISpiceJetPageLocators.getPassengers())).click().build().perform();
+        advancedActions.moveToElement(driver.findElement(ISpiceJetPageLocators.getPassengers())).click().build().perform();
         return 0;
     }
 

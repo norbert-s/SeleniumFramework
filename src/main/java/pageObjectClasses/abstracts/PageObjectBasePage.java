@@ -1,15 +1,11 @@
 package pageObjectClasses.abstracts;
 
-
 import org.openqa.selenium.WebDriver;
 
-import java.io.IOException;
+public abstract class PageObjectBasePage {
+    protected final WebDriver driver;
 
-
-public abstract class PageObjectBasePage extends PageObjectBaseMethodsAbstract {
-    protected WebDriver driver;
-
-    public PageObjectBasePage(WebDriver driver) throws IOException {
-        this.driver = driver;
+    protected PageObjectBasePage(WebDriver driver) {
+        this.driver = java.util.Objects.requireNonNull(driver, "WebDriver must not be null");
     }
 }

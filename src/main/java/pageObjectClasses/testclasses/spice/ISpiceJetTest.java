@@ -25,5 +25,5 @@ public interface ISpiceJetTest {
 
     String getTextAfterPassengerSetupDone();
 
-    <T> T waitForPageToLoadCompletely();
+    ISpiceJetTest waitForPageToLoadCompletely();
 }
