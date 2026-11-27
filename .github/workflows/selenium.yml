@@ -26,11 +26,14 @@ jobs:
             ${{ runner.os }}-maven-
 
       - name: Test with Maven
-        run: mvn test -Dsurefire.suiteXmlFiles=test_runner.xml -Dwaitfortime=${{ vars.WAITFOR_TIME }} -Ddocker=${{ vars.DOCKER }}
+        run: mvn test -Dsurefire.suiteXmlFiles=test_runner.xml -DrunId=${{ github.run_id }}-${{ github.run_attempt }} -Dwaitfortime=${{ vars.WAITFOR_TIME }} -Ddocker=${{ vars.DOCKER }}
 
-      - name: Upload surefire report
+      - name: Upload test logs and reports
         if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: surefire-report
-          path: target/surefire-reports/emailable-report.html
+          name: test-results-${{ github.run_id }}-${{ github.run_attempt }}
+          path: |
+            logs/**/*.jsonl
+            target/surefire-reports/**
+          if-no-files-found: warn
