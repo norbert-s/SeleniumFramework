@@ -8,12 +8,8 @@ public class SafariDriverManager extends DriverManager {
 
     @Override
     public WebDriver createDriver() throws Exception {
-//        if (EnvironmentVariables.getHeadless()) {
-//            driver = WebDriverManager.safaridriver().capabilities(SafariDeviceSetup.driverBuilder().setCapability("headless",true)).;
-//        } else {
-//            driver = WebDriverManager.firefoxdriver().create();
-//        }
-//        return driver;
-        return WebDriverManager.safaridriver().capabilities(SafariDeviceSetup.driverBuilder()).create();
+        wdm = WebDriverManager.safaridriver().capabilities(SafariDeviceSetup.driverBuilder());
+        driver = wdm.create();
+        return driver;
     }
 }

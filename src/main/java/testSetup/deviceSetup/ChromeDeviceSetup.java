@@ -2,15 +2,19 @@ package testSetup.deviceSetup;
 
 
 import org.openqa.selenium.chrome.ChromeOptions;
+import org.openqa.selenium.logging.LogType;
+import org.openqa.selenium.logging.LoggingPreferences;
 import testSetup.setters.EnvironmentVariables;
 
+import java.util.logging.Level;
+
 public class ChromeDeviceSetup {
-    private static ChromeOptions chromeOptions;
-
-
     public static ChromeOptions settingUpDevices() throws Exception {
         System.setProperty("webdriver.http.factory", "jdk-http-client");
-        chromeOptions = new ChromeOptions();
+        ChromeOptions chromeOptions = new ChromeOptions();
+        LoggingPreferences loggingPreferences = new LoggingPreferences();
+        loggingPreferences.enable(LogType.BROWSER, Level.WARNING);
+        chromeOptions.setCapability("goog:loggingPrefs", loggingPreferences);
 //            if (browser.toLowerCase().contains("chrome".toLowerCase(Locale.ROOT))) {
 //                if(GlobalSettingsGetterMethods.isIncognitoNeeded()){
 //                    //chromeOptions.addArguments("--incognito");
@@ -45,4 +49,3 @@ public class ChromeDeviceSetup {
         return chromeOptions;
     }
 }
-

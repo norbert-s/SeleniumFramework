@@ -1,8 +1,8 @@
 package utilityClasses;
 
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.core.Logger;
 import org.openqa.selenium.WebElement;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.HashMap;
 import java.util.LinkedHashMap;
@@ -11,7 +11,7 @@ import java.util.Map;
 import java.util.stream.Collectors;
 
 public class UtilityMethods {
-    private static final Logger logger = (Logger) LogManager.getLogger(UtilityMethods.class);
+    private static final Logger logger = LoggerFactory.getLogger(UtilityMethods.class);
 
     public static HashMap addValuesAndIndexesToMap(List<WebElement> t) {
         HashMap<Double, Integer> map = new HashMap<>();

@@ -9,20 +9,27 @@
     <properties>
         <maven.compiler.source>17</maven.compiler.source>
         <maven.compiler.target>17</maven.compiler.target>
-        <testng.version>7.4.3</testng.version>
-        <selenium-version>4.13.0</selenium-version>
-        <extentreports-version>5.0.8</extentreports-version>
-        <webdrivermanager.version>5.9.1</webdrivermanager.version>
+        <testng.version>7.12.0</testng.version>
+        <selenium-version>4.54.0</selenium-version>
+        <extentreports-version>5.1.2</extentreports-version>
+        <webdrivermanager.version>6.4.0</webdrivermanager.version>
+        <jackson.version>2.23.0</jackson.version>
+        <slf4j.version>2.0.20</slf4j.version>
+        <javax.mail.version>1.6.2</javax.mail.version>
+        <log4j.version>2.26.1</log4j.version>
+        <lombok.version>1.18.48</lombok.version>
+        <maven-surefire-plugin.version>3.5.6</maven-surefire-plugin.version>
+        <maven-compiler-plugin.version>3.16.0</maven-compiler-plugin.version>
+        <maven-failsafe-plugin.version>3.5.6</maven-failsafe-plugin.version>
         <surefire.suiteXmlFiles>test_runner.xml</surefire.suiteXmlFiles>
         <waitfortime>45</waitfortime>
         <environment>local</environment>
-        <retryfailed>1</retryfailed>
+        <retryfailed>0</retryfailed>
         <headless>true</headless>
         <debuglevel>INFO</debuglevel>
         <emailto>example@example.com</emailto>
-        <incognitoneeded>false</incognitoneeded>
+        <incognitoneeded>true</incognitoneeded>
         <groups>smoke</groups>
-        <extentreports-version>5.0.8</extentreports-version>
         <screenshot-on-success>false</screenshot-on-success>
         <docker>false</docker>
         <grid>false</grid>
@@ -33,15 +40,9 @@
         <dependency>
             <groupId>com.aventstack</groupId>
             <artifactId>extentreports</artifactId>
-            <version>5.1.2</version>
+            <version>${extentreports-version}</version>
         </dependency>
 
-        <!-- https://mvnrepository.com/artifact/org.seleniumhq.selenium/selenium-http-jdk-client -->
-        <dependency>
-            <groupId>org.seleniumhq.selenium</groupId>
-            <artifactId>selenium-http-jdk-client</artifactId>
-            <version>4.13.0</version>
-        </dependency>
         <!--        <dependency>-->
         <!--            <groupId>io.rest-assured</groupId>-->
         <!--            <artifactId>rest-assured</artifactId>-->
@@ -52,7 +53,7 @@
         <dependency>
             <groupId>com.fasterxml.jackson.core</groupId>
             <artifactId>jackson-core</artifactId>
-            <version>2.17.1</version>
+            <version>${jackson.version}</version>
         </dependency>
 
 
@@ -60,35 +61,28 @@
         <dependency>
             <groupId>org.slf4j</groupId>
             <artifactId>slf4j-api</artifactId>
-            <version>2.0.5</version>
+            <version>${slf4j.version}</version>
         </dependency>
-        <!-- https://mvnrepository.com/artifact/org.slf4j/slf4j-simple -->
-        <!-- https://mvnrepository.com/artifact/org.slf4j/slf4j-simple -->
-        <dependency>
-            <groupId>org.slf4j</groupId>
-            <artifactId>slf4j-simple</artifactId>
-            <version>2.0.13</version>
-            <scope>test</scope>
-        </dependency>
-
-        <!-- https://mvnrepository.com/artifact/org.slf4j/slf4j-api -->
-
-
         <dependency>
             <groupId>com.sun.mail</groupId>
             <artifactId>javax.mail</artifactId>
-            <version>1.6.2</version>
+            <version>${javax.mail.version}</version>
         </dependency>
 
         <dependency>
             <groupId>org.apache.logging.log4j</groupId>
             <artifactId>log4j-api</artifactId>
-            <version>2.20.0</version>
+            <version>${log4j.version}</version>
         </dependency>
         <dependency>
             <groupId>org.apache.logging.log4j</groupId>
             <artifactId>log4j-core</artifactId>
-            <version>2.20.0</version>
+            <version>${log4j.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.logging.log4j</groupId>
+            <artifactId>log4j-slf4j2-impl</artifactId>
+            <version>${log4j.version}</version>
         </dependency>
         <dependency>
             <groupId>io.github.bonigarcia</groupId>
@@ -103,30 +97,23 @@
         <dependency>
             <groupId>org.testng</groupId>
             <artifactId>testng</artifactId>
-            <version>7.7.0</version>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.testng</groupId>
-            <artifactId>testng</artifactId>
-            <version>7.7.0</version>
-            <scope>compile</scope>
+            <version>${testng.version}</version>
         </dependency>
         <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
-            <version>1.18.26</version>
+            <version>${lombok.version}</version>
         </dependency>
         <dependency>
             <groupId>com.fasterxml.jackson.core</groupId>
             <artifactId>jackson-databind</artifactId>
-            <version>2.14.1</version>
+            <version>${jackson.version}</version>
         </dependency>
         <!-- https://mvnrepository.com/artifact/org.apache.maven.plugins/maven-surefire-plugin -->
         <dependency>
             <groupId>org.apache.maven.plugins</groupId>
             <artifactId>maven-surefire-plugin</artifactId>
-            <version>3.0.0</version>
+            <version>${maven-surefire-plugin.version}</version>
         </dependency>
 
     </dependencies>
@@ -141,7 +128,7 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
-                <version>3.11.0</version>
+                <version>${maven-compiler-plugin.version}</version>
                 <configuration>
                     <source>17</source>
                     <target>17</target>
@@ -150,7 +137,7 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-surefire-plugin</artifactId>
-                <version>3.0.0</version>
+                <version>${maven-surefire-plugin.version}</version>
                 <configuration>
                     <printSummary>true</printSummary>
                     <systemPropertyVariables>
@@ -159,7 +146,7 @@
                         <environment>${environment}</environment>
                         <retryFailed>${retryfailed}</retryFailed>
                         <headless>${headless}</headless>
-                        <debuggingLevel>${debuglevel}</debuggingLevel>
+                        <debuglevel>${debuglevel}</debuglevel>
                         <reportemailto>${emailto}</reportemailto>
                         <incognitoneeded>${incognitoneeded}</incognitoneeded>
                         <groups>${groups}</groups>
@@ -172,7 +159,7 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-failsafe-plugin</artifactId>
-                <version>2.22.0</version>
+                <version>${maven-failsafe-plugin.version}</version>
             </plugin>
         </plugins>
     </build>

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
-<suite name="test suite" parallel="tests" thread-count="6">
+<suite name="test suite" parallel="tests" thread-count="16">
     <listeners>
         <listener class-name="listeners.AnnotationTransformer"/>
     </listeners>
@@ -12,6 +12,12 @@
     </test>
     <test name="Chrome">
         <parameter name="browser" value="CHROME"/>
+        <classes>
+            <class name="tests.SpiceJetTest"/>
+        </classes>
+    </test>
+    <test name="Edge">
+        <parameter name="browser" value="EDGE"/>
         <classes>
             <class name="tests.SpiceJetTest"/>
         </classes>

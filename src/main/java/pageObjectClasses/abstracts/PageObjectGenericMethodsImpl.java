@@ -3,64 +3,121 @@ package pageObjectClasses.abstracts;
 import lombok.extern.slf4j.Slf4j;
 import org.openqa.selenium.*;
 import org.openqa.selenium.support.ui.ExpectedConditions;
-import testSetup.setters.EnvironmentVariables;
+import org.openqa.selenium.support.ui.Wait;
+import testSetup.wait.WaitConfiguration;
+import testSetup.wait.WaitService;
 
-import java.io.IOException;
+import java.util.concurrent.atomic.AtomicReference;
 
 @Slf4j
-public abstract class PageObjectGenericMethodsImpl extends PageObjectBaseMethods implements EnvironmentVariables, IPageObjectGenericMethods {
+public abstract class PageObjectGenericMethodsImpl extends PageObjectBasePage {
+    private final WaitService waitService;
 
-    public PageObjectGenericMethodsImpl(WebDriver driver) throws IOException {
+    protected PageObjectGenericMethodsImpl(WebDriver driver) {
+        this(driver, WaitConfiguration.fromSystemProperties());
+    }
+
+    protected PageObjectGenericMethodsImpl(WebDriver driver, WaitConfiguration waitConfiguration) {
         super(driver);
-
+        this.waitService = new WaitService(driver, waitConfiguration);
     }
 
-    public IPageObjectGenericMethods waitForElementToBeClickable(By element) {
-        fluentWaitWithExpectedCondition(ExpectedConditions.elementToBeClickable(element));
+    protected Wait<WebDriver> returnWait() {
+        return waitService.returnWait();
+    }
+
+    protected Wait<WebDriver> returnWait(long timeoutSeconds) {
+        return waitService.returnWait(timeoutSeconds);
+    }
+
+    public PageObjectGenericMethodsImpl waitForElementToBeClickable(By element) {
+        WebElement target = returnWait().until(ExpectedConditions.presenceOfElementLocated(element));
+        ((JavascriptExecutor) driver).executeScript(
+                "arguments[0].scrollIntoView({block: 'center', inline: 'center'});", target);
+        AtomicReference<String> blocker = new AtomicReference<>("unknown");
+        try {
+            returnWait().until(currentDriver -> {
+                try {
+                    WebElement currentTarget = currentDriver.findElement(element);
+                    if (!currentTarget.isDisplayed() || !currentTarget.isEnabled()) {
+                        return false;
+                    }
+                    String obstruction = (String) ((JavascriptExecutor) currentDriver).executeScript(
+                            "const target = arguments[0];"
+                                    + "const rect = target.getBoundingClientRect();"
+                                    + "if (rect.width === 0 || rect.height === 0) return 'target has no visible area';"
+                                    + "const hit = document.elementFromPoint("
+                                    + "rect.left + rect.width / 2, rect.top + rect.height / 2);"
+                                    + "if (hit === target || target.contains(hit)) return '';"
+                                    + "if (!hit) return 'no element at target center';"
+                                    + "const modal = hit.closest('[aria-modal=true]');"
+                                    + "return JSON.stringify({tag: hit.tagName, id: hit.id, "
+                                    + "className: (typeof hit.className === 'string' ? hit.className : '').slice(0, 160), "
+                                    + "dataTestId: hit.getAttribute('data-testid'), "
+                                    + "blocksWithAppLoader: Boolean(modal && modal.querySelector('[data-testid=app-loader]'))});",
+                            currentTarget);
+                    if (obstruction.isEmpty()) {
+                        return true;
+                    }
+                    blocker.set(obstruction);
+                    return false;
+                } catch (StaleElementReferenceException e) {
+                    return false;
+                }
+            });
+        } catch (TimeoutException timeout) {
+            throw new TimeoutException(
+                    "Timed out waiting for " + element + " to be unobstructed; blocker: " + blocker.get(),
+                    timeout);
+        }
         return this;
     }
 
-    public IPageObjectGenericMethods waitForElementToBePresent(By element) {
-        fluentWaitWithExpectedCondition(ExpectedConditions.presenceOfElementLocated(element));
+    public PageObjectGenericMethodsImpl waitForElementToBePresent(By element) {
+        returnWait().until(ExpectedConditions.presenceOfElementLocated(element));
         return this;
     }
 
-    public IPageObjectGenericMethods waitForElementToBePresent(By element, int time) {
-        fluentWaitWithExpectedCondition(ExpectedConditions.presenceOfElementLocated(element), time);
+    public PageObjectGenericMethodsImpl waitForElementToBePresent(By element, int time) {
+        returnWait(time).until(ExpectedConditions.presenceOfElementLocated(element));
         return this;
     }
 
-    public IPageObjectGenericMethods waitForVisibilityOfWebElement(WebElement element) {
-        fluentWaitWithExpectedCondition(ExpectedConditions.visibilityOf(element));
+    public PageObjectGenericMethodsImpl waitForElementToDisappear(By element) {
+        returnWait().until(ExpectedConditions.invisibilityOfElementLocated(element));
         return this;
     }
 
-    public IPageObjectGenericMethods waitForAndClick(By element) {
+    public PageObjectGenericMethodsImpl waitForVisibilityOfWebElement(WebElement element) {
+        returnWait().until(ExpectedConditions.visibilityOf(element));
+        return this;
+    }
+
+    public PageObjectGenericMethodsImpl waitForAndClick(By element) {
         waitForElementToBeClickable(element);
-        convertByToWebElement(element).click();
+        driver.findElement(element).click();
         return this;
     }
 
-    public IPageObjectGenericMethods waitForAndClick(WebElement element)  {
-        fluentWaitWithExpectedCondition(ExpectedConditions.elementToBeClickable(element));
+    public PageObjectGenericMethodsImpl waitForAndClick(WebElement element) {
+        returnWait().until(ExpectedConditions.elementToBeClickable(element));
         element.click();
         return this;
     }
 
-    public <T> T enterTextToSearchForm(By element, String text) {
+    public PageObjectGenericMethodsImpl enterTextToSearchForm(By element, String text) {
         try {
-
             waitForElementToBePresent(element);
             clearText(element);
             driver.findElement(element).sendKeys(text + Keys.ENTER);
         } catch (Exception e) {
-            log.error("entering text into search form  did not succeed " + element + " " + text + " ");
-            throw (e);
+            log.error("Entering text into search form failed for locator {}", element, e);
+            throw e;
         }
-        return (T) this;
+        return this;
     }
 
-    public IPageObjectGenericMethods clearText(By element) {
+    public PageObjectGenericMethodsImpl clearText(By element) {
         waitForAndClick(element);
         driver.findElement(element).clear();
         return this;
@@ -70,21 +127,21 @@ public abstract class PageObjectGenericMethodsImpl extends PageObjectBaseMethods
         return returnWait().until(ExpectedConditions.presenceOfElementLocated(locator)).getText();
     }
 
-    public IPageObjectGenericMethods fluentWaitForAllElementsPresence(By locator) {
+    public PageObjectGenericMethodsImpl fluentWaitForAllElementsPresence(By locator) {
         returnWait().until(ExpectedConditions.presenceOfAllElementsLocatedBy(locator));
         return this;
     }
 
-    public <T> T waitForPageToLoadCompletely() {
+    public PageObjectGenericMethodsImpl waitForPageToLoadCompletely() {
         try {
             returnWait().until(driver_here -> String
                     .valueOf(((JavascriptExecutor) driver_here).executeScript("return document.readyState"))
                     .equals("complete"));
         } catch (Exception e) {
-            log.error("wait for page to complete - did not succeed ");
-            throw (e);
+            log.error("Waiting for page load completion failed", e);
+            throw e;
         }
-        return (T) this;
+        return this;
     }
 
     public void clickElementUsingJavaScript(WebElement element) {

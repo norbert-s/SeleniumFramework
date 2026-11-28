@@ -1,7 +1,6 @@
 package testSetup.setters;
 
-import org.apache.logging.log4j.Level;
-import org.apache.logging.log4j.core.config.Configurator;
+import testSetup.wait.WaitConfiguration;
 
 
 public interface EnvironmentVariables {
@@ -11,15 +10,11 @@ public interface EnvironmentVariables {
     final int WAIT_FOR_TIME = 30;
 
     default int getWaitForTime() {
-        Integer waitForTimeEnv = Integer.parseInt(System.getProperty(Settings.WAIT_FOR_TIME));
-        if (waitForTimeEnv == null) return WAIT_FOR_TIME;
-        else if (waitForTimeEnv >= 30 && waitForTimeEnv <= 120) {
-            return waitForTimeEnv;
-        } else return WAIT_FOR_TIME;
+        return Math.toIntExact(WaitConfiguration.fromSystemProperties().timeout().toSeconds());
     }
 
     static String getWaitForTime_static() {
-        return System.getProperty(Settings.WAIT_FOR_TIME, String.valueOf(WAIT_FOR_TIME));
+        return String.valueOf(WaitConfiguration.fromSystemProperties().timeout().toSeconds());
     }
 
     static String getEnvironment() {
@@ -30,13 +25,8 @@ public interface EnvironmentVariables {
         return Boolean.parseBoolean(System.getProperty(Settings.HEADLESS, "true"));
     }
 
-    static void setLogLevelBasedOnEnv() {
-        String debugLevel = System.getProperty(Settings.DEBUG_LEVEL, Settings.ERROR);
-        if (debugLevel.equals(Settings.DEBUG)) {
-            Configurator.setRootLevel(Level.DEBUG);
-        } else if (debugLevel.equals(Settings.WARN)) {
-            Configurator.setRootLevel(Level.WARN);
-        }
+    static boolean isScreenshotOnSuccess() {
+        return Boolean.parseBoolean(System.getProperty(Settings.SCREENSHOT_ON_SUCCESS, "false"));
     }
 
     static int setRetryNumberOfTimes() {
@@ -49,17 +39,7 @@ public interface EnvironmentVariables {
     }
 
     static String getDebugLevel() {
-        String debugLevel = System.getProperty("debuglevel");
-        if (System.getProperty("debuglevel") == null) return "error";
-        else if (debugLevel.contains("debug")) {
-            return "debug";
-        } else if (debugLevel.contains("warn")) {
-            return "warn";
-        } else if (debugLevel.contains("error")) {
-            return "error";
-        } else {
-            return "error";
-        }
+        return System.getProperty(Settings.DEBUG_LEVEL, "INFO").toUpperCase(java.util.Locale.ROOT);
     }
 
     static boolean isIncognitoNeeded() {

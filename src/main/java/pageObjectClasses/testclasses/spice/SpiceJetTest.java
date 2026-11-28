@@ -2,20 +2,23 @@ package pageObjectClasses.testclasses.spice;
 
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.By;
 import org.openqa.selenium.interactions.Actions;
+import org.openqa.selenium.support.ui.Select;
 import pageObjectClasses.abstracts.PageObjectGenericMethodsImpl;
 import pageObjectClasses.pageobjects.ISpiceJetPageLocators;
+import lombok.extern.slf4j.Slf4j;
 
-import java.io.IOException;
-
-
+@Slf4j
 public class SpiceJetTest extends PageObjectGenericMethodsImpl implements ISpiceJetTest {
-    public SpiceJetTest(WebDriver d) throws IOException {
+    public SpiceJetTest(WebDriver d) {
         super(d);
     }
 
     public SpiceJetTest goToWebpage() {
-        driver.get("https://www.spicejet.com/");
+        driver.get("https://book.spicejet.com/Select.aspx");
+        waitForPageToLoadCompletely();
+        waitForElementToBePresent(ISpiceJetPageLocators.getPassengerAdult());
         return this;
     }
 
@@ -25,75 +28,78 @@ public class SpiceJetTest extends PageObjectGenericMethodsImpl implements ISpice
     }
 
     public SpiceJetTest clickOnAdultsNumberOfTimes(int numberOfPassengers) {
-        for (int i = 1; i < numberOfPassengers; i++) {
-            waitForAndClick(ISpiceJetPageLocators.getPassengerAdult());
-        }
+        setPassengerCount(ISpiceJetPageLocators.getPassengerAdult(), numberOfPassengers);
         return this;
     }
 
     public SpiceJetTest clickOnChildrenNumberOfTimes(int numberOfPassengers) {
-        for (int i = 0; i < numberOfPassengers; i++) {
-            waitForAndClick(ISpiceJetPageLocators.getPassengerChildren());
-        }
+        setPassengerCount(ISpiceJetPageLocators.getPassengerChildren(), numberOfPassengers);
         return this;
     }
 
     public SpiceJetTest clickOnInfantsNumberOfTimes(int numberOfPassengers) {
-        for (int i = 0; i < numberOfPassengers; i++) {
-            waitForAndClick(ISpiceJetPageLocators.getPassengerInfants());
-        }
+        setPassengerCount(ISpiceJetPageLocators.getPassengerInfants(), numberOfPassengers);
         return this;
     }
 
     public SpiceJetTest clickOnAdultsMinusNumberOfTimes(int numberOfPassengers) {
-        for (int i = 0; i < numberOfPassengers; i++) {
-            waitForAndClick(ISpiceJetPageLocators.getPassengerAdultMinus());
-        }
+        decreasePassengerCount(ISpiceJetPageLocators.getPassengerAdult(), numberOfPassengers);
         return this;
     }
 
     public SpiceJetTest clickOnChildrenMinusNumberOfTimes(int numberOfPassengers) {
-        for (int i = 0; i < numberOfPassengers; i++) {
-            waitForAndClick(ISpiceJetPageLocators.getPassengerChildrenMinus());
-        }
+        decreasePassengerCount(ISpiceJetPageLocators.getPassengerChildren(), numberOfPassengers);
         return this;
     }
 
     public SpiceJetTest clickOnInfantsMinusNumberOfTimes(int numberOfPassengers) {
-        for (int i = 0; i < numberOfPassengers; i++) {
-            waitForAndClick(ISpiceJetPageLocators.getPassengerInfantsMinus());
-        }
+        decreasePassengerCount(ISpiceJetPageLocators.getPassengerInfants(), numberOfPassengers);
         return this;
     }
 
     public int getNumberOfAdultsSelected() {
-        return Integer.parseInt(fluentWaitWithExpectedConditionToReturnText(ISpiceJetPageLocators.getNumberOfAdultsText()));
+        return getSelectedPassengerCount(ISpiceJetPageLocators.getNumberOfAdultsText());
     }
 
 
     public int getNumberOfChildrenSelected() {
-        return Integer.parseInt(fluentWaitWithExpectedConditionToReturnText(ISpiceJetPageLocators.getNumberOfChildrenText()));
+        return getSelectedPassengerCount(ISpiceJetPageLocators.getNumberOfChildrenText());
     }
 
 
     public int getNumberOfInfantsSelected() {
-        return Integer.parseInt(fluentWaitWithExpectedConditionToReturnText(ISpiceJetPageLocators.getNumberOfInfantsText()));
+        return getSelectedPassengerCount(ISpiceJetPageLocators.getNumberOfInfantsText());
     }
 
     public String getTextAfterPassengerSetupDone() {
-        System.out.println(driver.findElement(ISpiceJetPageLocators.getResultOfSettingPassengers()).getText());
         return driver.findElement(ISpiceJetPageLocators.getResultOfSettingPassengers()).getText();
+    }
+
+    private void setPassengerCount(By locator, int count) {
+        new Select(driver.findElement(locator)).selectByValue(String.valueOf(count));
+    }
+
+    private void decreasePassengerCount(By locator, int numberOfPassengers) {
+        Select passengerSelect = new Select(driver.findElement(locator));
+        int currentCount = Integer.parseInt(passengerSelect.getFirstSelectedOption().getAttribute("value"));
+        setPassengerCount(locator, Math.max(0, currentCount - numberOfPassengers));
+    }
+
+    private int getSelectedPassengerCount(By locator) {
+        Select passengerSelect = new Select(driver.findElement(locator));
+        return Integer.parseInt(passengerSelect.getFirstSelectedOption().getAttribute("value"));
     }
     
     @Override
-    public <T> T waitForPageToLoadCompletely() {
-        return (T) super.waitForPageToLoadCompletely();
+    public SpiceJetTest waitForPageToLoadCompletely() {
+        super.waitForPageToLoadCompletely();
+        return this;
     }
 
     public int actions3() {
         Actions advancedActions = new Actions(driver);
-        advancedActions.moveToElement(convertByToWebElement(ISpiceJetPageLocators.getPassengers())).click().build().perform();
-        advancedActions.moveToElement(convertByToWebElement(ISpiceJetPageLocators.getPassengers())).click().build().perform();
+        advancedActions.moveToElement(driver.findElement(ISpiceJetPageLocators.getPassengers())).click().build().perform();
+        advancedActions.moveToElement(driver.findElement(ISpiceJetPageLocators.getPassengers())).click().build().perform();
         return 0;
     }
 

@@ -8,7 +8,8 @@ public class EdgeDriverManager extends DriverManager {
 
     @Override
     public WebDriver createDriver() throws Exception {
-        return WebDriverManager.edgedriver().capabilities(EdgeDeviceSetup.driverBuilder()).create();
+        wdm = WebDriverManager.edgedriver().capabilities(EdgeDeviceSetup.driverBuilder());
+        driver = wdm.create();
+        return driver;
     }
-
 }

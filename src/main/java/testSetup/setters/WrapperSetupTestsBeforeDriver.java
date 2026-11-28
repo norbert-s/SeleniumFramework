@@ -12,7 +12,6 @@ public class WrapperSetupTestsBeforeDriver {
         if (counter == 0) {
             new ConfigReader();
             SettingsLogger.printOutSetupInfo();
-            SettingsLogger.setupDebuggingLevel();
             counter++;
         }
     }
